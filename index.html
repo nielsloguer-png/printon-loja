@@ -1,0 +1,1190 @@
+<!doctype html>
+<html lang="pt">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PrintOn Marketplace</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: retail print shop — white ground, product photography first, black actions, brand lime only as highlight. */
+:root{
+  --bg:#FFFFFF; --soft:#F4F5F1; --soft-2:#ECEEE8; --ink:#121411; --ink-2:#4E534B; --ink-3:#7E8479;
+  --line:#E4E6E0; --line-2:#CFD3CA; --lime:#D9FC00; --on-lime:#121411; --ok:#16753F; --ok-bg:#E6F4EB;
+  --sale:#C23A1E; --star:#E09A00; --overlay:rgba(18,20,17,.5);
+  --shadow:0 1px 2px rgba(18,20,17,.06),0 10px 30px rgba(18,20,17,.10);
+  --f:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r:12px; --wrap:1320px; --card:#FFFFFF; --on-ink:#FFFFFF; --chrome:#121411; color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E100D; --soft:#171A15; --soft-2:#20241D; --card:#151813; --ink:#EEF0EA; --ink-2:#B4B9AD; --ink-3:#8B9185;
+  --line:#262A22; --line-2:#3A4035; --ok:#5DCB8A; --ok-bg:#143322; --sale:#FF7B5E; --star:#F2B437; --overlay:rgba(0,0,0,.62);
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 32px rgba(0,0,0,.5); --on-ink:#0E100D; --chrome:#080907; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E100D; --soft:#171A15; --soft-2:#20241D; --card:#151813; --ink:#EEF0EA; --ink-2:#B4B9AD; --ink-3:#8B9185;
+  --line:#262A22; --line-2:#3A4035; --ok:#5DCB8A; --ok-bg:#143322; --sale:#FF7B5E; --star:#F2B437; --overlay:rgba(0,0,0,.62);
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 32px rgba(0,0,0,.5); --on-ink:#0E100D; --chrome:#080907; color-scheme:dark}
+.logo .dk{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .logo .lt{display:none}:root:not([data-theme="light"]) .logo .dk{display:block}}
+:root[data-theme="dark"] .logo .lt{display:none}:root[data-theme="dark"] .logo .dk{display:block}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--f);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--chrome)}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:6px}
+h1,h2,h3,h4{margin:0;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.ico{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ico.s{width:16px;height:16px}.ico.l{width:26px;height:26px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.muted{color:var(--ink-3)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 22px;border-radius:999px;font-weight:700;font-size:14.5px;white-space:nowrap;transition:background .15s,opacity .15s,transform .1s}
+.btn:active{transform:scale(.98)}
+.btn-ink{background:var(--ink);color:var(--on-ink)}.btn-ink:hover{opacity:.88}
+.btn-lime{background:var(--lime);color:var(--on-lime)}.btn-lime:hover{background:#c9ea00}
+.btn-line{border:1.5px solid var(--ink);background:var(--bg)}.btn-line:hover{background:var(--soft)}
+.btn-white{background:#fff;color:#121411}.btn-white:hover{background:#eef0ea}
+.btn-sm{height:38px;padding:0 16px;font-size:13.5px}
+.btn-block{width:100%}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.link{font-weight:700;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1.5px}
+.icon-btn{position:relative;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:999px}
+.icon-btn:hover{background:var(--soft)}
+.count{position:absolute;top:3px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--ink);color:var(--on-ink);font-size:11px;font-weight:700;line-height:18px;text-align:center}
+.count[data-n="0"]{display:none}
+
+/* promo bar + header */
+.promo-bar{background:var(--chrome);color:#fff;font-size:13px}
+.promo-bar .wrap{display:flex;align-items:center;justify-content:center;gap:10px;min-height:38px;text-align:center}
+.promo-bar b{color:var(--lime);font-weight:700}
+.promo-bar button{text-decoration:underline;text-underline-offset:3px;opacity:.85}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--bg);border-bottom:1px solid var(--line)}
+.hdr{display:flex;align-items:center;gap:20px;height:76px}
+.logo img{height:28px;width:auto}
+.search{position:relative;flex:1;min-width:0}
+.search form{display:flex;align-items:center;height:48px;border:1.5px solid var(--line-2);border-radius:999px;padding:0 5px 0 18px;gap:10px;background:var(--bg)}
+.search form:focus-within{border-color:var(--ink)}
+.search input{flex:1;min-width:0;border:0;outline:0;background:none;font-size:15px}
+.search .go{width:38px;height:38px;border-radius:999px;display:grid;place-items:center;background:var(--lime);color:var(--on-lime)}
+.suggest{position:absolute;left:0;right:0;top:54px;background:var(--bg);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:8px;z-index:50}
+.suggest a{display:flex;gap:12px;align-items:center;padding:8px;border-radius:10px;font-size:14px}
+.suggest a:hover{background:var(--soft)}
+.suggest img{width:44px;height:44px;border-radius:8px;object-fit:cover}
+.suggest small{display:block;color:var(--ink-3);font-size:12.5px}
+.suggest .all{justify-content:center;font-weight:700}
+.locbtn{display:flex;align-items:center;gap:8px;text-align:left;font-size:12.5px;line-height:1.25;padding:6px 10px;border-radius:10px;color:var(--ink-2);max-width:210px}
+.locbtn:hover{background:var(--soft)}
+.locbtn b{display:block;color:var(--ink);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
+.hdr-act{display:flex;align-items:center;gap:2px;position:relative}
+.thmenu{position:absolute;right:0;top:52px;background:var(--bg);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px;min-width:230px;z-index:55}
+.thmenu p{font-size:12.5px;color:var(--ink-3);padding:8px 12px 4px}
+.thmenu button{display:flex;gap:10px;align-items:center;width:100%;padding:10px 12px;border-radius:8px;font-size:14px;text-align:left}
+.thmenu button:hover{background:var(--soft)}
+.thmenu button[aria-checked="true"]{font-weight:700}
+.thmenu button[aria-checked="true"]::after{content:"";margin-left:auto;width:8px;height:8px;border-radius:9px;background:var(--ink)}
+.acct{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:10px;font-size:12.5px;line-height:1.25;color:var(--ink-2);text-align:left}
+.acct:hover{background:var(--soft)}
+.acct b{display:block;color:var(--ink);font-size:14px}
+.catnav{display:flex;align-items:center;gap:4px;height:48px;overflow-x:auto;scrollbar-width:none}
+.catnav::-webkit-scrollbar{display:none}
+.catnav a,.catnav button{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;font-size:14px;font-weight:500;white-space:nowrap;color:var(--ink-2)}
+.catnav a:hover,.catnav button:hover{background:var(--soft);color:var(--ink)}
+.catnav .all{font-weight:700;color:var(--ink)}
+.catnav .ai{margin-left:auto;font-weight:700;color:var(--ink)}
+.catnav .ai i{width:8px;height:8px;border-radius:9px;background:var(--lime);box-shadow:0 0 0 1.5px var(--ink)}
+.mega{position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.mega .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 32px;padding-block:28px 32px}
+.mega h4{font-size:14px;margin-bottom:8px}
+.mega a{display:block;padding:4px 0;color:var(--ink-2);font-size:14px}
+.mega a:hover{color:var(--ink);text-decoration:underline}
+
+/* hero */
+.hero{position:relative;height:clamp(440px,38vw,560px);background:#0d0f0c;overflow:hidden;isolation:isolate}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .8s,visibility .8s;display:flex;align-items:center;isolation:isolate}
+.slide.on{opacity:1;visibility:visible}
+.slide>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transform:scale(1.03);transition:transform 7s ease-out}
+.slide.on>img{transform:none}
+.slide::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,11,9,.86) 0%,rgba(10,11,9,.62) 38%,rgba(10,11,9,.1) 70%)}
+.slide .wrap{width:100%}
+.cap{max-width:560px;color:#fff;display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.cap .kicker{font-size:14px;font-weight:700;color:var(--lime)}
+.cap h1,.cap h2{font-size:clamp(34px,4.2vw,58px);line-height:1.04;font-weight:800;letter-spacing:-.035em}
+.cap p{font-size:clamp(15px,1.25vw,18px);color:rgba(255,255,255,.82);max-width:44ch}
+.cap .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.hero-ctl{position:absolute;left:0;right:0;bottom:24px;z-index:3}
+.hero-ctl .wrap{display:flex;align-items:center;justify-content:space-between}
+.dots{display:flex;gap:8px}
+.dots button{width:40px;height:3px;border-radius:3px;background:rgba(255,255,255,.3);position:relative;overflow:hidden}
+.dots button i{position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
+.dots button.on i{animation:fill 6s linear forwards}
+.dots button.done i{transform:none}
+@keyframes fill{to{transform:none}}
+.arrows{display:flex;gap:8px}
+.arrows button{width:42px;height:42px;border-radius:999px;border:1px solid rgba(255,255,255,.35);color:#fff;display:grid;place-items:center}
+.arrows button:hover{background:rgba(255,255,255,.12)}
+
+/* sections */
+.section{padding-block:48px}
+.section.tight{padding-block:28px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px}
+.sec-head h2{font-size:clamp(22px,2.3vw,30px);font-weight:800}
+.sec-head p{color:var(--ink-2);margin-top:4px}
+.perks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.perk{display:flex;gap:14px;align-items:center;padding:18px;border-radius:var(--r);background:var(--soft);text-align:left}
+.perk:hover{background:var(--soft-2)}
+.perk .ic{width:44px;height:44px;border-radius:12px;background:var(--card);display:grid;place-items:center;flex:none}
+.perk b{display:block;font-size:15px}
+.perk span span{font-size:13px;color:var(--ink-2)}
+.circles{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:18px}
+.circle{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;font-size:14px;font-weight:600;line-height:1.25}
+.circle .th{width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;background:var(--soft)}
+.circle img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.circle:hover img{transform:scale(1.06)}
+.circle:hover .lb{text-decoration:underline}
+
+/* product card */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:28px 18px}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,calc((100% - 72px)/5));gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}
+.rail>*{scroll-snap-align:start}
+.card{position:relative;display:flex;flex-direction:column;gap:10px}
+.card .media{position:relative;display:block;aspect-ratio:1;border-radius:var(--r);overflow:hidden;background:var(--soft)}
+.card .media img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
+.card:hover .media img{transform:scale(1.04)}
+.card .fav{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:999px;background:var(--card);display:grid;place-items:center;box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.fav[aria-pressed="true"] .ico{fill:var(--sale);stroke:var(--sale)}
+.tag{position:absolute;top:10px;left:10px;font-size:12px;font-weight:700;padding:4px 9px;border-radius:6px;background:var(--lime);color:var(--on-lime)}
+.card h3{font-size:15.5px;font-weight:700;line-height:1.3;letter-spacing:-.01em}
+.card h3 a:hover{text-decoration:underline}
+.from{font-size:13px;color:var(--ink-3);line-height:1.35}
+.from b{display:block;color:var(--ink);font-size:17px;font-weight:800;letter-spacing:-.01em}
+.from em{font-style:normal;color:var(--ink-3);font-size:12.5px}
+.card .meta{display:flex;gap:10px;align-items:center;font-size:12.5px;color:var(--ink-3)}
+.stars{display:inline-flex;align-items:center;gap:3px;color:var(--ink-2);font-size:12.5px}
+.stars .ico{fill:var(--star);stroke:var(--star);width:14px;height:14px}
+
+/* banners */
+.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);border-radius:18px;overflow:hidden;background:var(--soft);min-height:380px}
+.split .ph{position:relative;min-height:300px}
+.split .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.split .tx{padding:44px;display:flex;flex-direction:column;justify-content:center;gap:16px}
+.split h2{font-size:clamp(24px,2.6vw,34px);font-weight:800;line-height:1.1}
+.split p{color:var(--ink-2);max-width:48ch}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.calc select{height:46px;border:1.5px solid var(--line-2);border-radius:10px;background:var(--card);padding:0 12px;font-size:14.5px}
+.calc-out{display:grid;gap:8px;margin-top:4px}
+.dopt{display:flex;justify-content:space-between;gap:12px;align-items:center;background:var(--card);border-radius:10px;padding:12px 14px;font-size:14px;border:1px solid var(--line)}
+.dopt b{display:block}
+.dopt span{color:var(--ink-3);font-size:12.5px}
+.dopt strong{white-space:nowrap}
+.free{color:var(--ok)}
+.ad{position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;min-height:170px;padding:30px 38px;border-radius:18px;overflow:hidden;color:#fff;isolation:isolate;background:#14170F}
+.ad>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.ad::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,12,8,.9),rgba(10,12,8,.55) 60%,rgba(10,12,8,.2))}
+.ad h3{font-size:clamp(20px,2.1vw,27px);font-weight:800;max-width:30ch}
+.ad p{opacity:.8;margin-top:6px;max-width:52ch}
+.ad .by{font-size:13px;opacity:.8;margin-bottom:8px}
+.ad-tag{position:absolute;top:12px;right:14px;font-size:11px;color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.3);padding:2px 7px;border-radius:4px}
+.services{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.service{border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:8px;text-align:left}
+.service:hover{border-color:var(--ink)}
+.service .ic{width:44px;height:44px;border-radius:12px;background:var(--soft);display:grid;place-items:center;margin-bottom:6px}
+.service b{font-size:16px}
+.service span{font-size:13.5px;color:var(--ink-2)}
+.service .link{font-size:13.5px;margin-top:auto;padding-top:6px;color:var(--ink)}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.step{display:grid;gap:8px;align-content:start}
+.step .n{width:36px;height:36px;border-radius:999px;background:var(--ink);color:var(--on-ink);display:grid;place-items:center;font-weight:800}
+.step b{font-size:16px}
+.step p{font-size:14px;color:var(--ink-2)}
+.news{color:#121411;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:var(--lime);border-radius:18px;padding:32px 38px}
+.news h3{font-size:24px;font-weight:800}
+.news form{display:flex;gap:8px;flex:1;max-width:480px;min-width:240px}
+.news input{flex:1;min-width:0;height:48px;border-radius:999px;border:0;padding:0 18px;background:#fff;color:#121411}
+.seo{columns:2;column-gap:48px;color:var(--ink-2);font-size:14px}
+.seo h3{font-size:16px;color:var(--ink);margin:0 0 6px;break-after:avoid}
+.seo p{margin-bottom:16px;break-inside:avoid}
+
+footer{background:var(--chrome);color:#d7dad2;margin-top:24px}
+.ft{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));gap:32px;padding-block:52px 36px}
+.ft img{height:26px;width:auto}
+.ft p{font-size:14px;margin-top:14px;max-width:36ch;color:#aeb3a8}
+.ft h4{font-size:14px;color:#fff;margin-bottom:12px}
+.ft a,.ft span,.ft .fl{display:block;font-size:14px;padding:4px 0;color:#aeb3a8;text-align:left}
+.ft a:hover,.ft .fl:hover{color:#fff}
+.ft-b{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;padding-block:20px;border-top:1px solid #2b2f29;font-size:13px;color:#8d9388}
+.pays{display:flex;gap:8px;flex-wrap:wrap}
+.pays span{font-size:11.5px;font-weight:700;letter-spacing:.03em;border:1px solid #3a3f37;border-radius:6px;padding:5px 9px;color:#cfd3ca}
+
+/* listing */
+.crumbs{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13.5px;color:var(--ink-3);padding-block:18px 6px}
+.crumbs a:hover{color:var(--ink);text-decoration:underline}
+.lhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.lhead h1{font-size:clamp(26px,3vw,36px);font-weight:800}
+.lhead p{color:var(--ink-2);margin-top:4px}
+.sort{display:flex;gap:10px;align-items:center;font-size:14px;flex-wrap:wrap}
+.sort select{height:40px;border:1.5px solid var(--line-2);border-radius:999px;padding:0 14px;background:var(--card)}
+.listing{display:grid;grid-template-columns:250px minmax(0,1fr);gap:36px;padding-bottom:40px}
+.filters{display:flex;flex-direction:column;gap:24px;align-self:start;position:sticky;top:150px}
+.filters h4{font-size:14px;margin-bottom:8px}
+.filters label{display:flex;align-items:center;gap:10px;padding:4px 0;font-size:14px;color:var(--ink-2);cursor:pointer}
+.filters input[type=checkbox],.filters input[type=radio]{width:17px;height:17px;accent-color:var(--ink)}
+.filters .n{margin-left:auto;font-size:12.5px;color:var(--ink-3)}
+.ad-side{position:relative;border-radius:var(--r);overflow:hidden;color:#fff;padding:18px;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;isolation:isolate;background:#14170F}
+.ad-side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.ad-side::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,0) 25%,rgba(0,0,0,.85))}
+.ad-side b{font-size:17px;line-height:1.2}
+.ad-side span{font-size:13px;opacity:.85}
+.ftoggle{display:none}
+.empty{border:1.5px dashed var(--line-2);border-radius:var(--r);padding:48px 24px;text-align:center;display:grid;gap:10px;justify-items:center;color:var(--ink-2)}
+.empty h3{color:var(--ink)}
+
+/* product page */
+.pdp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,470px);gap:48px;padding-bottom:28px}
+.gal{display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;align-self:start;position:sticky;top:150px}
+.gal .th{display:flex;flex-direction:column;gap:10px}
+.gal .th button{aspect-ratio:1;border-radius:10px;overflow:hidden;border:2px solid transparent;background:var(--soft)}
+.gal .th button[aria-pressed="true"]{border-color:var(--ink)}
+.gal .th img{width:100%;height:100%;object-fit:cover}
+.gal .main{aspect-ratio:1;border-radius:16px;overflow:hidden;background:var(--soft)}
+.gal .main img{width:100%;height:100%;object-fit:cover}
+.buy h1{font-size:clamp(26px,2.6vw,34px);font-weight:800;line-height:1.1}
+.buy .rate{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:8px;font-size:14px;color:var(--ink-2)}
+.buy .lead{color:var(--ink-2);margin-top:12px}
+.pricehead{margin-top:16px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.pricehead b{font-size:30px;font-weight:800;letter-spacing:-.02em}
+.pricehead span{color:var(--ink-3);font-size:14px}
+.presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:20px}
+.preset{border:1.5px solid var(--line-2);border-radius:12px;padding:12px;text-align:left;display:grid;gap:2px}
+.preset[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.preset b{font-size:14px}
+.preset span{font-size:12.5px;color:var(--ink-3)}
+.preset em{font-style:normal;font-size:13px;font-weight:700;margin-top:4px}
+.og{margin-top:22px}
+.og h4{font-size:15px;display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.og h4 span{font-weight:500;color:var(--ink-3);font-size:13px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1.5px solid var(--line-2);border-radius:10px;padding:9px 13px;font-size:14px;text-align:left;line-height:1.25}
+.opt small{display:block;color:var(--ink-3);font-size:12px}
+.opt[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);font-weight:600}
+.qtbl{border:1.5px solid var(--line-2);border-radius:12px;overflow:hidden}
+.qrow{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;width:100%;padding:11px 14px;text-align:left;font-size:14px;border-top:1px solid var(--line)}
+.qrow:first-child{border-top:0}
+.qrow[aria-pressed="true"]{background:var(--soft);box-shadow:inset 3px 0 0 var(--ink);font-weight:700}
+.qrow .d{font-size:12px;font-weight:700;color:var(--ok);min-width:60px;text-align:right}
+.qrow .u{font-size:12.5px;color:var(--ink-3);font-weight:500}
+.qrow .t{min-width:100px;text-align:right}
+.qmore{padding:10px 14px;border-top:1px solid var(--line);font-size:13.5px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.qmore input{width:120px;height:36px;border:1.5px solid var(--line-2);border-radius:8px;padding:0 10px}
+.art{display:grid;gap:8px}
+.artopt{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line-2);border-radius:12px;padding:12px 14px;cursor:pointer;font-size:14px}
+.artopt>input{margin-top:3px;accent-color:var(--ink);width:17px;height:17px;flex:none}
+.artopt b{display:block}
+.artopt>span>span{display:block;color:var(--ink-3);font-size:13px}
+.artopt:has(>input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.upl{margin-top:10px;display:flex!important;align-items:center;gap:10px;flex-wrap:wrap}
+.buybox{margin-top:22px;background:var(--bg);border:1.5px solid var(--ink);border-radius:14px;padding:16px;display:grid;gap:12px;box-shadow:var(--shadow);z-index:5}
+.buybox .tot{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.buybox .tot b{font-size:24px;font-weight:800}
+.buybox .tot span{font-size:13px;color:var(--ink-3)}
+.buybox .row{display:flex;gap:8px}
+.buybox .row .btn{flex:1}
+.dlv{border-radius:12px;background:var(--soft);padding:14px 16px;display:grid;gap:8px;font-size:14px;margin-top:16px}
+.dlv .h{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.dlv .h b{display:flex;gap:8px;align-items:center}
+.dlv .h button{font-size:13px}
+.offers{margin-top:16px;border:1px solid var(--line);border-radius:12px}
+.offers h4{font-size:14px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.offer{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:11px 14px;font-size:13.5px;border-top:1px solid var(--line)}
+.offers h4+.offer{border-top:0}
+.offer .who b{display:block;font-size:14px}
+.offer .who span{color:var(--ink-3);font-size:12.5px}
+.offer.sel{background:var(--soft)}
+.ptabs{display:flex;gap:28px;border-bottom:1px solid var(--line);margin-top:20px;overflow-x:auto;scrollbar-width:none}
+.ptabs button{height:52px;font-weight:700;font-size:15px;color:var(--ink-3);border-bottom:2.5px solid transparent;white-space:nowrap}
+.ptabs button[aria-selected="true"]{color:var(--ink);border-color:var(--ink)}
+.ppanel{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;padding-block:28px 12px}
+.ppanel .txt{color:var(--ink-2);line-height:1.7;max-width:68ch}
+.ppanel .txt p+p{margin-top:12px}
+.spec{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:0}
+.spec div{display:grid;grid-template-columns:1fr 1.3fr;gap:12px;padding:11px 16px;font-size:14px;border-top:1px solid var(--line)}
+.spec div:first-child{border-top:0}
+.spec dt{color:var(--ink-3)}
+.spec dd{margin:0}
+.faq details{border-top:1px solid var(--line);padding:14px 0}
+.faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:10px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--ink-2);margin-top:8px}
+
+/* drawers, modals */
+.scrim{position:fixed;inset:0;background:var(--overlay);z-index:70;opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--bg);z-index:80;display:flex;flex-direction:column;transform:translateX(102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px);box-shadow:var(--shadow)}
+.drawer.on{transform:none}
+.dh{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.dh h3{font-size:19px;font-weight:800}
+.db{flex:1;overflow:auto;padding:16px 20px}
+.df{border-top:1px solid var(--line);padding:16px 20px;display:grid;gap:10px}
+.line{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:12px;padding:14px 0;border-top:1px solid var(--line);align-items:start}
+.line:first-child{border-top:0}
+.line img{width:72px;height:72px;border-radius:10px;object-fit:cover}
+.line h4{font-size:14.5px;line-height:1.3}
+.line .sub{font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.line .ctl{display:flex;gap:12px;margin-top:8px;font-size:13px}
+.line .ctl a,.line .ctl button{text-decoration:underline;color:var(--ink-2)}
+.line .p{font-weight:800;white-space:nowrap}
+.sum{display:grid;gap:6px;font-size:14.5px}
+.sum div{display:flex;justify-content:space-between;gap:12px}
+.sum .g{font-size:18px;font-weight:800;padding-top:10px;border-top:1px solid var(--line)}
+.modal{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal.on{opacity:1;pointer-events:auto}
+.modal .box{background:var(--bg);border-radius:18px;width:min(520px,100%);max-height:calc(100vh - 32px);overflow:auto;box-shadow:var(--shadow)}
+.modal .box.wide{width:min(980px,100%)}
+.field{display:grid;gap:6px;font-size:13.5px;font-weight:600}
+.field input,.field select,.field textarea{height:46px;border:1.5px solid var(--line-2);border-radius:10px;padding:0 12px;font-size:15px;font-weight:400;background:var(--card)}
+.field textarea{height:auto;min-height:84px;padding:10px 12px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:0;border-color:var(--ink)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* checkout */
+.co{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:40px;padding-bottom:40px}
+.co-step{border:1px solid var(--line);border-radius:14px;padding:22px;display:grid;gap:14px}
+.co-step+.co-step{margin-top:16px}
+.co-step h2{font-size:19px;font-weight:800;display:flex;gap:10px;align-items:center}
+.co-step h2 i{font-style:normal;width:28px;height:28px;border-radius:999px;background:var(--ink);color:var(--on-ink);display:grid;place-items:center;font-size:14px}
+.radio{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line-2);border-radius:12px;padding:13px 15px;cursor:pointer}
+.radio input{margin-top:3px;width:17px;height:17px;accent-color:var(--ink);flex:none}
+.radio:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.radio .g{flex:1;min-width:0}
+.radio b{display:block;font-size:14.5px}
+.radio .g span{color:var(--ink-3);font-size:13px}
+.radio strong{white-space:nowrap;font-size:14.5px}
+.co-sum{position:sticky;top:150px;align-self:start;background:var(--soft);border-radius:14px;padding:22px;display:grid;gap:14px}
+.co-sum h3{font-size:18px;font-weight:800}
+.coupon{display:flex;gap:8px}
+.coupon input{flex:1;min-width:0;height:42px;border:1.5px solid var(--line-2);border-radius:10px;padding:0 12px;background:var(--card)}
+.timeline{display:grid}
+.tl{display:grid;grid-template-columns:30px 1fr;gap:12px;position:relative;padding-bottom:18px}
+.tl::before{content:"";position:absolute;left:14px;top:28px;bottom:0;width:2px;background:var(--line)}
+.tl:last-child::before{display:none}
+.tl i{width:30px;height:30px;border-radius:999px;border:2px solid var(--line-2);display:grid;place-items:center;background:var(--card)}
+.tl.done i{background:var(--ok);border-color:var(--ok);color:#fff}
+.tl.now i{border-color:var(--ink);background:var(--lime)}
+.tl b{font-size:14.5px}
+.tl p{font-size:13px;color:var(--ink-3)}
+
+/* chat */
+.fab{position:fixed;right:max(20px,calc(env(safe-area-inset-right,0px) + 20px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:65;display:flex;align-items:center;gap:10px;height:54px;padding:0 20px 0 16px;border-radius:999px;background:var(--ink);color:var(--on-ink);font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.fab i{width:10px;height:10px;border-radius:9px;background:var(--lime)}
+.ctabs{display:flex;padding:0 20px;border-bottom:1px solid var(--line)}
+.ctabs button{height:44px;padding:0 4px;margin-right:18px;font-weight:700;font-size:14px;color:var(--ink-3);border-bottom:2.5px solid transparent;display:inline-flex;align-items:center}
+.ctabs button[aria-selected="true"]{color:var(--ink);border-color:var(--ink)}
+.ctabs .n{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:9px;background:var(--lime);color:var(--on-lime);font-size:11px;margin-left:6px;padding:0 5px}
+.msgs{flex:1;overflow:auto;padding:18px 20px;display:flex;flex-direction:column;gap:12px;background:var(--soft)}
+.msgs>*{flex-shrink:0}
+.msg{max-width:88%;align-self:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:10px 13px;font-size:14.5px;line-height:1.5;overflow-wrap:anywhere}
+.msg.me{align-self:flex-end;background:var(--ink);color:var(--on-ink);border-color:var(--ink);border-radius:14px 14px 4px 14px;white-space:pre-wrap}
+.msg p+p,.msg p+ul,.msg ul+p{margin-top:6px}
+.msg ul{padding-left:18px;margin:4px 0 0}
+.msg .st{display:flex;align-items:center;gap:8px;color:var(--ink-3);font-size:13px}
+.dotsl{display:inline-flex;gap:3px}
+.dotsl i{width:5px;height:5px;border-radius:9px;background:var(--ink-3);animation:bl 1s infinite}
+.dotsl i:nth-child(2){animation-delay:.15s}.dotsl i:nth-child(3){animation-delay:.3s}
+@keyframes bl{50%{opacity:.25}}
+.sugs{display:flex;flex-wrap:wrap;gap:8px}
+.sugs button{border:1.5px solid var(--line-2);background:var(--card);border-radius:999px;padding:7px 12px;font-size:13px;text-align:left}
+.sugs button:hover{border-color:var(--ink)}
+.composer{display:flex;gap:8px;align-items:flex-end;padding:12px 16px;border-top:1px solid var(--line)}
+.composer textarea{flex:1;min-width:0;min-height:46px;max-height:140px;resize:none;border:1.5px solid var(--line-2);border-radius:14px;padding:11px 14px;font-size:14.5px;line-height:1.4}
+.composer textarea:focus{outline:0;border-color:var(--ink)}
+.composer .send{width:46px;height:46px;border-radius:999px;background:var(--ink);color:var(--on-ink);display:grid;place-items:center;flex:none}
+.composer .send.stop{background:var(--sale)}
+.ai-note{font-size:11.5px;color:var(--ink-3);padding:0 16px 10px;text-align:center}
+.doc{align-self:stretch;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+.doc-h{display:flex;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.doc-h b{display:block;font-size:14px}
+.doc-h span{color:var(--ink-3);font-size:12px}
+.doc table{width:100%;border-collapse:collapse}
+.doc th{font-size:11.5px;color:var(--ink-3);text-align:left;font-weight:600;padding:7px 14px;border-bottom:1px solid var(--line)}
+.doc td{padding:8px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.doc .r{text-align:right;white-space:nowrap}
+.doc .t{padding:10px 14px;display:grid;gap:3px}
+.doc .t div{display:flex;justify-content:space-between}
+.doc .t .g{font-weight:800;font-size:15px;padding-top:5px;border-top:1px solid var(--line)}
+.doc-f{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap;align-items:center}
+.pcard{align-self:stretch;display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px}
+.pcard img{width:56px;height:56px;border-radius:8px;object-fit:cover}
+.pcard div{flex:1;min-width:0;font-size:13.5px}
+.pcard b{display:block}
+.threads button{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:14px 20px;border-bottom:1px solid var(--line)}
+.threads button:hover{background:var(--soft)}
+.threads div{flex:1;min-width:0}
+.threads b{display:flex;justify-content:space-between;gap:8px;font-size:14.5px}
+.threads b small{font-weight:400;color:var(--ink-3);font-size:12px}
+.threads p{font-size:13px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.threads .u{width:9px;height:9px;border-radius:9px;background:var(--lime);box-shadow:0 0 0 1.5px var(--ink);flex:none}
+
+/* studio 3D */
+.studio{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+.stage{position:relative;background:radial-gradient(circle at 50% 42%,var(--soft-2),var(--soft) 72%);min-height:480px;display:grid;place-items:center;perspective:1400px;cursor:grab;touch-action:none;user-select:none;overflow:hidden}
+.stage.drag{cursor:grabbing}
+.obj{position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.stage.drag .obj{transition:none}
+.stage.spin .obj{transition:transform 1.4s cubic-bezier(.4,0,.2,1)}
+.face{position:absolute;overflow:hidden;background-size:cover;background-position:center;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face.design{display:flex;flex-direction:column;justify-content:space-between;padding:8%}
+.face.design.center{align-items:center;text-align:center;justify-content:center;gap:6%}
+.face .lg{max-width:55%;display:flex;align-items:center;font-weight:800;letter-spacing:.06em}
+.face .lg img{max-height:100%;max-width:100%;object-fit:contain}
+.face .tt{font-weight:800;line-height:1.08;letter-spacing:-.01em}
+.face .st2{opacity:.78;margin-top:.3em}
+.face .bd{line-height:1.5;opacity:.88;white-space:pre-line}
+.face.back{display:grid;place-items:center}
+.floor{position:absolute;left:50%;bottom:9%;width:56%;height:26px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(0,0,0,.3),transparent 70%);filter:blur(5px);pointer-events:none}
+.stage-ctl{position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 12px}
+.stage-ctl button{height:34px;padding:0 14px;border-radius:999px;background:var(--bg);border:1px solid var(--line-2);font-size:13px;font-weight:600}
+.stage-ctl button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.stage-hint{position:absolute;top:14px;left:0;right:0;text-align:center;font-size:12.5px;color:var(--ink-3);pointer-events:none}
+.controls{padding:24px;display:grid;gap:14px;align-content:start;max-height:min(660px,calc(100vh - 110px));overflow:auto}
+.sw{display:flex;gap:8px;flex-wrap:wrap}
+.sw button{width:32px;height:32px;border-radius:999px;border:1px solid var(--line-2)}
+.sw button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--ink)}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;height:38px;border:1.5px solid var(--line-2);border-radius:10px;font-size:13.5px}
+.seg button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);font-weight:700}
+.upl2{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);background:var(--ink);color:var(--on-ink);padding:12px 18px;border-radius:999px;font-size:14px;font-weight:600;z-index:100;opacity:0;transition:.25s;pointer-events:none;display:flex;gap:8px;align-items:center;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:1100px){
+  .circles{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .perks,.services{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ft{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ft>div:first-child{grid-column:1/-1}
+  .acct .t,.locbtn .t{display:none}
+  .rail{grid-auto-columns:minmax(220px,calc((100% - 54px)/4))}
+  .co{grid-template-columns:minmax(0,1fr) 340px}
+}
+@media (max-width:900px){
+  .pdp,.ppanel,.split,.co{grid-template-columns:minmax(0,1fr)}
+  .gal,.co-sum{position:static}
+  .listing{grid-template-columns:minmax(0,1fr)}
+  .filters{position:static;display:none;border:1px solid var(--line);border-radius:12px;padding:16px}
+  .filters.open{display:flex}
+  .ftoggle{display:inline-flex}
+  .studio{grid-template-columns:minmax(0,1fr)}
+  .stage{min-height:340px}
+  .controls{max-height:none}
+  .mega .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .seo{columns:1}
+  .split .tx{padding:28px}
+  .rail{grid-auto-columns:minmax(200px,calc((100% - 36px)/3))}
+}
+@media (max-width:640px){
+  .hdr{flex-wrap:wrap;height:auto;padding-block:10px;gap:6px 10px}
+  .search{order:5;flex-basis:100%}
+  .locbtn{order:4;flex-basis:100%;max-width:none;padding:2px 0}
+  .locbtn b{display:inline;max-width:none}
+  .hdr-act{margin-left:auto}
+  .acct{display:none}
+  .hero{height:560px}
+  .slide{align-items:flex-end;padding-bottom:84px}
+  .slide::before{background:linear-gradient(180deg,rgba(10,11,9,.05) 20%,rgba(10,11,9,.9) 68%)}
+  .arrows{display:none}
+  .circles{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .circle{font-size:12.5px}
+  .perks,.services,.steps{grid-template-columns:minmax(0,1fr)}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px}
+  .rail{grid-auto-columns:minmax(160px,46%)}
+  .presets{grid-template-columns:minmax(0,1fr)}
+  .gal{grid-template-columns:minmax(0,1fr)}
+  .gal .th{flex-direction:row;order:2}
+  .gal .th button{width:64px}
+  .calc,.frow{grid-template-columns:minmax(0,1fr)}
+  .ft{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ad,.news{padding:24px}
+  .section{padding-block:36px}
+  .qrow{grid-template-columns:1fr auto}
+  .qrow .d{display:none}
+  .offer{grid-template-columns:minmax(0,1fr) auto}
+  .offer .btn{grid-column:1/-1}
+  .fab span{display:none}
+  .fab{padding:0 17px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+ <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></symbol>
+ <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></symbol>
+ <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></symbol>
+ <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+ <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11Z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+ <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 9h4l3 3v4h-7"/><circle cx="6" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></symbol>
+ <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+ <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></symbol>
+ <symbol id="i-brief" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/></symbol>
+ <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></symbol>
+ <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+ <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+ <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+ <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></symbol>
+ <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+ <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12 20 4l-6 16-2.5-6.5z"/></symbol>
+ <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/></symbol>
+ <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 16v4h16v-4"/></symbol>
+ <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></symbol>
+ <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/></symbol>
+ <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 9 5.5 4h13L20 9M4 9v11h16V9M4 9c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 2 3s3-1.3 3-3c0 1.7 1.3 3 3 3s2-1.3 2-3"/></symbol>
+ <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+ <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+ <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></symbol>
+ <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+ <symbol id="i-cube" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></symbol>
+</svg>
+
+<div class="promo-bar"><div class="wrap"><span>Primeira compra com <b>10% de desconto</b>: use o código PRIMEIRA10 no pagamento.</span><button type="button" data-copy="PRIMEIRA10">Copiar código</button></div></div>
+
+<header class="top">
+ <div class="wrap hdr">
+  <a class="logo" href="#home" aria-label="PrintOn, página inicial"><img class="lt" src="assets/logo-claro.png" alt="PrintOn"><img class="dk" src="assets/logo-escuro.png" alt="PrintOn"></a>
+  <button class="locbtn" type="button" id="locBtn"></button>
+  <div class="search">
+   <form id="sForm" role="search" autocomplete="off"><svg class="ico s"><use href="#i-search"/></svg><label for="q" class="sr">Pesquisar</label><input id="q" type="search" placeholder="Cartões de visita, lonas, coletes, tinteiros…"><button class="go" type="submit" aria-label="Pesquisar"><svg class="ico s"><use href="#i-search"/></svg></button></form>
+   <div class="suggest" id="suggest" hidden></div>
+  </div>
+  <div class="hdr-act">
+   <button class="acct" type="button" id="acctBtn"><svg class="ico"><use href="#i-user"/></svg><span class="t">Olá, entre<b>Conta e pedidos</b></span></button>
+   <button class="icon-btn" type="button" id="themeBtn" aria-label="Aparência: claro ou escuro" aria-haspopup="menu" aria-expanded="false"></button>
+   <div class="thmenu" id="thmenu" role="menu" hidden><p>Aparência</p><button type="button" role="menuitemradio" data-theme-set="light"><svg class="ico s"><use href="#i-sun"/></svg>Modo claro</button><button type="button" role="menuitemradio" data-theme-set="dark"><svg class="ico s"><use href="#i-moon"/></svg>Modo escuro</button><button type="button" role="menuitemradio" data-theme-set="auto"><svg class="ico s"><use href="#i-monitor"/></svg>Igual ao sistema</button></div>
+   <a class="icon-btn" href="#favoritos" aria-label="Favoritos"><svg class="ico"><use href="#i-heart"/></svg><span class="count" id="favN" data-n="0">0</span></a>
+   <button class="icon-btn" type="button" id="cartBtn" aria-label="Carrinho"><svg class="ico"><use href="#i-cart"/></svg><span class="count" id="cartN" data-n="0">0</span></button>
+  </div>
+ </div>
+ <div class="wrap"><nav class="catnav" id="catnav" aria-label="Categorias"></nav></div>
+ <div class="mega" id="mega" hidden><div class="wrap" id="megaIn"></div></div>
+</header>
+
+<main id="view"></main>
+
+<footer>
+ <div class="wrap ft">
+  <div><img src="assets/logo-escuro.png" alt="PrintOn"><p>O marketplace do sector gráfico em Angola. Gráficas, papelarias, fornecedores de equipamentos e EPIs verificados, com entrega em todo o país.</p></div>
+  <div><h4>Produtos</h4><a href="#cat-1">Cartões de visita</a><a href="#cat-2">Flyers e folhetos</a><a href="#cat-14">Roll-ups e expositores</a><a href="#cat-6">Brindes</a><a href="#cat-25">EPIs e fardamento</a></div>
+  <div><h4>Ajuda</h4><a href="#ajuda">Perguntas frequentes</a><a href="#ajuda">Prazos e entregas</a><a href="#ajuda">Como enviar a arte</a><button class="fl" type="button" data-chat>Falar com o assistente</button></div>
+  <div><h4>Para empresas</h4><a href="#vender">Vender na PrintOn</a><a href="#vender">Preços para gráficas</a><a href="#anunciar">Anunciar na PrintOn</a><a href="#lojas">Lojas verificadas</a></div>
+  <div><h4>Contactos</h4><span>Luanda, Angola</span><span>+244 900 000 000</span><span>suporte@printon.ao</span><span>Seg a sáb, 8h às 20h</span></div>
+ </div>
+ <div class="wrap ft-b"><span>© 2026 PrintOn · Termos de utilização · Política de privacidade</span><div class="pays"><span>MULTICAIXA EXPRESS</span><span>REFERÊNCIA MULTICAIXA</span><span>PAY4ALL</span><span>TRANSFERÊNCIA</span></div></div>
+</footer>
+
+<button class="fab" type="button" id="fab" data-chat><i></i><svg class="ico"><use href="#i-chat"/></svg><span>Assistente PrintOn</span></button>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="cartDrawer" aria-label="Carrinho"></aside>
+<aside class="drawer" id="chatDrawer" aria-label="Assistente PrintOn"></aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="box" id="modalBox"></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const ico=(n,c='')=>`<svg class="ico ${c}"><use href="#i-${n}"/></svg>`;
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const sp=s=>s.replace(/[\u202f\u00a0]/g,' ');
+const group=s=>s.replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+const num=n=>group(String(Math.round(n)));
+const kz=n=>num(n)+' Kz';
+const kz2=n=>{const [i,d]=(Math.round(n*100)/100).toFixed(2).split('.');return group(i)+','+d+' Kz'};
+const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const store={get(k,d){try{const v=localStorage.getItem('po3_'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('po3_'+k,JSON.stringify(v))}catch(e){}}};
+function toast(t){const el=$('#toast');el.innerHTML=ico('check','s')+esc(t);el.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('on'),2400)}
+
+/* ================= catalogue ================= */
+const GROUPS=[
+ ['Cartões e papelaria',[1,7,9,18]],['Marketing impresso',[2,4,8,12,13]],['Comunicação visual',[3,14,19,10]],['Embalagens e etiquetas',[11,15,5,17]],
+ ['Brindes e têxtil',[6,16]],['Académico e escritório',[21,22]],['Equipamentos e consumíveis',[23,24]],['EPIs e fardamento',[25]]];
+const CATS={1:['Cartões de Visita','assets/stationery.jpg'],2:['Flyers e Folhetos','assets/flyers.jpg'],3:['Banners e Lonas','assets/banners.jpg'],4:['Cartazes e Posters','assets/banner-grande-formato.webp'],5:['Autocolantes','assets/stickers.jpg'],6:['Brindes Personalizados','assets/merch.jpg'],7:['Papelaria Corporativa','assets/stationery.jpg'],8:['Catálogos e Livros','img/booklet.jpg'],9:['Convites e Postais','assets/invitations.jpg'],10:['Decoração e Vinil','assets/banner-grande-formato.webp'],11:['Embalagens e Caixas','img/box.jpg'],12:['Ementas e Menus','assets/flyers.jpg'],13:['Calendários e Agendas','assets/books.jpg'],14:['Roll-ups e Expositores','assets/banners.jpg'],15:['Sacos Personalizados','assets/packaging.jpg'],16:['T-shirts e Têxteis','img/tshirt.jpg'],17:['Rótulos e Etiquetas','assets/stickers.jpg'],18:['Carimbos','assets/stationery.jpg'],19:['Grandes Formatos','img/hero-largeformat.jpg'],20:['Serviços de Design','img/business.jpg'],21:['Material Académico','img/notebooks.jpg'],22:['Papelaria e Escritório','assets/books.jpg'],23:['Equipamentos Gráficos','img/hero-offset.jpg'],24:['Consumíveis','img/printhouse.jpg'],25:['EPIs e Fardamento','img/builder.jpg']};
+const SELLERS={
+ gc:{name:'Gráfica Central',city:'Luanda, Maianga',c:'#121411',t:'#D9FC00',rating:4.8,resp:'15 min'},
+ kp:{name:'Kianda Print',city:'Luanda, Talatona',c:'#1D3B2A',t:'#E9F5EC',rating:4.7,resp:'30 min'},
+ pu:{name:'Papelaria Universitária',city:'Luanda, Kilamba',c:'#2B3A67',t:'#E8ECF8',rating:4.6,resp:'1 h'},
+ te:{name:'TecnoGráfica Equipamentos',city:'Viana, Zona Industrial',c:'#5A3A12',t:'#F6EBDD',rating:4.5,resp:'2 h'},
+ sp:{name:'SegurPro EPI',city:'Benguela, Lobito',c:'#8A2E12',t:'#FBE9E4',rating:4.7,resp:'1 h'},
+ cd:{name:'Cabinda Digital',city:'Cabinda, Centro',c:'#3C2A5C',t:'#EEE8F8',rating:4.4,resp:'1 h'}};
+const OPTS={
+ card:[['Formato',[['9 × 5 cm',0],['8,5 × 5,5 cm',0],['Cantos arredondados',.10]]],['Papel',[['Couché mate 350 g',0],['Couché brilho 350 g',0],['Kraft 300 g',.08],['Algodão 600 g',.6]]],['Impressão',[['Frente e verso',0],['Só frente',-.15]]],['Acabamento',[['Sem acabamento',0],['Laminação mate',.12],['Soft-touch',.25],['Verniz UV localizado',.3]]]],
+ flyer:[['Formato',[['A6 (10,5 × 14,8 cm)',0],['A5 (14,8 × 21 cm)',.35],['A4 (21 × 29,7 cm)',.9]]],['Papel',[['Couché 115 g',0],['Couché 150 g',.1],['Couché 300 g',.35]]],['Impressão',[['Frente e verso',0],['Só frente',-.15]]],['Dobra',[['Sem dobra',0],['1 dobra',.08],['2 dobras',.12]]]],
+ large:[['Material',[['Lona 440 g',0],['Lona 510 g',.15],['Lona blackout',.35]]],['Acabamento',[['Bainha e ilhós a cada 50 cm',0],['Bolsas para tubo',.05],['Sem acabamento',-.05]]]],
+ sticker:[['Formato',[['Redondo',0],['Quadrado',0],['Corte especial',.2]]],['Material',[['Papel couché',0],['Vinil branco',.25],['Vinil transparente',.35]]]],
+ merch:[['Cor',[['Branco',0],['Preto',.05],['Azul',.05]]],['Personalização',[['Logótipo 1 cor',0],['Full color',.2]]]],
+ tex:[['Cor',[['Branco',0],['Preto',.1],['Cores',.1]]],['Impressão',[['Frente',0],['Frente e costas',.35]]],['Técnica',[['DTF',0],['Serigrafia',0],['Bordado',.4]]]],
+ epi:[['Tamanho',[['M',0],['L',0],['XL',0],['Tamanhos sortidos',0]]],['Personalização',[['Logótipo serigrafado',0],['Logótipo bordado',.25],['Sem logótipo',-.2]]]],
+ book:[['Formato',[['A5',0],['A4',.4]]],['Páginas',[['16 páginas',0],['32 páginas',.6],['64 páginas',1.4]]],['Acabamento',[['Agrafado',0],['Lombada colada',.2],['Capa dura',.8]]]],
+ pack:[['Tamanho',[['Pequeno',0],['Médio',.2],['Grande',.45]]],['Impressão',[['1 cor',0],['Full color',.35],['Sem impressão',-.1]]]],
+ tfc:[['Capa',[['Capa dura',0],['Capa mole',-.4]]],['Gravação',[['Dourada',0],['Prateada',0]]]],
+ unit:[]};
+const QTYS={card:[100,250,500,1000,2500,5000],flyer:[250,500,1000,2500,5000],large:[1,2,5,10,20],sticker:[100,250,500,1000,2500],merch:[10,25,50,100,250],tex:[10,25,50,100,250],epi:[10,25,50,100],book:[10,25,50,100,250],pack:[50,100,250,500,1000],tfc:[1,2,3,5],unit:[1,2,3,5,10]};
+const EXP={card:.55,flyer:.5,large:.92,sticker:.55,merch:.88,tex:.86,epi:.9,book:.75,pack:.75,tfc:.95,unit:1};
+const LEAD={card:2,flyer:2,large:1,sticker:2,merch:4,tex:4,epi:3,book:4,pack:5,tfc:1,unit:1};
+const RAW=[
+ [1,'Cartão de Visita',8500,'card','O cartão mais pedido: 9 × 5 cm em couché 350 g, impressão a cores dos dois lados.','best'],
+ [1,'Cartão de Visita Premium Soft-touch',16500,'card','Laminação aveludada que dá um toque de luxo e protege a impressão.'],
+ [1,'Cartão de Visita Kraft',11500,'card','Papel kraft reciclado com aspecto natural, ideal para marcas sustentáveis.'],
+ [1,'Cartão de Visita PVC',38000,'card','Plástico resistente à água, transparente ou branco.'],
+ [2,'Flyer',18500,'flyer','Divulgue promoções e eventos com flyers em couché, do A6 ao A4.','best'],
+ [2,'Folheto Tríptico',42000,'flyer','Folha A4 com duas dobras, seis faces para apresentar a sua empresa.'],
+ [2,'Folheto Díptico',32000,'flyer','Folha com uma dobra para menus, catálogos curtos e programas.'],
+ [2,'Panfleto Económico',39000,'flyer','Grandes tiragens em papel fino para distribuição de rua.'],
+ [3,'Lona com Ilhós 2 × 1 m',22000,'large','Lona publicitária com bainha e ilhós para fachadas e eventos.','best'],
+ [3,'Lona Grande 5 × 2 m',98000,'large','Para fachadas, obras e eventos de grande visibilidade.'],
+ [3,'Faixa Publicitária 3 × 0,8 m',18500,'large','Faixa leve para inaugurações, igrejas e eventos.'],
+ [4,'Cartaz A2',24000,'flyer','Cartazes de interior para lojas, escolas e eventos.'],
+ [4,'Poster Científico A0',12500,'unit','Impressão em papel fotográfico para conferências e defesas.'],
+ [5,'Autocolante Redondo',9500,'sticker','Autocolantes com o seu logótipo para embalagens e brindes.','best'],
+ [5,'Autocolante em Vinil',14500,'sticker','Resistente à água e ao sol, para viaturas e montras.'],
+ [6,'Caneca Personalizada',39500,'merch','Caneca de cerâmica 330 ml com impressão por sublimação.','best'],
+ [6,'Caneta Personalizada',45000,'merch','Esferográfica com logótipo, ideal para feiras e formações.'],
+ [6,'Garrafa Térmica',99500,'merch','Aço inoxidável 500 ml com gravação a laser.'],
+ [6,'Pen USB 16 GB Personalizada',75000,'merch','Pen USB com logótipo impresso, entregue em caixa.'],
+ [7,'Papel Timbrado A4',27500,'flyer','Papel 90 g com cabeçalho da empresa, pronto para impressora.'],
+ [7,'Envelope DL com Janela',24500,'flyer','Envelopes personalizados para correspondência oficial.'],
+ [7,'Pasta com Bolsa',69000,'pack','Pasta A4 em cartão 350 g com bolsa interior para documentos.'],
+ [8,'Catálogo Agrafado',45000,'book','Catálogos e revistas com capa a cores e agrafos.'],
+ [8,'Livro de Capa Mole',65000,'book','Livros e relatórios com lombada colada.'],
+ [9,'Convite de Casamento',47500,'flyer','Convites em papel texturado com envelope.'],
+ [10,'Vinil para Montra (m²)',14500,'large','Vinil de recorte ou impresso para vitrines e vidros.'],
+ [11,'Caixa Auto-montável',82000,'pack','Caixas de envio em cartão micro-canelado com o seu logótipo.','best'],
+ [11,'Caixa de Hambúrguer',46000,'pack','Cartão próprio para alimentos, impressão a cores.'],
+ [12,'Menu Plastificado A4',22000,'book','Menus resistentes a líquidos para restaurantes e cafés.'],
+ [13,'Calendário de Secretária 2027',49500,'book','Base em cartão rígido e 13 folhas com wire-o.'],
+ [13,'Agenda Personalizada 2027',89000,'book','Capa com o seu logótipo e páginas diárias.'],
+ [14,'Roll-up 85 × 200 cm',58500,'large','Estrutura em alumínio com bolsa de transporte, montagem em 1 minuto.','best'],
+ [14,'X-Banner 60 × 160 cm',34000,'large','Expositor leve e económico para balcões e eventos.'],
+ [15,'Saco de Papel Kraft com Asa',78000,'pack','Sacos kraft com asa torcida e logótipo a 1 cor.'],
+ [15,'Saco TNT Personalizado',97500,'merch','Sacos reutilizáveis em tecido não tecido.'],
+ [16,'T-shirt Personalizada',49500,'tex','Algodão 160 g com impressão DTF, serigrafia ou bordado.','best'],
+ [16,'Polo Bordado',95000,'tex','Polo piqué com logótipo bordado, para equipas e eventos.'],
+ [16,'Boné Personalizado',42000,'tex','Boné de algodão regulável com bordado frontal.'],
+ [17,'Rótulos em Rolo',34000,'sticker','Rótulos adesivos para frascos, garrafas e embalagens.'],
+ [18,'Carimbo Automático',12500,'unit','Carimbo auto-entintado 38 × 14 mm com o texto da empresa.'],
+ [19,'Placa em PVC Forex 1 × 1 m',38000,'large','Placas rígidas de 5 mm para sinalização interior.'],
+ [19,'Placa em Dibond 1,5 × 1 m',72000,'large','Alumínio composto para fachadas e sinalética exterior.'],
+
+ [21,'Encadernação de TFC em Capa Dura',9500,'tfc','Monografias e teses com gravação na capa e na lombada.','best'],
+ [21,'Impressão de Apontamentos (100 pág.)',3500,'unit','Impressão a preto e branco em A4, agrafada ou encadernada.'],
+ [21,'Cadernos A4 Universitários (10 un.)',15000,'unit','Cadernos de 96 folhas pautadas com capa resistente.'],
+ [22,'Resma de Papel A4 80 g (5 un.)',32500,'unit','Caixa com cinco resmas de 500 folhas.'],
+ [23,'Plotter Eco-solvente 1,6 m',6850000,'unit','Impressora de grande formato a 4 cores com instalação e formação.'],
+ [23,'Guilhotina Manual A3',245000,'unit','Corta até 500 folhas de uma vez, com guia de medida.'],
+ [23,'Plastificadora A3',89000,'unit','Plastifica de 80 a 250 microns em A3 e A4.'],
+ [23,'Prensa Térmica 38 × 38 cm',315000,'unit','Para transfer em t-shirts, sacos e almofadas.'],
+ [24,'Tinteiros Eco-solvente CMYK (4 × 1 L)',145000,'unit','Kit de quatro litros compatível com plotters eco-solvente.'],
+ [24,'Papel Couché 350 g SRA3 (250 fl.)',38500,'unit','Para cartões de visita e capas em impressão digital.'],
+ [24,'Rolo de Vinil Branco 1,37 × 50 m',118000,'unit','Vinil adesivo para impressão e corte.'],
+ [25,'Colete Refletor com Logótipo',45000,'epi','Colete de alta visibilidade com o logótipo da empresa nas costas.','best'],
+ [25,'Capacete de Obra Personalizado',69500,'epi','Capacete com logótipo, conforme a norma EN 397.'],
+ [25,'Fato-macaco de Trabalho',185000,'epi','Fato em sarja com fitas refletoras e logótipo bordado.'],
+ [25,'Botas de Segurança S3',38500,'unit','Biqueira e palmilha de aço, sola anti-derrapante.'],
+ [25,'Luvas de Nitrilo (caixa 100)',9500,'unit','Luvas descartáveis sem pó, tamanho M.']];
+const sellerOf=c=>[21,22].includes(c)?['pu','gc']:[23,24].includes(c)?['te','kp']:c===25?['sp','cd']:[3,4,10,14,19].includes(c)?['kp','gc','cd']:[6,16].includes(c)?['cd','sp','gc']:['gc','kp','cd'];
+const GALLERY={card:['img/cards.jpg','img/business.jpg'],flyer:['img/brochures.jpg','img/booklet.jpg'],large:['assets/banners.jpg','img/hero-largeformat.jpg','assets/banner-grande-formato.webp'],sticker:['assets/stickers.jpg','img/box.jpg'],merch:['assets/merch.jpg','assets/banner-personalizados.webp'],tex:['img/tshirt.jpg','assets/merch.jpg'],epi:['img/builder.jpg','img/workers.jpg'],book:['img/booklet.jpg','assets/books.jpg'],pack:['img/box.jpg','assets/packaging.jpg'],tfc:['img/notebooks.jpg','assets/books.jpg']};
+const PRODUCTS=RAW.map((r,i)=>{const [cat,name,base,type,desc,flag]=r;const h=(i*37+11)%100;
+ return {id:'prod-'+(i+1),cat,name,base,type,desc,best:flag==='best',min:QTYS[type][0],img:CATS[cat][1],
+  gallery:[...new Set([CATS[cat][1],...(GALLERY[type]||[])])].slice(0,4),rating:Math.round((4.4+(h%6)/10)*10)/10,reviews:18+(h*7)%240,
+  offers:sellerOf(cat).map((s,j)=>({s,f:[1,1.06,.95][j],lead:Math.max(1,LEAD[type]+[0,-1,2][j])}))}});
+const P=id=>PRODUCTS.find(p=>p.id===id);
+const priceFor=(p,q,mult=1,f=1)=>Math.round(p.base*Math.pow(q/p.min,EXP[p.type])*mult*f/50)*50;
+const fromLabel=p=>`${num(p.min)} ${p.min===1?'unidade':'unidades'} por`;
+const days=n=>n+' '+(n===1?'dia útil':'dias úteis');
+
+/* ================= delivery ================= */
+const PROVINCES={'Luanda':['Luanda (centro)','Talatona','Belas','Kilamba Kiaxi','Viana','Cazenga','Cacuaco','Sambizanga','Rangel'],'Icolo e Bengo':['Catete','Sede'],'Bengo':['Caxito'],'Benguela':['Benguela','Lobito','Catumbela'],'Bié':['Cuíto'],'Cabinda':['Cabinda'],'Cuando':['Mavinga'],'Cubango':['Menongue'],'Cuanza Norte':["N'dalatando"],'Cuanza Sul':['Sumbe','Porto Amboim'],'Cunene':['Ondjiva'],'Huambo':['Huambo'],'Huíla':['Lubango'],'Lunda Norte':['Dundo'],'Lunda Sul':['Saurimo'],'Malanje':['Malanje'],'Moxico':['Luena'],'Moxico Leste':['Cazombo'],'Namibe':['Moçâmedes'],'Uíge':['Uíge'],'Zaire':["M'banza Kongo",'Soyo']};
+const TIER={'Icolo e Bengo':'near','Bengo':'near','Cuanza Norte':'near','Cuanza Sul':'near','Benguela':'mid','Huambo':'mid','Malanje':'mid','Uíge':'mid','Zaire':'mid','Namibe':'mid','Cabinda':'air'};
+let loc=store.get('loc',{prov:'Luanda',mun:'Talatona'});
+const FREE_FROM=50000;
+function addDays(n){const d=new Date();let k=0;while(k<n){d.setDate(d.getDate()+1);if(d.getDay()!==0)k++}return d}
+const fmtDate=d=>d.toLocaleDateString('pt-PT',{weekday:'short',day:'numeric',month:'short'}).replace(/\./g,'');
+function deliveryOptions(l=loc,subtotal=0,prod=2){
+ if(l.prov==='Luanda'){const far=['Viana','Cazenga','Cacuaco'].includes(l.mun);
+  return [
+   {id:'std',name:'Entrega standard',desc:'Estafeta até à sua morada em '+l.mun,price:subtotal>=FREE_FROM?0:(far?3500:2500),days:prod+1},
+   {id:'exp',name:'Expresso',desc:'Motoboy no dia em que a produção termina',price:far?6500:5000,days:prod},
+   {id:'pick',name:'Recolha na gráfica',desc:'Maianga ou Talatona, das 8h às 18h',price:0,days:prod}]}
+ const t=TIER[l.prov]||'far';
+ const base={near:[6500,2],mid:[9500,3],far:[14500,5],air:[12500,2]}[t];
+ return [
+  {id:'std',name:t==='air'?'Envio aéreo':'Transportadora',desc:t==='air'?'Voo diário Luanda–Cabinda, entrega ao domicílio':'Entrega ao domicílio em '+l.mun,price:base[0],days:prod+base[1]},
+  {id:'pick',name:'Recolha em agência parceira',desc:'Agência na sede de '+l.mun,price:Math.round(base[0]*.65/500)*500,days:prod+base[1]}]}
+const locLabel=()=>`${loc.mun}, ${loc.prov}`;
+function setLoc(l){loc=l;store.set('loc',l);renderLocBtn()}
+
+/* ================= state ================= */
+let cart=store.get('cart',[]),favs=new Set(store.get('favs',[])),orders=store.get('orders',[]);
+cart=cart.filter(l=>P(l.id));
+const billing=Object.assign({name:'',nif:'',email:'',phone:''},store.get('billing',{}));
+const saveCart=()=>{store.set('cart',cart);badges()};
+const saveFavs=()=>{store.set('favs',[...favs]);badges()};
+const lineTotal=l=>{const p=P(l.id);return p?priceFor(p,l.qty,l.mult||1,l.f||1)+(l.extra||0):0};
+const cartSub=()=>cart.reduce((a,l)=>a+lineTotal(l),0);
+function badges(){const n=cart.length;$('#cartN').textContent=n;$('#cartN').dataset.n=n;$('#favN').textContent=favs.size;$('#favN').dataset.n=favs.size}
+function addToCart(item){cart.push(item);saveCart()}
+
+/* ================= header ================= */
+function renderLocBtn(){$('#locBtn').innerHTML=`${ico('pin')}<span><span class="t">Entregar em</span><b>${esc(locLabel())}</b></span>`}
+function renderNav(){
+ $('#catnav').innerHTML=`<button type="button" class="all" id="megaBtn" aria-expanded="false">${ico('menu','s')}Todos os produtos</button>`+
+  [[1,'Cartões de visita'],[2,'Flyers'],[14,'Roll-ups'],[3,'Lonas'],[16,'T-shirts'],[6,'Brindes'],[11,'Embalagens'],[21,'Material académico'],[25,'EPIs'],[23,'Equipamentos']].map(([c,n])=>`<a href="#cat-${c}">${n}</a>`).join('')+
+  `<button type="button" class="ai" data-chat><i></i>Pedir orçamento ao assistente</button>`;
+ $('#megaIn').innerHTML=GROUPS.map(([g,cs])=>`<div><h4>${g}</h4>${cs.map(c=>`<a href="#cat-${c}">${CATS[c][0]}</a>`).join('')}</div>`).join('');
+ $('#megaBtn').onclick=e=>{e.stopPropagation();const m=$('#mega');m.hidden=!m.hidden;e.currentTarget.setAttribute('aria-expanded',!m.hidden)};
+}
+const THEME_KEY='theme';let theme=store.get(THEME_KEY,'auto');
+const darkNow=()=>theme==='dark'||(theme==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches);
+function applyTheme(){const r=document.documentElement;if(theme==='auto')r.removeAttribute('data-theme');else r.dataset.theme=theme;$('#themeBtn').innerHTML=ico(darkNow()?'moon':'sun');$$('[data-theme-set]').forEach(b=>b.setAttribute('aria-checked',b.dataset.themeSet===theme))}
+$('#themeBtn').onclick=e=>{e.stopPropagation();const mn=$('#thmenu');mn.hidden=!mn.hidden;e.currentTarget.setAttribute('aria-expanded',!mn.hidden)};
+$$('[data-theme-set]').forEach(b=>b.onclick=()=>{theme=b.dataset.themeSet;store.set(THEME_KEY,theme);applyTheme();$('#thmenu').hidden=true;$('#themeBtn').setAttribute('aria-expanded','false');toast({light:'Modo claro activado',dark:'Modo escuro activado',auto:'Aparência igual ao sistema'}[theme])});
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',applyTheme);
+applyTheme();
+document.addEventListener('click',e=>{if(!e.target.closest('#thmenu,#themeBtn'))$('#thmenu').hidden=true;if(!e.target.closest('#mega,#megaBtn,#allCats'))$('#mega').hidden=true;if(!e.target.closest('.search'))$('#suggest').hidden=true});
+function searchProducts(q,limit=50){const t=norm(q).split(/[^a-z0-9]+/).filter(w=>w.length>2);if(!t.length)return[];
+ return PRODUCTS.map(p=>{const nm=norm(p.name),hay=norm(p.name+' '+CATS[p.cat][0]+' '+p.desc);let s=0;t.forEach(w=>{const w2=w.replace(/(oes|aes|es|s)$/,'').slice(0,6);if(nm.includes(w2))s+=3;else if(hay.includes(w2))s+=1});return [p,s+(p.best?.5:0)]}).filter(x=>x[1]>=1).sort((a,b)=>b[1]-a[1]).slice(0,limit).map(x=>x[0])}
+$('#q').addEventListener('input',e=>{const v=e.target.value.trim();const box=$('#suggest');if(v.length<2){box.hidden=true;return}
+ const r=searchProducts(v,6);box.innerHTML=r.length?r.map(p=>`<a href="#${p.id}"><img src="${p.img}" alt=""><span>${esc(p.name)}<small>${fromLabel(p)} ${kz(p.base)}</small></span></a>`).join('')+`<a class="all" href="#busca">Ver todos os resultados para “${esc(v)}”</a>`:`<a class="all" href="#" data-chat>Não encontrámos “${esc(v)}”. Pedir ao assistente</a>`;box.hidden=false});
+$('#sForm').onsubmit=e=>{e.preventDefault();$('#suggest').hidden=true;if(location.hash==='#busca')route();else location.hash='busca'};
+
+/* ================= components ================= */
+const rate=r=>r.toFixed(1).replace('.',',');
+const stars=(r,n)=>`<span class="stars">${ico('star')}${rate(r)}${n?` <span class="muted">(${n})</span>`:''}</span>`;
+function card(p){
+ return `<article class="card"><a class="media" href="#${p.id}" aria-label="${esc(p.name)}"><img src="${p.img}" alt="" loading="lazy"></a>
+ ${p.best?'<span class="tag">Mais vendido</span>':''}
+ <button class="fav" type="button" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Guardar nos favoritos">${ico('heart','s')}</button>
+ <h3><a href="#${p.id}">${esc(p.name)}</a></h3>
+ <div class="from">${fromLabel(p)}<b>${kz(p.base)}</b>${p.min>1?`<em>${kz2(p.base/p.min)} por unidade</em>`:''}</div>
+ <div class="meta">${stars(p.rating,p.reviews)}<span>${p.offers.length} ${p.offers.length===1?'loja':'lojas'}</span></div></article>`}
+const logoBox=(k,sz=42)=>{const s=SELLERS[k];return `<span style="width:${sz}px;height:${sz}px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:${Math.round(sz/3)}px;background:${s.c};color:${s.t};flex:none">${s.name.split(' ').map(w=>w[0]).slice(0,2).join('')}</span>`};
+
+/* ================= home ================= */
+const SLIDES=[
+ {img:'img/hero-offset.jpg',k:'Gráficas verificadas em todo o país',h:'Impressão profissional, entregue onde estiver',p:'Configure o produto, veja o preço na hora e receba em Luanda a partir de 24 horas.',cta:['Ver mais vendidos','#busca-best'],ai:'Pedir orçamento'},
+ {img:'img/hero-largeformat.jpg',k:'Grande formato',h:'Lonas, roll-ups e placas para a sua fachada',p:'Impressão em lona 510 g, vinil e PVC, com acabamento e montagem.',cta:['Comunicação visual','#cat-3']},
+ {img:'img/courier.jpg',k:'Entrega expresso em Luanda',h:'Pronto hoje, na sua porta hoje',p:'Motoboy no próprio dia em que a produção termina. Envio para as 21 províncias.',cta:['Calcular entrega','#entrega']},
+ {img:'img/workers.jpg',k:'EPIs e fardamento',h:'Equipe a sua obra com a sua marca',p:'Coletes, capacetes e fatos de trabalho com logótipo, para empresas de qualquer dimensão.',cta:['Ver EPIs','#cat-25']}];
+let slideI=0,slideT;
+function railSection(title,cats){const ps=PRODUCTS.filter(p=>cats.includes(p.cat)).slice(0,10);return `<section class="section tight"><div class="wrap"><div class="sec-head"><h2>${title}</h2><a class="link" href="#cat-${cats[0]}">Ver todos</a></div><div class="rail">${ps.map(card).join('')}</div></div></section>`}
+function renderHome(){
+ $('#view').innerHTML=`
+ <section class="hero" aria-roledescription="carrossel" aria-label="Destaques">
+  ${SLIDES.map((s,i)=>`<div class="slide ${i?'':'on'}" aria-hidden="${!!i}"><img src="${s.img}" alt="" ${i?'loading="lazy"':'fetchpriority="high"'}><div class="wrap"><div class="cap"><span class="kicker">${s.k}</span>${i?'<h2>':'<h1>'}${s.h}${i?'</h2>':'</h1>'}<p>${s.p}</p><div class="row"><a class="btn btn-lime" href="${s.cta[1]}">${s.cta[0]}</a>${s.ai?`<button class="btn btn-white" type="button" data-chat>${s.ai}</button>`:''}</div></div></div></div>`).join('')}
+  <div class="hero-ctl"><div class="wrap"><div class="dots">${SLIDES.map((_,i)=>`<button type="button" class="${i?'':'on'}" data-slide="${i}" aria-label="Destaque ${i+1}"><i></i></button>`).join('')}</div><div class="arrows"><button type="button" data-step="-1" aria-label="Anterior">${ico('left','s')}</button><button type="button" data-step="1" aria-label="Seguinte">${ico('right','s')}</button></div></div></div>
+ </section>
+
+ <section class="section tight"><div class="wrap perks">
+  <button class="perk" type="button" data-copy="PRIMEIRA10"><span class="ic">${ico('tag')}</span><span><b>10% na primeira compra</b><span>Código PRIMEIRA10. Toque para copiar.</span></span></button>
+  <a class="perk" href="#entrega"><span class="ic">${ico('truck')}</span><span><b>Entrega grátis em Luanda</b><span>Em compras a partir de ${kz(FREE_FROM)}.</span></span></a>
+  <a class="perk" href="#ajuda"><span class="ic">${ico('shield')}</span><span><b>Multicaixa Express</b><span>Pague no telemóvel ou por referência.</span></span></a>
+  <a class="perk" href="#vender"><span class="ic">${ico('brief')}</span><span><b>Conta empresa</b><span>Proforma, factura com NIF e transferência.</span></span></a>
+ </div></section>
+
+ <section class="section tight"><div class="wrap">
+  <div class="sec-head"><h2>Categorias populares</h2><button class="link" type="button" id="allCats">Ver todas</button></div>
+  <div class="circles">${[1,2,14,16,6,11,21,25].map(c=>`<a class="circle" href="#cat-${c}"><span class="th"><img src="${CATS[c][1]}" alt="" loading="lazy"></span><span class="lb">${CATS[c][0]}</span></a>`).join('')}</div>
+ </div></section>
+
+ <section class="section tight"><div class="wrap">
+  <div class="sec-head"><div><h2>Mais vendidos</h2><p>Preços com IVA incluído. Escolha quantidade e acabamento na página de cada produto.</p></div><a class="link" href="#busca-best">Ver todos</a></div>
+  <div class="rail">${PRODUCTS.filter(p=>p.best).map(card).join('')}</div>
+ </div></section>
+
+ <section class="section tight" id="entrega"><div class="wrap split">
+  <div class="ph"><img src="img/parcel.jpg" alt="Estafeta entrega uma encomenda a um cliente" loading="lazy"></div>
+  <div class="tx"><h2>Entregamos nas 21 províncias</h2><p>Escolha onde quer receber e veja o custo e a data antes de encomendar. Em Luanda, a entrega standard é grátis a partir de ${kz(FREE_FROM)}.</p>
+   <div class="calc"><label class="sr" for="cProv">Província</label><select id="cProv">${Object.keys(PROVINCES).map(p=>`<option ${p===loc.prov?'selected':''}>${p}</option>`).join('')}</select><label class="sr" for="cMun">Município</label><select id="cMun"></select></div>
+   <div class="calc-out" id="calcOut"></div></div>
+ </div></section>
+
+ ${railSection('Cartões e papelaria',[1,7,9])}
+ <section class="section tight"><div class="wrap"><a class="ad" href="#loja-kp"><img src="img/hero-largeformat.jpg" alt="" loading="lazy"><span class="ad-tag">Publicidade</span><div><div class="by">Kianda Print, Talatona</div><h3>Lonas e roll-ups prontos em 24 horas</h3><p>Impressão em grande formato com montagem incluída em Luanda. 20% de desconto em encomendas acima de 10 m².</p></div><span class="btn btn-white">Ver a loja</span></a></div></section>
+ ${railSection('Comunicação visual',[3,14,19,4])}
+ ${railSection('Brindes, têxtil e EPIs',[6,16,25])}
+
+ <section class="section"><div class="wrap">
+  <div class="sec-head"><h2>Serviços para o seu projecto</h2></div>
+  <div class="services">
+   <a class="service" href="#prod-1"><span class="ic">${ico('cube')}</span><b>Studio 3D</b><span>Monte a sua arte, carregue o logótipo e veja o produto em 3D antes de encomendar.</span><span class="link">Experimentar no cartão de visita</span></a>
+   <a class="service" href="#ajuda"><span class="ic">${ico('file')}</span><b>Verificação de ficheiro</b><span>A gráfica confirma resolução, sangria e cores antes de imprimir, sem custo.</span><span class="link">Como preparar a arte</span></a>
+   <button class="service" type="button" data-chat><span class="ic">${ico('chat')}</span><b>Assistente PrintOn</b><span>Orçamentos, proformas e estado das encomendas, a qualquer hora.</span><span class="link">Abrir o assistente</span></button>
+   <a class="service" href="#vender"><span class="ic">${ico('store')}</span><b>Venda na PrintOn</b><span>Gráficas, papelarias e fornecedores chegam a clientes de todo o país.</span><span class="link">Registar a minha loja</span></a>
+  </div></div></section>
+
+ <section class="section tight"><div class="wrap">
+  <div class="sec-head"><h2>Como funciona</h2></div>
+  <div class="steps">
+   <div class="step"><span class="n">1</span><b>Escolha e configure</b><p>Formato, papel, acabamento e quantidade. O preço actualiza na hora.</p></div>
+   <div class="step"><span class="n">2</span><b>Envie a arte</b><p>Carregue o seu ficheiro ou monte a arte no Studio 3D.</p></div>
+   <div class="step"><span class="n">3</span><b>Pague com segurança</b><p>Multicaixa Express, referência ou transferência para empresas.</p></div>
+   <div class="step"><span class="n">4</span><b>Receba</b><p>Acompanhe a produção e a entrega até à sua porta.</p></div>
+  </div></div></section>
+
+ <section class="section tight"><div class="wrap"><div class="news"><div><h3>Receba as promoções primeiro</h3><p>Descontos e novidades para clientes PrintOn, uma vez por semana.</p></div><form id="newsForm"><label class="sr" for="newsMail">Email</label><input id="newsMail" type="email" required placeholder="O seu email"><button class="btn btn-ink" type="submit">Subscrever</button></form></div></div></section>
+
+ <section class="section"><div class="wrap seo">
+  <h3>Gráfica online em Angola</h3><p>A PrintOn reúne gráficas, papelarias e fornecedores verificados numa só plataforma. Empresas, escolas, igrejas, restaurantes e profissionais compram cartões de visita, flyers, lonas, roll-ups, embalagens, brindes e fardamento com preço visível e entrega em todo o país.</p>
+  <h3>Preço na hora, sem esperar por orçamento</h3><p>Cada produto mostra o preço por quantidade e por unidade. Ao escolher papel, acabamento ou prazo, o valor actualiza imediatamente. Para pedidos especiais, o assistente compara propostas de várias gráficas.</p>
+  <h3>Entrega em Luanda e nas províncias</h3><p>Em Luanda há entrega standard, expresso por motoboy e recolha na gráfica. Para as outras províncias trabalhamos com transportadoras e agências parceiras, com custo e data calculados antes do pagamento.</p>
+  <h3>Factura e proforma para empresas</h3><p>Peça uma factura-proforma antes de pagar e receba a factura com NIF depois da compra. Empresas podem pagar por transferência bancária.</p>
+ </div></section>`;
+ const sl=$$('.slide'),dots=$$('.dots button');
+ const go=i=>{slideI=(i+sl.length)%sl.length;sl.forEach((s,j)=>{s.classList.toggle('on',j===slideI);s.setAttribute('aria-hidden',j!==slideI)});dots.forEach((d,j)=>{d.classList.remove('on');d.classList.toggle('done',j<slideI);void d.offsetWidth;if(j===slideI)d.classList.add('on')})};
+ const auto=()=>{clearInterval(slideT);if(!matchMedia('(prefers-reduced-motion:reduce)').matches)slideT=setInterval(()=>go(slideI+1),6000)};
+ dots.forEach(d=>d.onclick=()=>{go(+d.dataset.slide);auto()});$$('[data-step]').forEach(b=>b.onclick=()=>{go(slideI+ +b.dataset.step);auto()});slideI=0;auto();
+ $('#allCats').onclick=()=>{scrollTo({top:0,behavior:'smooth'});$('#mega').hidden=false};
+ const fillMun=()=>{const p=$('#cProv').value;$('#cMun').innerHTML=PROVINCES[p].map(m=>`<option ${p===loc.prov&&m===loc.mun?'selected':''}>${m}</option>`).join('')};
+ const out=()=>{const l={prov:$('#cProv').value,mun:$('#cMun').value};$('#calcOut').innerHTML=deliveryOptions(l,0,2).map(o=>`<div class="dopt"><div><b>${o.name}</b><span>${esc(o.desc)} · chega ${fmtDate(addDays(o.days))}</span></div><strong class="${o.price?'':'free'}">${o.price?kz(o.price):'Grátis'}</strong></div>`).join('')+`<p class="muted" style="font-size:12.5px">Datas para produtos com 2 dias úteis de produção. <button class="link" type="button" id="useLoc">Usar esta localização</button></p>`;
+  $('#useLoc').onclick=()=>{setLoc(l);toast('Entrega definida para '+locLabel())}};
+ $('#cProv').onchange=()=>{fillMun();out()};$('#cMun').onchange=out;fillMun();out();
+ $('#newsForm').onsubmit=e=>{e.preventDefault();e.target.reset();toast('Subscrição registada')};
+}
+
+/* ================= listing ================= */
+const F={sellers:new Set(),max:'',lead:'',sort:'rel'};
+function renderList(kind,arg){
+ let base,title,sub='',crumbs='';
+ if(kind==='cat'){base=PRODUCTS.filter(p=>p.cat===arg);title=CATS[arg][0];const g=GROUPS.find(g=>g[1].includes(arg));crumbs=`<span>${g[0]}</span>${ico('right','s')}`}
+ else if(kind==='seller'){base=PRODUCTS.filter(p=>p.offers.some(o=>o.s===arg));const s=SELLERS[arg];title=s.name;sub=`${s.city} · avaliação ${rate(s.rating)} · responde em ${s.resp}`}
+ else if(kind==='best'){base=PRODUCTS.filter(p=>p.best);title='Mais vendidos'}
+ else{const q=$('#q').value.trim();base=q?searchProducts(q):PRODUCTS;title=q?`Resultados para “${q}”`:'Todos os produtos'}
+ const g=kind==='cat'&&GROUPS.find(g=>g[1].includes(arg));
+ $('#view').innerHTML=`<div class="wrap"><nav class="crumbs"><a href="#home">Início</a>${ico('right','s')}${crumbs}<span>${esc(title)}</span></nav>
+ <div class="lhead"><div><h1>${esc(title)}</h1><p id="rc">${esc(sub)}</p></div><div class="sort">${kind==='seller'?`<button class="btn btn-ink btn-sm" type="button" data-msg="${arg}">${ico('chat','s')}Mensagem à loja</button>`:''}<button class="btn btn-line btn-sm ftoggle" type="button" id="ft">${ico('filter','s')}Filtros</button><label for="sortSel">Ordenar por</label><select id="sortSel"><option value="rel">Relevância</option><option value="pa">Menor preço</option><option value="pd">Maior preço</option><option value="rt">Melhor avaliação</option></select></div></div>
+ <div class="listing"><aside class="filters" id="filters">
+  ${g?`<div><h4>${g[0]}</h4>${g[1].map(c=>`<label><input type="radio" name="fc" ${c===arg?'checked':''} data-go="#cat-${c}">${CATS[c][0]}<span class="n">${PRODUCTS.filter(p=>p.cat===c).length}</span></label>`).join('')}</div>`:''}
+  <div><h4>Preço inicial até</h4>${[['','Qualquer preço'],['25000','25 000 Kz'],['50000','50 000 Kz'],['100000','100 000 Kz']].map(([v,l])=>`<label><input type="radio" name="fmax" value="${v}" ${F.max===v?'checked':''}>${l}</label>`).join('')}</div>
+  <div><h4>Produção</h4>${[['','Qualquer prazo'],['2','Até 2 dias úteis'],['1','Em 1 dia útil']].map(([v,l])=>`<label><input type="radio" name="flead" value="${v}" ${F.lead===v?'checked':''}>${l}</label>`).join('')}</div>
+  <div><h4>Gráfica ou loja</h4>${Object.entries(SELLERS).map(([k,s])=>`<label><input type="checkbox" value="${k}" data-fs ${F.sellers.has(k)?'checked':''}>${s.name}</label>`).join('')}</div>
+  <a class="ad-side" href="#loja-sp"><img src="img/workers.jpg" alt="" loading="lazy"><span class="ad-tag">Publicidade</span><b>Fardamento e EPIs com o seu logótipo</b><span>SegurPro EPI, Lobito. Entrega em todo o país.</span></a>
+ </aside><div class="grid" id="res"></div></div></div>`;
+ $('#sortSel').value=F.sort;$('#ft').onclick=()=>$('#filters').classList.toggle('open');
+ $('#filters').onchange=e=>{const t=e.target;if(t.dataset.go){location.hash=t.dataset.go;return}if(t.name==='fmax')F.max=t.value;if(t.name==='flead')F.lead=t.value;if('fs' in t.dataset)t.checked?F.sellers.add(t.value):F.sellers.delete(t.value);apply()};
+ $('#sortSel').onchange=e=>{F.sort=e.target.value;apply()};
+ function apply(){let r=base.filter(p=>(!F.max||p.base<=+F.max)&&(!F.lead||Math.min(...p.offers.map(o=>o.lead))<=+F.lead)&&(!F.sellers.size||p.offers.some(o=>F.sellers.has(o.s))));
+  if(F.sort==='pa')r=[...r].sort((a,b)=>a.base-b.base);if(F.sort==='pd')r=[...r].sort((a,b)=>b.base-a.base);if(F.sort==='rt')r=[...r].sort((a,b)=>b.rating-a.rating);
+  if(kind!=='seller')$('#rc').textContent=`${r.length} ${r.length===1?'produto':'produtos'} · entrega em ${locLabel()}`;
+  $('#res').innerHTML=r.length?r.map(card).join(''):`<div class="empty" style="grid-column:1/-1">${ico('search','l')}<h3>Nenhum produto encontrado</h3><p>Descreva o que precisa ao assistente. Ele procura no catálogo e nas gráficas por si.</p><button class="btn btn-ink btn-sm" type="button" data-chat>Falar com o assistente</button></div>`}
+ apply()}
+
+/* ================= product ================= */
+function renderProduct(id){const p=P(id);if(!p)return renderHome();
+ const groups=OPTS[p.type]||[];const qtys=QTYS[p.type];
+ const st={sel:groups.map(()=>0),q:p.min,offer:0,express:false,art:'upload',file:null};
+ const PRESETS=p.type==='card'?[['Económica','Couché mate, sem acabamento',[0,0,0,0]],['Recomendada','Couché mate com laminação',[0,0,0,1]],['Premium','Algodão 600 g, soft-touch',[0,3,0,2]]]:p.type==='flyer'&&p.cat===2?[['Económica','A6, couché 115 g',[0,0,0,0]],['Recomendada','A5, couché 150 g',[1,1,0,0]],['Premium','A4, couché 300 g',[2,2,0,0]]]:null;
+ const multOf=sel=>groups.reduce((m,g,i)=>m*(1+g[1][sel[i]][1]),1);
+ const offer=()=>p.offers[st.offer];
+ const total=q=>priceFor(p,q,multOf(st.sel),offer().f)*(st.express?1.3:1);
+
+ const lead=()=>Math.max(1,offer().lead-(st.express?1:0));
+ $('#view').innerHTML=`<div class="wrap"><nav class="crumbs"><a href="#home">Início</a>${ico('right','s')}<a href="#cat-${p.cat}">${CATS[p.cat][0]}</a>${ico('right','s')}<span>${esc(p.name)}</span></nav>
+ <div class="pdp">
+  <div class="gal"><div class="th">${p.gallery.map((g,i)=>`<button type="button" data-img="${g}" aria-pressed="${!i}" aria-label="Imagem ${i+1}"><img src="${g}" alt=""></button>`).join('')}</div><div class="main"><img id="mainImg" src="${p.gallery[0]}" alt="${esc(p.name)}"></div></div>
+  <div class="buy">
+   <h1>${esc(p.name)}</h1>
+   <div class="rate">${stars(p.rating,p.reviews+' avaliações')}<span>Produzido por <a class="link" href="#loja-${offer().s}" id="byLink">${esc(SELLERS[offer().s].name)}</a></span></div>
+   <p class="lead">${esc(p.desc)}</p>
+   <div class="pricehead"><b id="ph"></b><span id="phu"></span></div>
+   ${PRESETS?`<div class="presets">${PRESETS.map((x,i)=>`<button type="button" class="preset" data-preset="${i}" aria-pressed="${!i}"><b>${x[0]}</b><span>${x[1]}</span><em data-pp="${i}"></em></button>`).join('')}</div>`:''}
+   ${groups.map((g,gi)=>`<div class="og"><h4>${g[0]}</h4><div class="opts">${g[1].map((o,oi)=>`<button type="button" class="opt" data-g="${gi}" data-o="${oi}" aria-pressed="${!oi}">${o[0]}${o[1]?`<small>${o[1]>0?'+':'−'}${Math.round(Math.abs(o[1])*100)}%</small>`:''}</button>`).join('')}</div></div>`).join('')}
+   <div class="og"><h4>Quantidade <span>Quanto maior a quantidade, menor o preço por unidade</span></h4><div class="qtbl" id="qtbl"></div></div>
+   <div class="og"><h4>Prazo de produção</h4><div class="opts"><button type="button" class="opt" data-exp="0" aria-pressed="true">Normal<small id="leadN"></small></button><button type="button" class="opt" data-exp="1" aria-pressed="false">Expresso<small id="leadE"></small></button></div></div>
+   ${p.type!=='unit'?`<div class="og"><h4>Arte</h4><div class="art">
+    <label class="artopt"><input type="radio" name="art" value="upload" checked><span><b>Tenho a arte pronta</b><span>PDF, AI, PSD, CDR ou JPG em alta resolução. A gráfica verifica o ficheiro sem custo.</span><span class="upl"><span class="btn btn-line btn-sm" id="artPick" role="button" tabindex="0">${ico('upload','s')}Carregar ficheiro</span><span id="artName" class="muted">Também pode enviar depois da compra</span></span></span></label>
+    <input type="file" id="artFile" class="sr" accept=".pdf,.ai,.psd,.cdr,.jpg,.jpeg,.png">
+    <label class="artopt"><input type="radio" name="art" value="studio"><span><b>Criar a arte no Studio 3D</b><span id="studioSum">Monte o design, carregue o logótipo e veja o produto em 3D, de todos os ângulos.</span></span></label></div></div>`:''}
+   <div class="dlv"><div class="h"><b>${ico('truck','s')}Entrega em ${esc(locLabel())}</b><button class="link" type="button" data-loc>Alterar</button></div><div id="dlvOut"></div></div>
+   <div class="offers"><h4>Lojas que vendem este produto</h4>${p.offers.map((o,i)=>`<div class="offer ${i?'':'sel'}"><div class="who"><b>${SELLERS[o.s].name}</b><span>${SELLERS[o.s].city} · ${rate(SELLERS[o.s].rating)} · produção ${days(o.lead)}</span></div><strong data-op="${i}"></strong><button class="btn btn-line btn-sm" type="button" data-pick="${i}">${i?'Escolher':'Seleccionada'}</button></div>`).join('')}</div>
+   <div class="buybox"><div class="tot"><div><span>Total com IVA</span><br><b id="tot"></b></div><span id="totU" style="text-align:right"></span></div>
+    <div class="row"><button class="btn btn-ink" type="button" id="addBtn">${ico('cart','s')}Adicionar ao carrinho</button><button class="icon-btn fav" type="button" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Guardar" style="border:1.5px solid var(--line-2)">${ico('heart')}</button></div>
+    <button class="link" type="button" id="askShop" style="justify-self:center;font-size:13.5px">Tem dúvidas? Fale com a loja</button></div>
+  </div></div>
+ <div class="ptabs" role="tablist"><button role="tab" aria-selected="true" data-tab="spec">Especificações</button><button role="tab" aria-selected="false" data-tab="desc">Descrição</button><button role="tab" aria-selected="false" data-tab="faq">Perguntas frequentes</button>${p.type!=='unit'?'<button role="tab" aria-selected="false" data-tab="tpl">Modelos de arte</button>':''}</div>
+ <div id="panel"></div>
+ <section class="section tight"><div class="sec-head"><h2>Também pode interessar</h2></div><div class="rail">${PRODUCTS.filter(x=>x.cat===p.cat&&x.id!==p.id).concat(PRODUCTS.filter(x=>x.best&&x.cat!==p.cat)).slice(0,8).map(card).join('')}</div></section></div>`;
+
+ function draw(){const q=st.q,t=total(q);
+  $('#ph').textContent=kz(total(q));$('#phu').textContent=`${num(q)} ${q===1?'unidade':'unidades'}${q>1?' · '+kz2(total(q)/q)+' por unidade':''}`;
+  $('#qtbl').innerHTML=qtys.map(x=>{const lin=total(p.min)/p.min*x;const d=Math.round((1-total(x)/lin)*100);return `<button type="button" class="qrow" data-q="${x}" aria-pressed="${x===q}"><span>${num(x)} ${x===1?'unidade':'unidades'}<br><span class="u">${kz2(total(x)/x)} por unidade</span></span><span class="d">${d>0?'−'+d+'%':''}</span><span class="t">${kz(total(x))}</span></button>`}).join('')+`<div class="qmore"><label for="qc">Outra quantidade</label><input id="qc" inputmode="numeric" value="${qtys.includes(q)?'':q}" placeholder="Ex.: ${num(qtys[1]*3)}"></div>`;
+  $$('#qtbl [data-q]').forEach(b=>b.onclick=()=>{st.q=+b.dataset.q;draw()});
+  $('#qc').onchange=e=>{const v=parseInt(String(e.target.value).replace(/\D/g,''));if(v>=p.min){st.q=v;draw()}else{e.target.value='';toast('A quantidade mínima é '+num(p.min))}};
+  $('#tot').textContent=kz(t);$('#totU').innerHTML=`${num(q)} un. · ${esc(SELLERS[offer().s].name)}<br>produção ${days(lead())}`;
+  $('#leadN').textContent=days(offer().lead);$('#leadE').textContent=days(Math.max(1,offer().lead-1))+' · +30%';
+  $$('[data-op]').forEach(el=>{const o=p.offers[+el.dataset.op];el.textContent=kz(priceFor(p,q,multOf(st.sel),o.f)*(st.express?1.3:1))});
+  if(PRESETS)$$('[data-pp]').forEach(el=>{el.textContent=kz(priceFor(p,q,multOf(PRESETS[+el.dataset.pp][2]),offer().f))});
+  $('#dlvOut').innerHTML=deliveryOptions(loc,cartSub()+t,lead()).slice(0,2).map(o=>`<div style="display:flex;justify-content:space-between;gap:10px"><span>${o.name}, chega <b>${fmtDate(addDays(o.days))}</b></span><span class="${o.price?'':'free'}">${o.price?kz(o.price):'Grátis'}</span></div>`).join('')}
+ $$('.opt[data-g]').forEach(b=>b.onclick=()=>{const g=+b.dataset.g;st.sel[g]=+b.dataset.o;$$(`.opt[data-g="${g}"]`).forEach(x=>x.setAttribute('aria-pressed',x===b));$$('[data-preset]').forEach(x=>x.setAttribute('aria-pressed',PRESETS[+x.dataset.preset][2].join()===st.sel.join()));draw()});
+ $$('[data-preset]').forEach(b=>b.onclick=()=>{st.sel=[...PRESETS[+b.dataset.preset][2]];$$('[data-preset]').forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.opt[data-g]').forEach(x=>x.setAttribute('aria-pressed',st.sel[+x.dataset.g]===+x.dataset.o));draw()});
+ $$('[data-exp]').forEach(b=>b.onclick=()=>{st.express=b.dataset.exp==='1';$$('[data-exp]').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()});
+ $$('[data-pick]').forEach(b=>b.onclick=()=>{st.offer=+b.dataset.pick;$$('.offer').forEach((x,i)=>x.classList.toggle('sel',i===st.offer));$$('[data-pick]').forEach((x,i)=>x.textContent=i===st.offer?'Seleccionada':'Escolher');$('#byLink').textContent=SELLERS[offer().s].name;$('#byLink').href='#loja-'+offer().s;draw()});
+ $$('[data-img]').forEach(b=>b.onclick=()=>{$('#mainImg').src=b.dataset.img;$$('[data-img]').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+ const onStudio=d=>{st.art='studio';st.design=d.title;$('input[name=art][value=studio]').checked=true;$('#studioSum').innerHTML=`Design guardado: ${esc(d.title)}. <button class="link" type="button" id="reStudio">Editar no Studio 3D</button>`;$('#reStudio').onclick=e=>{e.preventDefault();openStudio(p,onStudio)}};
+ $$('input[name=art]').forEach(r=>r.onchange=()=>{st.art=r.value;if(r.value==='studio')openStudio(p,onStudio);draw()});
+ const pick=$('#artPick');if(pick){const f=$('#artFile');pick.onclick=e=>{e.preventDefault();f.click()};pick.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();f.click()}};
+  f.onchange=()=>{st.file=f.files[0]?.name||null;$('#artName').textContent=st.file?st.file+' · a gráfica verifica antes de imprimir':'Também pode enviar depois da compra';$('input[name=art][value=upload]').checked=true;st.art='upload';draw()}}
+ $('#askShop').onclick=()=>openThread(offer().s,`Olá, tenho uma dúvida sobre ${p.name}: `);
+ $('#addBtn').onclick=()=>{addToCart({id:p.id,qty:st.q,mult:multOf(st.sel)*(st.express?1.3:1),f:offer().f,s:offer().s,opts:groups.map((g,i)=>g[1][st.sel[i]][0]).concat(st.express?['Expresso']:[]),lead:lead(),art:st.art==='studio'?'Arte do Studio 3D'+(st.design?': '+st.design:''):st.file||'Arte a enviar'});openCart()};
+ const tab=t=>{$$('[data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
+  const spec=[['Categoria',CATS[p.cat][0]],...groups.map(g=>[g[0],g[1].map(o=>o[0]).join(', ')]),['Quantidade mínima',num(p.min)+(p.min===1?' unidade':' unidades')],['Produção',`${Math.min(...p.offers.map(o=>o.lead))} a ${days(Math.max(...p.offers.map(o=>o.lead)))}`],...(p.type!=='unit'?[['Ficheiro','PDF em CMYK, 300 dpi, 3 mm de sangria']]:[])];
+  $('#panel').innerHTML=t==='spec'?`<div class="ppanel"><dl class="spec">${spec.map(r=>`<div><dt>${r[0]}</dt><dd>${esc(r[1])}</dd></div>`).join('')}</dl><div class="txt"><p>Os preços incluem IVA. O valor final depende das opções escolhidas e da loja que produz o pedido.</p></div></div>`
+  :t==='desc'?`<div class="ppanel"><div class="txt"><p>${esc(p.desc)}</p><p>Na PrintOn, cada pedido é produzido por uma gráfica ou fornecedor verificado. Antes da produção, a arte é revista: se faltar sangria ou a resolução for baixa, recebe uma mensagem para corrigir sem custo.</p><p>Depois de pagar, acompanha o estado do pedido em cada etapa até à entrega.</p></div><div></div></div>`
+  :t==='faq'?`<div class="ppanel faq"><div>${[['Qual é o prazo de entrega?','O prazo é a soma da produção com a entrega. Em Luanda, a entrega standard demora 1 dia útil depois da produção; o expresso entrega no próprio dia.'],['Posso ver uma prova antes de imprimir?','Sim. A gráfica envia uma prova digital por mensagem e só imprime depois da sua aprovação.'],['Como recebo a factura?','A factura-recibo é emitida após o pagamento. Pode pedir uma proforma antes, no carrinho ou no assistente.'],['Posso devolver?','Produtos com defeito de produção são reimpressos ou reembolsados. Peças personalizadas sem defeito não têm devolução.']].map(q=>`<details><summary>${q[0]}</summary><p>${q[1]}</p></details>`).join('')}</div><div></div></div>`
+  :`<div class="ppanel"><div class="txt"><p>Use os modelos com as medidas certas, margens de segurança e sangria. Estão disponíveis em PDF, Illustrator, Photoshop e Canva para o formato escolhido.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">${['PDF','Illustrator','Photoshop','Canva'].map(f=>`<button class="btn btn-line btn-sm" type="button" data-tpl="${f}">${ico('file','s')}${f}</button>`).join('')}</div></div><div></div></div>`;
+  $$('[data-tpl]').forEach(b=>b.onclick=()=>toast('Modelo '+b.dataset.tpl+' para '+(groups[0]?.[1][st.sel[0]][0]||p.name)))};
+ $$('[data-tab]').forEach(b=>b.onclick=()=>tab(b.dataset.tab));tab('spec');draw();
+}
+
+/* ================= cart & checkout ================= */
+function openCart(){renderCart();openPanel('#cartDrawer')}
+function renderCart(){const d=$('#cartDrawer');const sub=cartSub();
+ d.innerHTML=`<div class="dh"><h3>Carrinho (${cart.length})</h3><button class="icon-btn" type="button" data-close aria-label="Fechar">${ico('x')}</button></div>
+ <div class="db">${cart.length?cart.map((l,i)=>{const p=P(l.id);return `<div class="line"><img src="${p.img}" alt=""><div><h4>${esc(p.name)}</h4><div class="sub">${num(l.qty)} un.${l.opts?.length?' · '+esc(l.opts.join(', ')):''}</div><div class="sub">${esc(SELLERS[l.s||p.offers[0].s].name)} · ${esc(l.art||'')}</div><div class="ctl"><a href="#${p.id}" data-close>Ver produto</a><button type="button" data-rm="${i}">Remover</button></div></div><div class="p">${kz(lineTotal(l))}</div></div>`}).join('')
+  :`<div class="empty" style="margin-top:12px">${ico('cart','l')}<h3>O carrinho está vazio</h3><p>Escolha um produto ou peça um orçamento ao assistente.</p><a class="btn btn-ink btn-sm" href="#busca-best" data-close>Ver mais vendidos</a></div>`}</div>
+ ${cart.length?`<div class="df"><div class="sum"><div><span>Subtotal com IVA</span><b>${kz(sub)}</b></div><div class="muted"><span>Entrega para ${esc(locLabel())}</span><span>no pagamento</span></div></div>${loc.prov==='Luanda'&&sub<FREE_FROM?`<p class="muted" style="font-size:13px">Faltam ${kz(FREE_FROM-sub)} para a entrega grátis em Luanda.</p>`:''}<a class="btn btn-ink btn-block" href="#checkout" data-close>Finalizar compra</a><button class="btn btn-line btn-block" type="button" data-say="Quero uma factura-proforma do meu carrinho">Pedir factura-proforma</button></div>`:''}`;
+ $$('[data-rm]',d).forEach(b=>b.onclick=()=>{cart.splice(+b.dataset.rm,1);saveCart();renderCart()})}
+let coupon='';
+function renderCheckout(){if(!cart.length){location.hash='home';return}
+ const sub=cartSub();const prodDays=Math.max(...cart.map(l=>l.lead||2));
+ $('#view').innerHTML=`<div class="wrap"><nav class="crumbs"><a href="#home">Início</a>${ico('right','s')}<span>Finalizar compra</span></nav><div class="lhead"><h1>Finalizar compra</h1></div>
+ <form class="co" id="coForm"><div>
+  <section class="co-step"><h2><i>1</i>Os seus dados</h2><div class="frow"><div class="field"><label for="cName">Nome completo</label><input id="cName" required autocomplete="name" value="${esc(billing.name)}"></div><div class="field"><label for="cPhone">Telemóvel</label><input id="cPhone" required inputmode="tel" autocomplete="tel" placeholder="9XX XXX XXX" value="${esc(billing.phone)}"></div></div><div class="frow"><div class="field"><label for="cMail">Email</label><input id="cMail" type="email" autocomplete="email" value="${esc(billing.email)}" placeholder="Para receber a factura"></div><div class="field"><label for="cNif">NIF (opcional)</label><input id="cNif" inputmode="numeric" value="${esc(billing.nif)}" placeholder="Para factura em nome da empresa"></div></div></section>
+  <section class="co-step"><h2><i>2</i>Entrega</h2><div class="frow"><div class="field"><label for="dProv">Província</label><select id="dProv">${Object.keys(PROVINCES).map(p=>`<option ${p===loc.prov?'selected':''}>${p}</option>`).join('')}</select></div><div class="field"><label for="dMun">Município</label><select id="dMun"></select></div></div>
+   <div class="field"><label for="dAddr">Morada</label><textarea id="dAddr" required placeholder="Bairro, rua, número do prédio ou casa e um ponto de referência"></textarea></div>
+   <div id="dOpts" style="display:grid;gap:8px"></div></section>
+  <section class="co-step"><h2><i>3</i>Pagamento</h2>
+   <label class="radio"><input type="radio" name="pay" value="mcx" checked><span class="g"><b>Multicaixa Express</b><span>Recebe a notificação no telemóvel e confirma com o PIN.</span></span></label>
+   <label class="radio"><input type="radio" name="pay" value="ref"><span class="g"><b>Referência Multicaixa</b><span>Pague num ATM ou no homebanking em 48 horas.</span></span></label>
+   <label class="radio"><input type="radio" name="pay" value="tr"><span class="g"><b>Transferência bancária</b><span>Para empresas. A produção começa após o comprovativo.</span></span></label></section>
+ </div>
+ <aside class="co-sum"><h3>Resumo do pedido</h3>${cart.map(l=>{const p=P(l.id);return `<div style="display:flex;gap:10px;justify-content:space-between;font-size:14px"><span>${esc(p.name)}<br><span class="muted">${num(l.qty)} un. · ${esc(SELLERS[l.s].name)}</span></span><b>${kz(lineTotal(l))}</b></div>`}).join('')}
+  <div class="coupon"><label class="sr" for="cp">Código de desconto</label><input id="cp" placeholder="Código de desconto" value="${esc(coupon)}"><button class="btn btn-line btn-sm" type="button" id="cpBtn">Aplicar</button></div>
+  <div class="sum" id="coSum"></div><button class="btn btn-ink btn-block" type="submit" id="payBtn">Pagar</button><p class="muted" style="font-size:12.5px;text-align:center">Protótipo: nenhum pagamento é processado.</p></aside></form></div>`;
+ const fill=()=>{const p=$('#dProv').value;$('#dMun').innerHTML=PROVINCES[p].map(m=>`<option ${p===loc.prov&&m===loc.mun?'selected':''}>${m}</option>`).join('')};
+ const totals=()=>{const dl=$('input[name=dl]:checked');const ship=+dl.dataset.price;const disc=coupon==='PRIMEIRA10'?Math.round(sub*.1):0;const tot=sub-disc+ship;
+  $('#coSum').innerHTML=`<div><span>Subtotal</span><span>${kz(sub)}</span></div>${disc?`<div class="free"><span>Desconto PRIMEIRA10</span><span>−${kz(disc)}</span></div>`:''}<div><span>Entrega</span><span>${ship?kz(ship):'Grátis'}</span></div><div class="muted"><span>Inclui IVA (14%)</span><span>${kz(tot-tot/1.14)}</span></div><div class="g"><span>Total</span><span>${kz(tot)}</span></div>`;$('#payBtn').textContent='Pagar '+kz(tot);return tot};
+ const opts=()=>{const l={prov:$('#dProv').value,mun:$('#dMun').value};const cur=$('input[name=dl]:checked')?.value||'std';const os=deliveryOptions(l,sub,prodDays);const pickId=os.some(o=>o.id===cur)?cur:os[0].id;
+  $('#dOpts').innerHTML=os.map(o=>`<label class="radio"><input type="radio" name="dl" value="${o.id}" ${o.id===pickId?'checked':''} data-price="${o.price}" data-days="${o.days}" data-name="${o.name}"><span class="g"><b>${o.name}</b><span>${esc(o.desc)} · chega ${fmtDate(addDays(o.days))}</span></span><strong class="${o.price?'':'free'}">${o.price?kz(o.price):'Grátis'}</strong></label>`).join('');totals()};
+ $('#dProv').onchange=()=>{fill();opts()};$('#dMun').onchange=opts;$('#dOpts').onchange=totals;fill();opts();
+ $('#cpBtn').onclick=()=>{const v=$('#cp').value.trim().toUpperCase();if(v==='PRIMEIRA10'){coupon=v;toast('Desconto de 10% aplicado')}else{coupon='';toast('Código inválido ou expirado')}totals()};
+ $('#coForm').onsubmit=e=>{e.preventDefault();Object.assign(billing,{name:$('#cName').value.trim(),phone:$('#cPhone').value.trim(),email:$('#cMail').value.trim(),nif:$('#cNif').value.trim()});store.set('billing',billing);
+  setLoc({prov:$('#dProv').value,mun:$('#dMun').value});const dl=$('input[name=dl]:checked');const tot=totals();
+  orders.unshift({n:'PO-'+String(Date.now()).slice(-6),total:tot,ship:+dl.dataset.price,eta:fmtDate(addDays(+dl.dataset.days)),dl:dl.dataset.name,loc:locLabel(),items:cart.map(l=>({name:P(l.id).name,qty:l.qty,total:lineTotal(l)}))});
+  store.set('orders',orders);cart=[];coupon='';saveCart();location.hash='pedido'}}
+const TRACK=[['Pagamento confirmado','Multicaixa Express'],['Verificação da arte','A gráfica revê o ficheiro'],['Em produção','Impressão e acabamento'],['Expedido','Com o estafeta ou a transportadora'],['Entregue','Na morada indicada']];
+const timeline=(at=1)=>`<div class="timeline">${TRACK.map((s,i)=>`<div class="tl ${i<at?'done':i===at?'now':''}"><i>${i<at?ico('check','s'):''}</i><div><b>${s[0]}</b><p>${s[1]}</p></div></div>`).join('')}</div>`;
+function renderOrder(){const o=orders[0];if(!o){location.hash='home';return}
+ $('#view').innerHTML=`<div class="wrap" style="max-width:900px;padding-block:32px 40px"><div class="co-step"><h1 style="font-size:28px">Pedido recebido</h1><p class="muted">Pedido <b style="color:var(--ink)">${o.n}</b> · ${kz(o.total)} · ${esc(o.dl)} para ${esc(o.loc)} · previsão ${o.eta}</p>${timeline(1)}
+ <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ink" type="button" data-say="Quero a factura-recibo do pedido ${o.n}">${ico('file','s')}Pedir factura-recibo</button><a class="btn btn-line" href="#home">Continuar a comprar</a></div></div></div>`}
+
+/* ================= panels ================= */
+function openPanel(sel){closePanels();$(sel).classList.add('on');$('#scrim').classList.add('on');document.body.style.overflow='hidden'}
+function closePanels(){if(aiCtl&&$('#chatDrawer').classList.contains('on')){}$$('.drawer.on,.modal.on').forEach(x=>x.classList.remove('on'));$('#scrim').classList.remove('on');document.body.style.overflow=''}
+$('#scrim').onclick=closePanels;document.addEventListener('keydown',e=>{if(e.key==='Escape')closePanels()});
+function openLocModal(){const m=$('#modalBox');m.className='box';m.innerHTML=`<div class="dh"><h3>Onde quer receber?</h3><button class="icon-btn" type="button" data-close aria-label="Fechar">${ico('x')}</button></div>
+ <form class="db" id="locForm" style="display:grid;gap:14px"><p class="muted">O custo e a data de entrega dependem da província e do município.</p><div class="field"><label for="lProv">Província</label><select id="lProv">${Object.keys(PROVINCES).map(p=>`<option ${p===loc.prov?'selected':''}>${p}</option>`).join('')}</select></div><div class="field"><label for="lMun">Município</label><select id="lMun"></select></div><div id="lOut" style="display:grid;gap:8px"></div><button class="btn btn-ink" type="submit">Guardar localização</button></form>`;
+ const out=()=>{$('#lOut').innerHTML=deliveryOptions({prov:$('#lProv').value,mun:$('#lMun').value},0,2).map(o=>`<div class="dopt"><div><b>${o.name}</b><span>${esc(o.desc)}</span></div><strong class="${o.price?'':'free'}">${o.price?kz(o.price):'Grátis'}</strong></div>`).join('')};
+ const fill=()=>{const p=$('#lProv').value;$('#lMun').innerHTML=PROVINCES[p].map(x=>`<option ${p===loc.prov&&x===loc.mun?'selected':''}>${x}</option>`).join('');out()};
+ $('#lProv').onchange=fill;$('#lMun').onchange=out;fill();
+ $('#locForm').onsubmit=e=>{e.preventDefault();setLoc({prov:$('#lProv').value,mun:$('#lMun').value});closePanels();toast('Entrega em '+locLabel());route(true)};
+ openPanel('#modal')}
+
+/* ================= studio 3D ================= */
+const studioDesigns={};
+function shapeOf(p){if(p.type==='large')return /Roll-up|X-Banner/.test(p.name)?[85,200,3]:/Placa/.test(p.name)?[150,100,5]:[200,100,1];
+ return {card:[85,55,2],flyer:[148,210,1],book:[148,210,12],tfc:[148,210,16],sticker:[100,100,1],merch:[140,100,1],tex:[120,140,1],epi:[120,140,1],pack:[180,120,110]}[p.type]||[148,210,1]}
+function openStudio(p,onSave){
+ const isCard=p.type==='card';const labels=isCard?['Nome','Cargo','Contactos']:['Título','Subtítulo','Texto'];
+ const st=studioDesigns[p.id]||(studioDesigns[p.id]={bg:p.type==='pack'?'#C9B79C':'#121411',fg:p.type==='pack'?'#2A2117':'#FFFFFF',title:isCard?'Ana Domingos':'A sua marca',sub:isCard?'Directora Comercial':(p.type==='pack'?'Feito em Angola':'Qualidade que se vê'),body:isCard?'+244 923 000 000\nana@empresa.ao\nTalatona, Luanda':'www.suaempresa.ao\n+244 923 000 000',logo:null,img:null,align:'left',back:'logo'});
+ const [W0,H0,D0]=shapeOf(p);const sc=Math.min(380/W0,340/H0,p.type==='pack'?1.5:9);const W=W0*sc,H=H0*sc,D=Math.max(1,D0*sc);
+ const rot={x:-10,y:-24};
+ const m=$('#modalBox');m.className='box wide';m.innerHTML=`<div class="dh"><div><h3>Studio 3D</h3><span class="muted" style="font-size:13px">${esc(p.name)} · ${W0} × ${H0} mm</span></div><button class="icon-btn" type="button" data-close aria-label="Fechar">${ico('x')}</button></div>
+ <div class="studio"><div class="stage" id="stage"><span class="stage-hint">Arraste para rodar</span><div class="obj" id="obj" style="width:${W}px;height:${H}px"></div><span class="floor"></span>
+  <div class="stage-ctl"><button type="button" data-view="front" aria-pressed="true">Frente</button><button type="button" data-view="back" aria-pressed="false">Verso</button><button type="button" data-view="spin" aria-pressed="false">Girar 360°</button></div></div>
+ <form class="controls" id="stForm">
+  <div class="field"><span>Logótipo</span><div class="upl2"><label class="btn btn-line btn-sm" for="sLogo">${ico('upload','s')}Carregar logótipo</label><input id="sLogo" type="file" class="sr" accept="image/*"><button class="link" type="button" id="rmLogo" ${st.logo?'':'hidden'}>Remover</button></div></div>
+  <div class="field"><span>Imagem de fundo (opcional)</span><div class="upl2"><label class="btn btn-line btn-sm" for="sImg">${ico('upload','s')}Carregar imagem</label><input id="sImg" type="file" class="sr" accept="image/*"><button class="link" type="button" id="rmImg" ${st.img?'':'hidden'}>Remover</button></div></div>
+  <div class="field"><label for="sT">${labels[0]}</label><input id="sT" value="${esc(st.title)}"></div>
+  <div class="field"><label for="sS">${labels[1]}</label><input id="sS" value="${esc(st.sub)}"></div>
+  <div class="field"><label for="sB">${labels[2]}</label><textarea id="sB">${esc(st.body)}</textarea></div>
+  <div class="field"><span>Cores</span><div class="sw">${[['#121411','#FFFFFF'],['#FFFFFF','#121411'],['#D9FC00','#121411'],['#1D3B2A','#E9F5EC'],['#2B3A67','#FFFFFF'],['#B8341B','#FFFFFF'],['#C9B79C','#2A2117']].map(c=>`<button type="button" data-sw="${c}" style="background:${c[0]}" aria-pressed="${c[0]===st.bg}" aria-label="Fundo ${c[0]}"></button>`).join('')}</div></div>
+  <div class="field"><span>Alinhamento</span><div class="seg"><button type="button" data-al="left" aria-pressed="${st.align==='left'}">À esquerda</button><button type="button" data-al="center" aria-pressed="${st.align==='center'}">Ao centro</button></div></div>
+  <div class="field"><span>${p.type==='pack'?'Restantes faces':'Verso'}</span><div class="seg"><button type="button" data-bk="logo" aria-pressed="${st.back==='logo'}">Logótipo</button><button type="button" data-bk="plain" aria-pressed="${st.back==='plain'}">Cor lisa</button><button type="button" data-bk="same" aria-pressed="${st.back==='same'}">Igual à frente</button></div></div>
+  <p class="muted" style="font-size:12.5px">A gráfica recebe o ficheiro em CMYK a 300 dpi com 3 mm de sangria e envia uma prova antes de imprimir.</p>
+  <button class="btn btn-ink" type="submit">Guardar design</button></form></div>`;
+ const obj=$('#obj'),stage=$('#stage');
+ const fs=k=>Math.max(9,W*k);
+ const lgH=isCard?H*.22:H*.14;
+ const design=()=>{const bg=st.img?`background-image:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),url(${st.img});`:'';return `<div class="face design ${st.align==='center'?'center':''}" style="FACE;background-color:${st.bg};color:${st.fg};${bg}">
+  <div class="lg" style="height:${lgH}px;font-size:${fs(.045)}px">${st.logo?`<img src="${st.logo}" alt="">`:'LOGÓTIPO'}</div>
+  <div><div class="tt" style="font-size:${fs(isCard?.06:.085)}px">${esc(st.title)}</div><div class="st2" style="font-size:${fs(isCard?.032:.042)}px">${esc(st.sub)}</div></div>
+  <div class="bd" style="font-size:${fs(isCard?.027:.032)}px">${esc(st.body)}</div></div>`};
+ const back=()=>st.back==='same'?design():`<div class="face back" style="FACE;background-color:${st.bg};color:${st.fg}">${st.back==='logo'?`<div class="lg" style="height:${lgH*1.3}px;font-size:${fs(.05)}px;max-width:60%">${st.logo?`<img src="${st.logo}" alt="">`:'LOGÓTIPO'}</div>`:''}</div>`;
+ const edge=st.bg==='#FFFFFF'?'#E6E6E0':st.bg;
+ function draw(){
+  const r=p.type==='sticker'?'border-radius:50%;':isCard?'border-radius:'+(3*sc/4)+'px;':'';
+  const f=(w,h,l,t,tf)=>`width:${w}px;height:${h}px;left:${l}px;top:${t}px;transform:${tf};${r}`;
+  let html=design().replace('FACE',f(W,H,0,0,`translateZ(${D/2}px)`))+back().replace('FACE',f(W,H,0,0,`rotateY(180deg) translateZ(${D/2}px)`));
+  if(D>2&&p.type!=='sticker'){const side=p.type==='pack'&&st.back!=='plain'?(tf,w,h,l,t)=>back().replace('FACE',f(w,h,l,t,tf)):(tf,w,h,l,t)=>`<div class="face" style="${f(w,h,l,t,tf)}background:${p.type==='pack'?st.bg:edge};filter:brightness(.88)"></div>`;
+   html+=side(`rotateY(90deg) translateZ(${W/2}px)`,D,H,(W-D)/2,0)+side(`rotateY(-90deg) translateZ(${W/2}px)`,D,H,(W-D)/2,0)+side(`rotateX(90deg) translateZ(${H/2}px)`,W,D,0,(H-D)/2)+side(`rotateX(-90deg) translateZ(${H/2}px)`,W,D,0,(H-D)/2)}
+  obj.innerHTML=html;turn()}
+ const turn=()=>{obj.style.transform=`rotateX(${rot.x}deg) rotateY(${rot.y}deg)`};
+ let drag=null;
+ stage.onpointerdown=e=>{if(e.target.closest('.stage-ctl'))return;drag={x:e.clientX,y:e.clientY,rx:rot.x,ry:rot.y};stage.classList.add('drag');stage.classList.remove('spin');stage.setPointerCapture(e.pointerId)};
+ stage.onpointermove=e=>{if(!drag)return;rot.y=drag.ry+(e.clientX-drag.x)*.5;rot.x=Math.max(-60,Math.min(60,drag.rx-(e.clientY-drag.y)*.4));turn()};
+ stage.onpointerup=stage.onpointercancel=()=>{drag=null;stage.classList.remove('drag');$$('[data-view]').forEach(b=>b.setAttribute('aria-pressed','false'))};
+ $$('[data-view]').forEach(b=>b.onclick=()=>{const v=b.dataset.view;stage.classList.toggle('spin',v==='spin');const base=Math.round(rot.y/360)*360;
+  if(v==='front'){rot.x=-10;rot.y=base-24}else if(v==='back'){rot.x=-10;rot.y=base+156}else{rot.y+=360}
+  $$('[data-view]').forEach(x=>x.setAttribute('aria-pressed',x===b&&v!=='spin'));turn()});
+ const readImg=(input,key,rm)=>{input.onchange=()=>{const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{st[key]=r.result;$(rm).hidden=false;draw()};r.readAsDataURL(f)}};
+ readImg($('#sLogo'),'logo','#rmLogo');readImg($('#sImg'),'img','#rmImg');
+ $('#rmLogo').onclick=()=>{st.logo=null;$('#rmLogo').hidden=true;draw()};$('#rmImg').onclick=()=>{st.img=null;$('#rmImg').hidden=true;draw()};
+ $('#sT').oninput=e=>{st.title=e.target.value;draw()};$('#sS').oninput=e=>{st.sub=e.target.value;draw()};$('#sB').oninput=e=>{st.body=e.target.value;draw()};
+ $$('[data-sw]').forEach(b=>b.onclick=()=>{[st.bg,st.fg]=b.dataset.sw.split(',');$$('[data-sw]').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()});
+ $$('[data-al]').forEach(b=>b.onclick=()=>{st.align=b.dataset.al;$$('[data-al]').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()});
+ $$('[data-bk]').forEach(b=>b.onclick=()=>{st.back=b.dataset.bk;$$('[data-bk]').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()});
+ $('#stForm').onsubmit=e=>{e.preventDefault();closePanels();onSave&&onSave(st);toast('Design guardado no Studio 3D')};
+ draw();openPanel('#modal')}
+
+/* ================= assistant (Claude via the sample capability) ================= */
+let sample=null,aiState='loading';
+(window.claude?.use?window.claude.use('sample'):Promise.resolve(null)).then(s=>{sample=s;aiState=s?'on':'off';const n=$('#aiNote');if(n)n.textContent=aiNoteText()}).catch(()=>{aiState='off'});
+const aiNoteText=()=>aiState==='off'?'Modo básico: a IA completa funciona quando o site é aberto no Claude.':'Respostas geradas por IA a partir do catálogo, preços e entregas da PrintOn.';
+const aiTurns=[],chatLog=[];let aiCtl=null,chatTab='ai',curThread=null;
+const THREADS=[{id:'gc',unread:true,msgs:[{me:0,t:'Bom dia. A prova digital dos seus cartões está pronta. Pode confirmar a posição do logótipo?',at:'08:42'}]},{id:'kp',unread:true,msgs:[{me:0,t:'A lona de 5 × 2 m pode levar ilhós a cada 50 cm sem custo extra. Avançamos?',at:'Ontem'}]}];
+const now=()=>new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'});
+function rules(){return `És o assistente de vendas da PrintOn, um marketplace angolano que junta gráficas, papelarias, fornecedores de equipamentos gráficos e de EPIs. Falas com clientes no site.
+Regras:
+- Responde em português de Angola, com frases curtas, tom profissional e cordial. Nunca uses emojis.
+- Usa sempre as ferramentas para catálogo, preços, entregas, carrinho, proformas e encomendas. Nunca inventes preços, prazos ou produtos.
+- Preços em kwanzas, no formato 12 500 Kz. Os preços incluem IVA de 14%.
+- Para um orçamento precisas do produto e da quantidade. Se faltar, pergunta. Se o cliente indicar província ou município, usa set_delivery_location.
+- Só adiciona ao carrinho quando o cliente pedir ou confirmar. Para factura-proforma usa create_proforma; o documento aparece no chat, por isso resume-o numa frase.
+- Máximo de 6 linhas por resposta. Podes usar listas curtas com "-" e negrito com **.
+- Se pedirem algo fora do sector gráfico, explica com simpatia o que a PrintOn vende.
+Contexto agora: entrega em ${locLabel()}. Carrinho: ${cart.length?cart.map(l=>`${P(l.id).name}, ${l.qty} un., ${kz(lineTotal(l))}`).join('; '):'vazio'}. Último pedido: ${orders[0]?orders[0].n+', '+kz(orders[0].total):'nenhum'}.`}
+const findProv=s=>Object.keys(PROVINCES).find(k=>norm(k)===norm(s||''));
+const findMun=(pv,s)=>PROVINCES[pv].find(m=>s&&norm(m).includes(norm(s)));
+const TOOLS=[
+ {name:'search_catalog',description:'Procura produtos no catálogo PrintOn. Devolve até 6 produtos com id, nome, categoria, quantidade mínima, preço inicial e quantidades da tabela.',inputSchema:{type:'object',properties:{query:{type:'string',description:'Palavras-chave, por exemplo "cartão de visita" ou "colete"'}},required:['query']},
+  execute:({query})=>{const r=searchProducts(String(query||''),6);return r.length?r.map(p=>({id:p.id,nome:p.name,categoria:CATS[p.cat][0],qtd_minima:p.min,preco_inicial:kz(p.base),quantidades_tabela:QTYS[p.type]})):'Nenhum produto encontrado.'}},
+ {name:'get_price',description:'Preço total com IVA de um produto para uma quantidade, com as opções base, em cada loja que o vende. Devolve total, preço por unidade e dias úteis de produção.',inputSchema:{type:'object',properties:{product_id:{type:'string'},quantity:{type:'number'}},required:['product_id','quantity']},
+  execute:({product_id,quantity})=>{const p=P(String(product_id));if(!p)throw new Error('Produto inexistente');const q=Math.max(p.min,Math.round(+quantity||p.min));pushCard(p);return {produto:p.name,quantidade:q,ajustada_ao_minimo:q>+quantity,ofertas:p.offers.map(o=>({loja:SELLERS[o.s].name,total:kz(priceFor(p,q,1,o.f)),por_unidade:kz2(priceFor(p,q,1,o.f)/q),producao:days(o.lead)}))}}},
+ {name:'delivery_options',description:'Opções de entrega com custo e data estimada, para a localização actual do cliente ou para outra província e município de Angola.',inputSchema:{type:'object',properties:{province:{type:'string'},municipality:{type:'string'},production_days:{type:'number'}}},
+  execute:({province,municipality,production_days})=>{const pv=findProv(province)||loc.prov;const mu=findMun(pv,municipality)||(pv===loc.prov?loc.mun:PROVINCES[pv][0]);return {local:mu+', '+pv,opcoes:deliveryOptions({prov:pv,mun:mu},cartSub(),+production_days||2).map(o=>({nome:o.name,custo:o.price?kz(o.price):'Grátis',chega:fmtDate(addDays(o.days)),detalhe:o.desc}))}}},
+ {name:'set_delivery_location',description:'Define a província e o município de entrega do cliente no site.',inputSchema:{type:'object',properties:{province:{type:'string'},municipality:{type:'string'}},required:['province']},
+  execute:({province,municipality})=>{const pv=findProv(province);if(!pv)throw new Error('Província desconhecida. Válidas: '+Object.keys(PROVINCES).join(', '));setLoc({prov:pv,mun:findMun(pv,municipality)||PROVINCES[pv][0]});return 'Entrega definida para '+locLabel()}},
+ {name:'add_to_cart',description:'Adiciona um produto ao carrinho com a quantidade indicada, opções base e a loja com melhor preço.',inputSchema:{type:'object',properties:{product_id:{type:'string'},quantity:{type:'number'}},required:['product_id','quantity']},
+  execute:({product_id,quantity})=>{const p=P(String(product_id));if(!p)throw new Error('Produto inexistente');const q=Math.max(p.min,Math.round(+quantity||p.min));const o=[...p.offers].sort((a,b)=>a.f-b.f)[0];addToCart({id:p.id,qty:q,mult:1,f:o.f,s:o.s,opts:(OPTS[p.type]||[]).map(g=>g[1][0][0]),lead:o.lead,extra:0,art:'Arte a enviar'});return {adicionado:p.name+' × '+q,loja:SELLERS[o.s].name,total_carrinho:kz(cartSub()),itens:cart.length}}},
+ {name:'create_proforma',description:'Gera uma factura-proforma do carrinho actual e mostra-a no chat. Aceita NIF e nome do cliente.',inputSchema:{type:'object',properties:{nif:{type:'string'},client_name:{type:'string'}}},
+  execute:({nif,client_name})=>{if(!cart.length)throw new Error('O carrinho está vazio.');if(nif)billing.nif=String(nif);if(client_name)billing.name=String(client_name);store.set('billing',billing);const d=makeDoc('Factura-proforma');pushDoc(d);return {numero:d.num,total:kz(d.total),validade:'15 dias'}}},
+ {name:'order_status',description:'Estado da última encomenda do cliente, ou de uma encomenda pelo número PO-.',inputSchema:{type:'object',properties:{order_id:{type:'string'}}},
+  execute:({order_id})=>{const o=orders.find(x=>order_id&&x.n===String(order_id).toUpperCase())||orders[0];if(!o)return 'O cliente ainda não tem encomendas.';return {numero:o.n,total:kz(o.total),estado:'Arte verificada, em produção',entrega:o.dl+' para '+o.loc,previsao:o.eta}}},
+ {name:'request_invoice',description:'Emite a factura-recibo de uma encomenda paga e mostra-a no chat.',inputSchema:{type:'object',properties:{order_id:{type:'string'}}},
+  execute:({order_id})=>{const o=orders.find(x=>order_id&&x.n===String(order_id).toUpperCase())||orders[0];if(!o)throw new Error('Não há encomendas pagas.');const d=makeDoc('Factura-recibo',o);pushDoc(d);return {numero:d.num,total:kz(d.total)}}}];
+const STATUS={search_catalog:'A procurar no catálogo…',get_price:'A calcular preços…',delivery_options:'A calcular a entrega…',set_delivery_location:'A actualizar a localização…',add_to_cart:'A adicionar ao carrinho…',create_proforma:'A preparar a proforma…',order_status:'A consultar a encomenda…',request_invoice:'A emitir a factura…'};
+function makeDoc(type,o){const lines=o?o.items.map(i=>({name:i.name,qty:i.qty,total:i.total})).concat(o.ship?[{name:'Entrega',qty:1,total:o.ship}]:[]):cart.map(l=>({name:P(l.id).name,qty:l.qty,total:lineTotal(l)}));
+ return {type,num:(o?'FR':'FP')+' PO2026/'+String(Date.now()).slice(-5),date:new Date().toLocaleDateString('pt-PT'),client:billing.name||'Consumidor final',nif:billing.nif||'—',lines,total:lines.reduce((a,l)=>a+l.total,0),paid:!!o}}
+function docHTML(d){const base=d.total/1.14;return `<div class="doc"><div class="doc-h"><div><b>${d.type}</b><span>${d.num} · ${d.date}</span></div><div style="text-align:right"><b>${esc(d.client)}</b><span>NIF ${esc(d.nif)}</span></div></div><table><thead><tr><th>Descrição</th><th class="r">Qtd.</th><th class="r">Total</th></tr></thead><tbody>${d.lines.map(l=>`<tr><td>${esc(l.name)}</td><td class="r">${num(l.qty)}</td><td class="r">${kz(l.total)}</td></tr>`).join('')}</tbody></table><div class="t"><div><span>Base tributável</span><span>${kz(base)}</span></div><div><span>IVA 14%</span><span>${kz(d.total-base)}</span></div><div class="g"><span>Total</span><span>${kz(d.total)}</span></div></div><div class="doc-f">${d.paid?'<b class="free">Paga</b>':`<a class="btn btn-ink btn-sm" href="#checkout" data-close>Pagar agora</a><span class="muted" style="font-size:12px">Válida por 15 dias</span>`}</div></div>`}
+function pushDoc(d){chatLog.push({doc:d});drawLog()}
+function pushCard(p){if(chatLog.some(m=>m.card===p.id))return;chatLog.push({card:p.id});drawLog()}
+function md(t){const h=esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');const out=[];let list=null;h.split('\n').forEach(line=>{const m=line.match(/^\s*[-•]\s+(.*)/);if(m){if(!list){list=[];out.push(list)}list.push(m[1])}else{list=null;if(line.trim())out.push(line)}});return out.map(x=>Array.isArray(x)?`<ul>${x.map(i=>`<li>${i}</li>`).join('')}</ul>`:`<p>${x}</p>`).join('')}
+function openChat(tab='ai',prefill){chatTab=tab;if(tab==='ai')curThread=null;renderChat();openPanel('#chatDrawer');if(prefill&&tab==='ai')sendAI(prefill);else setTimeout(()=>{const t=$('#chatIn');if(t){if(prefill){t.value=prefill}t.focus()}},300)}
+function renderChat(){const d=$('#chatDrawer');const unread=THREADS.filter(t=>t.unread).length;
+ d.innerHTML=`<div class="dh"><h3>${chatTab==='ai'?'Assistente PrintOn':curThread?esc(SELLERS[curThread].name):'Mensagens das lojas'}</h3><button class="icon-btn" type="button" data-close aria-label="Fechar">${ico('x')}</button></div>
+ <div class="ctabs" role="tablist"><button role="tab" type="button" aria-selected="${chatTab==='ai'}" data-ct="ai">Assistente</button><button role="tab" type="button" aria-selected="${chatTab==='shops'}" data-ct="shops">Lojas${unread?`<span class="n">${unread}</span>`:''}</button></div>
+ ${chatTab==='ai'?`<div class="msgs" id="msgs"></div><form class="composer" id="composer"><label for="chatIn" class="sr">Mensagem</label><textarea id="chatIn" rows="1" placeholder="Ex.: quanto custam 500 cartões com entrega em Benguela?"></textarea><button class="send" type="submit" id="sendBtn" aria-label="Enviar">${ico('send','s')}</button></form><p class="ai-note" id="aiNote">${aiNoteText()}</p>`
+ :curThread?threadView():`<div class="threads" style="overflow:auto;flex:1">${THREADS.map(t=>`<button type="button" data-th="${t.id}">${logoBox(t.id)}<div><b>${esc(SELLERS[t.id].name)}<small>${t.msgs.at(-1).at}</small></b><p>${esc(t.msgs.at(-1).t)}</p></div>${t.unread?'<span class="u"></span>':''}</button>`).join('')}</div>`}`;
+ $$('[data-ct]',d).forEach(b=>b.onclick=()=>{chatTab=b.dataset.ct;curThread=null;renderChat()});
+ $$('[data-th]',d).forEach(b=>b.onclick=()=>{curThread=b.dataset.th;THREADS.find(t=>t.id===curThread).unread=false;renderChat()});
+ if(chatTab==='ai'){drawLog();setSend(!!aiCtl);const ta=$('#chatIn');ta.oninput=()=>{ta.style.height='auto';ta.style.height=Math.min(140,ta.scrollHeight)+'px'};ta.onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#composer').requestSubmit()}};
+  $('#composer').onsubmit=e=>{e.preventDefault();if(aiCtl){aiCtl.abort();return}const v=ta.value.trim();if(v)sendAI(v)}}
+ else if(curThread)bindThread()}
+function drawLog(){const box=$('#msgs');if(!box)return;
+ const intro=`<div class="msg"><p>Olá. Posso calcular preços, prazos e custos de entrega, comparar lojas, preparar uma factura-proforma ou ver o estado de uma encomenda.</p></div>${chatLog.length?'':`<div class="sugs">${['Quanto custam 500 cartões de visita?','Preciso de 30 coletes com logótipo','Quanto custa a entrega para Benguela?','Quero uma proforma do carrinho','Onde está a minha encomenda?'].map(s=>`<button type="button" data-sug>${s}</button>`).join('')}</div>`}`;
+ box.innerHTML=intro+chatLog.map(m=>m.doc?docHTML(m.doc):m.card?(p=>`<a class="pcard" href="#${p.id}" data-close><img src="${p.img}" alt=""><div><b>${esc(p.name)}</b><span class="muted">${fromLabel(p)} ${kz(p.base)}</span></div>${ico('right','s')}</a>`)(P(m.card)):m.role==='user'?`<div class="msg me">${esc(m.t)}</div>`:`<div class="msg">${m.pending?`<span class="st"><span class="dotsl"><i></i><i></i><i></i></span>${esc(m.status)}</span>`:md(m.t)}</div>`).join('');
+ $$('[data-sug]',box).forEach(b=>b.onclick=()=>sendAI(b.textContent));box.scrollTop=box.scrollHeight}
+async function sendAI(text){const ta=$('#chatIn');if(ta){ta.value='';ta.style.height='auto'}
+ if(aiCtl)return;
+ chatLog.push({role:'user',t:text});aiTurns.push({role:'user',content:text});const bot={role:'assistant',t:'',pending:true,status:'A pensar…'};chatLog.push(bot);drawLog();
+ if(!sample){setTimeout(()=>{bot.pending=false;bot.t=offlineReply(text);aiTurns.push({role:'assistant',content:bot.t});drawLog();badges()},700);return}
+ aiCtl=new AbortController();setSend(true);
+ const tools=TOOLS.map(t=>({name:t.name,description:t.description,inputSchema:t.inputSchema,execute:(input,ctx)=>{bot.status=STATUS[t.name];bot.pending=true;drawLog();return t.execute(input||{},ctx)}}));
+ try{const r=await sample([{role:'user',content:rules()},...aiTurns.slice(-12)],{tools,modelTier:'quick',signal:aiCtl.signal,onText:({text})=>{bot.pending=false;bot.t=text;drawLog()}});
+  bot.pending=false;bot.t=r.text;aiTurns.push({role:'assistant',content:r.text})}
+ catch(e){bot.pending=false;const code=e&&e.code;
+  if(code==='cancelled')bot.t=e.text||'Resposta interrompida.';
+  else if(['not_granted','sampling_disabled','not_declared','capability_disabled','capability_removed','tools_unavailable'].includes(code)){sample=null;aiState='off';bot.t=offlineReply(text);const n=$('#aiNote');if(n)n.textContent=aiNoteText()}
+  else if(code==='rate_limited')bot.t='Estou com muitos pedidos neste momento. Tente de novo dentro de alguns minutos.';
+  else if(code==='refused')bot.t='Não posso ajudar com esse pedido. Posso ajudar com produtos, preços, entregas e encomendas.';
+  else bot.t=(e&&e.text?e.text+'\n\n':'')+'Não consegui concluir a resposta. Tente de novo.';
+  aiTurns.push({role:'assistant',content:bot.t})}
+ finally{aiCtl=null;setSend(false);drawLog();badges()}}
+function setSend(busy){const b=$('#sendBtn');if(!b)return;b.classList.toggle('stop',busy);b.innerHTML=ico(busy?'stop':'send','s');b.setAttribute('aria-label',busy?'Parar resposta':'Enviar')}
+function offlineReply(text){const t=norm(text);
+ if(/proforma|factura|fatura|recibo/.test(t)){if(/recibo/.test(t)){if(!orders[0])return 'Ainda não há encomendas pagas. A factura-recibo é emitida depois do pagamento.';pushDoc(makeDoc('Factura-recibo',orders[0]));return 'Aqui está a factura-recibo do pedido '+orders[0].n+'.'}if(!cart.length)return 'O carrinho está vazio. Adicione os produtos e eu preparo a proforma.';pushDoc(makeDoc('Factura-proforma'));return 'Preparei a factura-proforma do carrinho, válida por 15 dias.'}
+ if(/encomenda|pedido|onde esta/.test(t)){const o=orders[0];return o?`O pedido **${o.n}** está em produção. Previsão de entrega: ${o.eta}, ${o.dl.toLowerCase()} para ${o.loc}.`:'Ainda não tem encomendas nesta conta.'}
+ const pv=Object.keys(PROVINCES).find(k=>t.includes(norm(k)));
+ if(/entrega|envio|portes|transporte/.test(t)){const l=pv?{prov:pv,mun:PROVINCES[pv][0]}:loc;return `Entrega para ${l.mun}, ${l.prov}, em produtos com 2 dias úteis de produção:\n`+deliveryOptions(l,cartSub(),2).map(o=>`- **${o.name}**: ${o.price?kz(o.price):'grátis'}, chega ${fmtDate(addDays(o.days))}`).join('\n')}
+ const r=searchProducts(text,1)[0];if(r){const q=Math.max(r.min,parseInt((text.match(/\d[\d .]*/)||['0'])[0].replace(/\D/g,''))||r.min);pushCard(r);return `**${r.name}**, ${num(q)} ${q===1?'unidade':'unidades'}:\n`+r.offers.map(o=>`- ${SELLERS[o.s].name}: ${kz(priceFor(r,q,1,o.f))}, produção ${days(o.lead)}`).join('\n')+'\nAbra o produto para escolher papel e acabamento.'}
+ return 'Posso ajudar com preços, prazos, entregas, proformas e encomendas. Diga-me o produto e a quantidade.'}
+function threadView(){const t=THREADS.find(x=>x.id===curThread);return `<div class="msgs" id="tmsgs">${t.msgs.map(m=>`<div class="msg ${m.me?'me':''}">${esc(m.t)}</div>`).join('')}</div><form class="composer" id="tComposer"><button class="icon-btn" type="button" id="tBack" aria-label="Voltar às conversas">${ico('left')}</button><label for="chatIn" class="sr">Mensagem</label><textarea id="chatIn" rows="1" placeholder="Escreva à ${esc(SELLERS[curThread].name)}…"></textarea><button class="send" type="submit" aria-label="Enviar">${ico('send','s')}</button></form>`}
+function bindThread(){const box=$('#tmsgs');box.scrollTop=box.scrollHeight;$('#tBack').onclick=()=>{curThread=null;renderChat()};
+ $('#tComposer').onsubmit=e=>{e.preventDefault();const v=$('#chatIn').value.trim();if(!v)return;const t=THREADS.find(x=>x.id===curThread);t.msgs.push({me:1,t:v,at:now()});renderChat();setTimeout(()=>{t.msgs.push({me:0,t:'Obrigado pela mensagem. Respondemos com os detalhes em breve.',at:now()});if(curThread===t.id&&$('#chatDrawer').classList.contains('on'))renderChat()},1200)}}
+function openThread(k,text){let t=THREADS.find(x=>x.id===k);if(!t){t={id:k,unread:false,msgs:[{me:0,t:`Olá, bem-vindo à ${SELLERS[k].name}. Em que podemos ajudar?`,at:now()}]};THREADS.unshift(t)}t.unread=false;curThread=k;chatTab='shops';renderChat();openPanel('#chatDrawer');setTimeout(()=>{const ta=$('#chatIn');if(ta){ta.value=text||'';ta.focus()}},300)}
+
+/* ================= info pages ================= */
+function renderInfo(kind){
+ const T={ajuda:['Ajuda','Encomendas, arte, pagamentos e entregas.'],vender:['Vender na PrintOn','Para gráficas, papelarias e fornecedores de equipamentos e EPIs.'],anunciar:['Anunciar na PrintOn','Chegue a empresas, escolas e particulares no momento da compra.'],lojas:['Lojas verificadas','Gráficas e fornecedores com NIF, avaliações e prazos acompanhados.']}[kind];
+ let body='';
+ if(kind==='ajuda')body=`<div class="faq" style="max-width:820px">${[['Como preparo a arte?','Envie PDF em CMYK, 300 dpi e 3 mm de sangria em cada lado. Se não tiver arte, monte-a no Studio 3D e veja o resultado antes de encomendar.'],['Quanto custa a entrega?',`Em Luanda a entrega standard custa 2 500 Kz (3 500 Kz em Viana, Cazenga e Cacuaco) e é grátis a partir de ${kz(FREE_FROM)}. O expresso por motoboy custa 5 000 Kz. Nas províncias, o custo depende da distância e aparece antes do pagamento.`],['Que métodos de pagamento aceitam?','Multicaixa Express, referência Multicaixa e transferência bancária para empresas.'],['Como peço factura-proforma?','No carrinho, toque em “Pedir factura-proforma”, ou peça ao assistente. Pode indicar o NIF da empresa.'],['O que acontece se houver um erro de impressão?','Se o defeito for da gráfica, reimprimimos sem custo ou devolvemos o valor.']].map(q=>`<details><summary>${q[0]}</summary><p>${q[1]}</p></details>`).join('')}</div>`;
+ else if(kind==='lojas')body=`<div class="services">${Object.entries(SELLERS).map(([k,s])=>`<a class="service" href="#loja-${k}">${logoBox(k,48)}<b>${s.name}</b><span>${s.city}</span><span>Avaliação ${rate(s.rating)} · responde em ${s.resp}</span><span class="link">Ver produtos</span></a>`).join('')}</div>`;
+ else{const tiers=kind==='vender'?[['Essencial','Sem mensalidade','Comissão por venda. Até 50 produtos, mensagens e pagamentos.','Quero vender na PrintOn'],['Profissional','Plano mensal','Comissão reduzida, produtos ilimitados e destaque na pesquisa.','Quero o plano Profissional para a minha gráfica'],['Fornecedor','Sob consulta','Equipamentos, consumíveis e EPIs com catálogo para empresas.','Quero vender equipamentos ou EPIs na PrintOn']]:[['Banner na página inicial','Por semana','Faixa de largura total, um anunciante de cada vez.','Quero anunciar com o banner da página inicial'],['Produtos patrocinados','Por clique','Os seus produtos nas categorias, com a indicação “Patrocinado”.','Quero anunciar produtos patrocinados'],['Destaque lateral','Por mês','Espaço lateral nas listagens de produtos.','Quero anunciar no destaque lateral']];
+  body=`<div class="services" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">${tiers.map(t=>`<div class="service"><b style="font-size:19px">${t[0]}</b><span style="font-weight:700;color:var(--ink)">${t[1]}</span><span>${t[2]}</span><button class="btn btn-ink btn-sm" type="button" data-say="${t[3]}" style="margin-top:10px;align-self:flex-start">Falar com a equipa</button></div>`).join('')}</div>`}
+ $('#view').innerHTML=`<div class="wrap" style="padding-bottom:48px"><nav class="crumbs"><a href="#home">Início</a>${ico('right','s')}<span>${T[0]}</span></nav><div class="lhead"><div><h1>${T[0]}</h1><p>${T[1]}</p></div></div>${body}</div>`}
+function renderFavs(){const l=[...favs].map(P).filter(Boolean);
+ $('#view').innerHTML=`<div class="wrap" style="padding-bottom:48px"><nav class="crumbs"><a href="#home">Início</a>${ico('right','s')}<span>Favoritos</span></nav><div class="lhead"><h1>Favoritos</h1></div>${l.length?`<div class="grid">${l.map(card).join('')}</div>`:`<div class="empty">${ico('heart','l')}<h3>Ainda não guardou produtos</h3><p>Toque no coração de um produto para o guardar aqui.</p><a class="btn btn-ink btn-sm" href="#busca-best">Ver mais vendidos</a></div>`}</div>`}
+
+/* ================= global events & router ================= */
+document.addEventListener('click',e=>{
+ if(e.target.closest('[data-close]'))closePanels();
+ const f=e.target.closest('[data-fav]');if(f){const id=f.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);$$(`[data-fav="${id}"]`).forEach(x=>x.setAttribute('aria-pressed',favs.has(id)));saveFavs();toast(favs.has(id)?'Guardado nos favoritos':'Removido dos favoritos');return}
+ if(e.target.closest('[data-chat]')){e.preventDefault();openChat('ai');return}
+ const sy=e.target.closest('[data-say]');if(sy){openChat('ai',sy.dataset.say);return}
+ const ms=e.target.closest('[data-msg]');if(ms){openThread(ms.dataset.msg,'');return}
+ const cp=e.target.closest('[data-copy]');if(cp){const v=cp.dataset.copy;if(navigator.clipboard)navigator.clipboard.writeText(v).then(()=>toast('Código '+v+' copiado'),()=>toast('Código: '+v));else toast('Código: '+v);return}
+ if(e.target.closest('[data-loc],#locBtn')){openLocModal();return}
+});
+$('#cartBtn').onclick=openCart;
+$('#acctBtn').onclick=()=>toast(orders.length?'Último pedido: '+orders[0].n:'Entrar com telemóvel ou email');
+function route(keep){closePanels();clearInterval(slideT);const h=location.hash.slice(1)||'home';$('#mega').hidden=true;
+ if(h==='home'||h==='entrega'){renderHome();if(h==='entrega')setTimeout(()=>$('#entrega')?.scrollIntoView(),0)}
+ else if(/^cat-\d+$/.test(h)&&CATS[+h.slice(4)])renderList('cat',+h.slice(4));
+ else if(/^loja-/.test(h)&&SELLERS[h.slice(5)])renderList('seller',h.slice(5));
+ else if(h==='busca')renderList('search');
+ else if(h==='busca-best')renderList('best');
+ else if(/^prod-\d+$/.test(h))renderProduct(h);
+ else if(h==='checkout')renderCheckout();
+ else if(h==='pedido')renderOrder();
+ else if(h==='favoritos')renderFavs();
+ else if(['ajuda','vender','anunciar','lojas'].includes(h))renderInfo(h);
+ else renderHome();
+ if(!keep&&h!=='entrega')scrollTo({top:0,behavior:'instant'})}
+addEventListener('hashchange',()=>route());
+renderLocBtn();renderNav();badges();route();
+</script>
