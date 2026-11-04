@@ -15,16 +15,16 @@
   --sale:#C23A1E; --star:#E09A00; --overlay:rgba(18,20,17,.5);
   --shadow:0 1px 2px rgba(18,20,17,.06),0 10px 30px rgba(18,20,17,.10);
   --f:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --r:12px; --wrap:1320px; --card:#FFFFFF; --on-ink:#FFFFFF; --chrome:#121411; color-scheme:light;
+  --r:12px; --wrap:1320px; --card:#FFFFFF; --on-ink:#FFFFFF; --chrome:#121411; --warn:#8A5A00; --warn-bg:#FFF3D6; --info:#1F4FA3; --info-bg:#E5EDFB; color-scheme:light;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0E100D; --soft:#171A15; --soft-2:#20241D; --card:#151813; --ink:#EEF0EA; --ink-2:#B4B9AD; --ink-3:#8B9185;
   --line:#262A22; --line-2:#3A4035; --ok:#5DCB8A; --ok-bg:#143322; --sale:#FF7B5E; --star:#F2B437; --overlay:rgba(0,0,0,.62);
-  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 32px rgba(0,0,0,.5); --on-ink:#0E100D; --chrome:#080907; color-scheme:dark}}
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 32px rgba(0,0,0,.5); --on-ink:#0E100D; --chrome:#080907; --warn:#F2C14E; --warn-bg:#33270E; --info:#8FB2F5; --info-bg:#17233A; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0E100D; --soft:#171A15; --soft-2:#20241D; --card:#151813; --ink:#EEF0EA; --ink-2:#B4B9AD; --ink-3:#8B9185;
   --line:#262A22; --line-2:#3A4035; --ok:#5DCB8A; --ok-bg:#143322; --sale:#FF7B5E; --star:#F2B437; --overlay:rgba(0,0,0,.62);
-  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 32px rgba(0,0,0,.5); --on-ink:#0E100D; --chrome:#080907; color-scheme:dark}
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 32px rgba(0,0,0,.5); --on-ink:#0E100D; --chrome:#080907; --warn:#F2C14E; --warn-bg:#33270E; --info:#8FB2F5; --info-bg:#17233A; color-scheme:dark}
 .logo .dk{display:none}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .logo .lt{display:none}:root:not([data-theme="light"]) .logo .dk{display:block}}
 :root[data-theme="dark"] .logo .lt{display:none}:root[data-theme="dark"] .logo .dk{display:block}
@@ -465,6 +465,122 @@ footer{background:var(--chrome);color:#d7dad2;margin-top:24px}
 .toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);background:var(--ink);color:var(--on-ink);padding:12px 18px;border-radius:999px;font-size:14px;font-weight:600;z-index:100;opacity:0;transition:.25s;pointer-events:none;display:flex;gap:8px;align-items:center;max-width:calc(100% - 32px)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
+/* seller line on cards */
+.card .by{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-2);min-width:0}
+.card .by b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .by:hover b{text-decoration:underline}
+.card .by .more{color:var(--ink-3);white-space:nowrap;font-size:12.5px}
+.vbadge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--ok);background:var(--ok-bg);padding:3px 9px;border-radius:999px;letter-spacing:0;white-space:nowrap}
+.vbadge .ico{width:14px;height:14px}
+
+/* store profile */
+.cover{height:clamp(180px,22vw,290px);background-size:cover;background-position:center;position:relative;background-color:var(--soft)}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.5))}
+.phead{display:flex;gap:20px;align-items:flex-start;margin-top:-52px;position:relative;z-index:1;flex-wrap:wrap}
+.plogo{width:108px;height:108px;border-radius:22px;display:grid;place-items:center;font-weight:800;font-size:34px;border:4px solid var(--bg);flex:none;box-shadow:var(--shadow)}
+.pinfo{flex:1;min-width:240px;padding-top:60px}
+.pinfo h1{font-size:clamp(24px,3vw,34px);font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pinfo .sub{color:var(--ink-2);font-size:14px;margin-top:4px;display:flex;gap:6px 14px;flex-wrap:wrap;align-items:center}
+.pacts{display:flex;gap:8px;padding-top:62px;flex-wrap:wrap}
+.pstats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--line);border-radius:14px;margin-top:22px}
+.pstats div{padding:14px 18px;border-left:1px solid var(--line)}
+.pstats div:first-child{border-left:0}
+.pstats b{display:block;font-size:18px;font-weight:800}
+.pstats span{font-size:12.5px;color:var(--ink-3)}
+.about{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;padding-block:24px 8px}
+.about .txt{color:var(--ink-2);line-height:1.7;max-width:68ch}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips span{font-size:13px;padding:6px 12px;border-radius:999px;background:var(--soft)}
+.review{padding:16px 0;border-top:1px solid var(--line);display:grid;gap:4px;font-size:14px}
+.review p{color:var(--ink-2)}
+.storegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.storecard{border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.storecard:hover{border-color:var(--ink)}
+.storecard .sc-cover{height:110px;background-size:cover;background-position:center;background-color:var(--soft)}
+.storecard .sc-body{padding:0 18px 18px;display:grid;gap:8px}
+.storecard .sc-top{display:flex;gap:12px;align-items:flex-end;margin-top:-28px}
+.storecard .sc-top>span:first-child{border:3px solid var(--bg)}
+.storecard b{font-size:16px}
+.storecard .m{font-size:13px;color:var(--ink-3)}
+
+/* auth */
+.auth{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,500px);min-height:calc(100vh - 165px)}
+.auth .side{position:relative;color:#fff;padding:48px;display:flex;flex-direction:column;justify-content:flex-end;gap:16px;isolation:isolate;background:#14170F}
+.auth .side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.auth .side::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.1) 20%,rgba(0,0,0,.85))}
+.auth .side h2{font-size:clamp(26px,3vw,40px);font-weight:800;max-width:18ch;line-height:1.08}
+.auth .side ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px;color:rgba(255,255,255,.88)}
+.auth .side li{display:flex;gap:10px;align-items:center}
+.auth .side li .ico{color:#D9FC00}
+.auth .panel{padding:40px clamp(20px,4vw,48px);display:flex;flex-direction:column;justify-content:center;gap:18px}
+.auth .panel h1{font-size:28px;font-weight:800}
+.seg2{display:grid;grid-template-columns:1fr 1fr;background:var(--soft);border-radius:12px;padding:4px}
+.seg2 button{height:42px;border-radius:9px;font-weight:700;font-size:14px;color:var(--ink-2)}
+.seg2 button[aria-pressed="true"]{background:var(--bg);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.or{display:flex;align-items:center;gap:12px;color:var(--ink-3);font-size:13px}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink-2);font-weight:400}
+.check input{width:17px;height:17px;accent-color:var(--ink);margin-top:2px;flex:none}
+.err{color:var(--sale);font-size:13.5px;font-weight:600}
+.demo{border:1.5px dashed var(--line-2);border-radius:12px;padding:14px;display:grid;gap:10px;font-size:13.5px;color:var(--ink-2)}
+
+/* dashboards */
+.dash{display:grid;grid-template-columns:250px minmax(0,1fr);gap:32px;padding-block:24px 48px}
+.dnav{position:sticky;top:150px;align-self:start;display:grid;gap:2px}
+.dnav .who{display:flex;gap:12px;align-items:center;padding:4px 8px 16px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.dnav .who .av{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;background:var(--soft-2);flex:none}
+.dnav .who b{display:block;font-size:15px;line-height:1.2}
+.dnav .who span{font-size:12.5px;color:var(--ink-3)}
+.dnav button,.dnav a{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;font-size:14.5px;color:var(--ink-2);text-align:left;width:100%;white-space:nowrap}
+.dnav button:hover,.dnav a:hover{background:var(--soft);color:var(--ink)}
+.dnav [aria-current="page"]{background:var(--soft);color:var(--ink);font-weight:700}
+.dnav .n{margin-left:auto;font-size:12px;font-weight:700;background:var(--lime);color:var(--on-lime);border-radius:999px;padding:1px 8px}
+.dnav hr{border:0;border-top:1px solid var(--line);margin:8px 0}
+.dhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.dhead h1{font-size:26px;font-weight:800}
+.dhead p{color:var(--ink-2);margin-top:4px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.kpi{border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.kpi span{font-size:13px;color:var(--ink-3)}
+.kpi b{display:block;font-size:24px;font-weight:800;margin-top:4px;letter-spacing:-.02em}
+.kpi em{font-style:normal;font-size:12.5px;color:var(--ink-3)}
+.pbox{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:16px}
+.pbox>h3{font-size:16px;font-weight:800;margin-bottom:12px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.tblw{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:12.5px;font-weight:600;color:var(--ink-3);padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td.r,.tbl th.r{text-align:right;white-space:nowrap}
+.tbl input[type=text],.tbl input[type=number]{height:36px;border:1.5px solid var(--line-2);border-radius:8px;padding:0 10px;background:var(--card);width:110px}
+.tbl input[type=checkbox]{width:17px;height:17px;accent-color:var(--ink)}
+.stt{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.stt::before{content:"";width:7px;height:7px;border-radius:9px;background:currentColor}
+.stt.s1{background:var(--warn-bg);color:var(--warn)}
+.stt.s2{background:var(--info-bg);color:var(--info)}
+.stt.s3{background:var(--soft-2);color:var(--ink)}
+.stt.s4{background:var(--ok-bg);color:var(--ok)}
+.bars rect.b{fill:var(--ink)}
+.bars rect.g{fill:var(--soft)}
+.bars text{fill:var(--ink-3);font-size:11px;font-family:var(--f)}
+.notice{border-radius:12px;padding:14px 16px;background:var(--warn-bg);color:var(--warn);font-size:14px;margin-bottom:16px}
+.ocard{border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:12px;display:grid;gap:12px}
+.ocard .oh{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.ocard .oh b{font-size:16px}
+.ocard ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;color:var(--ink-2)}
+.ocard li{display:flex;justify-content:space-between;gap:12px}
+.prog{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.prog i{height:6px;border-radius:6px;background:var(--line)}
+.prog i.on{background:var(--ok)}
+.ocard .acts{display:flex;gap:8px;flex-wrap:wrap}
+.inbox{display:grid;grid-template-columns:260px minmax(0,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;min-height:420px}
+.inbox .list{border-right:1px solid var(--line)}
+.inbox .list button{display:block;width:100%;text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);font-size:14px}
+.inbox .list button[aria-current="true"]{background:var(--soft)}
+.inbox .list small{display:block;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inbox .conv{display:flex;flex-direction:column}
+.inbox .msgs{min-height:300px}
+
 @media (max-width:1100px){
   .circles{grid-template-columns:repeat(4,minmax(0,1fr))}
   .perks,.services{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -521,6 +637,19 @@ footer{background:var(--chrome);color:#d7dad2;margin-top:24px}
   .fab span{display:none}
   .fab{padding:0 17px}
 }
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.pstats{grid-template-columns:repeat(3,minmax(0,1fr))}.pstats div:nth-child(4){border-left:0}.pstats div:nth-child(n+4){border-top:1px solid var(--line)}}
+@media (max-width:900px){
+  .dash{grid-template-columns:minmax(0,1fr);gap:16px}
+  .dnav{position:static;display:flex;overflow-x:auto;gap:4px;scrollbar-width:none;border-bottom:1px solid var(--line);padding-bottom:8px}
+  .dnav .who,.dnav hr{display:none}
+  .dnav button,.dnav a{width:auto}
+  .auth{grid-template-columns:minmax(0,1fr)}
+  .auth .side{display:none}
+  .about{grid-template-columns:minmax(0,1fr);gap:20px}
+  .inbox{grid-template-columns:minmax(0,1fr)}
+  .inbox .list{border-right:0;border-bottom:1px solid var(--line)}
+}
+@media (max-width:640px){.pinfo{padding-top:0}.pacts{padding-top:0}.pstats{grid-template-columns:repeat(2,minmax(0,1fr))}.pstats div{border-left:0!important;border-top:1px solid var(--line)}.pstats div:nth-child(-n+2){border-top:0}.pstats div:nth-child(even){border-left:1px solid var(--line)!important}.plogo{width:84px;height:84px;font-size:26px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 
@@ -548,6 +677,14 @@ footer{background:var(--chrome);color:#d7dad2;margin-top:24px}
  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/></symbol>
  <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 9 5.5 4h13L20 9M4 9v11h16V9M4 9c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 2 3s3-1.3 3-3c0 1.7 1.3 3 3 3s2-1.3 2-3"/></symbol>
  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+ <symbol id="i-verified" viewBox="0 0 24 24"><path d="M12 2.5 14.6 4.4l3.2-.1 1 3 2.6 1.9-1 3 1 3-2.6 1.9-1 3-3.2-.1L12 21.5l-2.6-1.9-3.2.1-1-3L2.6 14.8l1-3-1-3 2.6-1.9 1-3 3.2.1z"/><path d="m8.5 12 2.4 2.4 4.6-4.6"/></symbol>
+ <symbol id="i-box" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></symbol>
+ <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7M5 10v10h14V10"/></symbol>
+ <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+ <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M16 15h2"/></symbol>
+ <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></symbol>
+ <symbol id="i-out" viewBox="0 0 24 24"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></symbol>
+ <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></symbol>
  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
@@ -615,12 +752,14 @@ const GROUPS=[
  ['Brindes e têxtil',[6,16]],['Académico e escritório',[21,22]],['Equipamentos e consumíveis',[23,24]],['EPIs e fardamento',[25]]];
 const CATS={1:['Cartões de Visita','assets/stationery.jpg'],2:['Flyers e Folhetos','assets/flyers.jpg'],3:['Banners e Lonas','assets/banners.jpg'],4:['Cartazes e Posters','assets/banner-grande-formato.webp'],5:['Autocolantes','assets/stickers.jpg'],6:['Brindes Personalizados','assets/merch.jpg'],7:['Papelaria Corporativa','assets/stationery.jpg'],8:['Catálogos e Livros','img/booklet.jpg'],9:['Convites e Postais','assets/invitations.jpg'],10:['Decoração e Vinil','assets/banner-grande-formato.webp'],11:['Embalagens e Caixas','img/box.jpg'],12:['Ementas e Menus','assets/flyers.jpg'],13:['Calendários e Agendas','assets/books.jpg'],14:['Roll-ups e Expositores','assets/banners.jpg'],15:['Sacos Personalizados','assets/packaging.jpg'],16:['T-shirts e Têxteis','img/tshirt.jpg'],17:['Rótulos e Etiquetas','assets/stickers.jpg'],18:['Carimbos','assets/stationery.jpg'],19:['Grandes Formatos','img/hero-largeformat.jpg'],20:['Serviços de Design','img/business.jpg'],21:['Material Académico','img/notebooks.jpg'],22:['Papelaria e Escritório','assets/books.jpg'],23:['Equipamentos Gráficos','img/hero-offset.jpg'],24:['Consumíveis','img/printhouse.jpg'],25:['EPIs e Fardamento','img/builder.jpg']};
 const SELLERS={
- gc:{name:'Gráfica Central',city:'Luanda, Maianga',c:'#121411',t:'#D9FC00',rating:4.8,resp:'15 min'},
- kp:{name:'Kianda Print',city:'Luanda, Talatona',c:'#1D3B2A',t:'#E9F5EC',rating:4.7,resp:'30 min'},
- pu:{name:'Papelaria Universitária',city:'Luanda, Kilamba',c:'#2B3A67',t:'#E8ECF8',rating:4.6,resp:'1 h'},
- te:{name:'TecnoGráfica Equipamentos',city:'Viana, Zona Industrial',c:'#5A3A12',t:'#F6EBDD',rating:4.5,resp:'2 h'},
- sp:{name:'SegurPro EPI',city:'Benguela, Lobito',c:'#8A2E12',t:'#FBE9E4',rating:4.7,resp:'1 h'},
- cd:{name:'Cabinda Digital',city:'Cabinda, Centro',c:'#3C2A5C',t:'#EEE8F8',rating:4.4,resp:'1 h'}};
+ gc:{name:'Gráfica Central',kind:'Gráfica offset e digital',city:'Luanda, Maianga',c:'#121411',t:'#D9FC00',rating:4.8,reviews:412,resp:'15 min',since:2019,orders:2400,cover:'img/hero-offset.jpg',email:'loja@graficacentral.exemplo.ao',hours:'Seg a sex, 8h às 18h · Sáb, 8h às 13h',addr:'Bairro Maianga, Luanda',ships:'Todo o país',about:'Gráfica com produção offset e digital. Especialistas em papelaria corporativa, cartões de visita, flyers e catálogos, com controlo de cor em todas as tiragens e acabamentos feitos na casa.',tags:['Offset','Impressão digital','Laminação','Verniz UV','Papelaria corporativa']},
+ kp:{name:'Kianda Print',kind:'Grande formato e comunicação visual',city:'Luanda, Talatona',c:'#1D3B2A',t:'#E9F5EC',rating:4.7,reviews:268,resp:'30 min',since:2020,orders:1100,cover:'img/hero-largeformat.jpg',email:'loja@kiandaprint.exemplo.ao',hours:'Seg a sáb, 8h às 19h',addr:'Talatona, Luanda',ships:'Luanda, Bengo e Cuanza Sul',about:'Impressão de grande formato: lonas, roll-ups, vinil e placas rígidas. Fazemos a montagem em fachadas e eventos em Luanda.',tags:['Lonas','Roll-ups','Vinil','Placas PVC e Dibond','Montagem']},
+ pu:{name:'Papelaria Universitária',kind:'Papelaria e material académico',city:'Luanda, Kilamba',c:'#2B3A67',t:'#E8ECF8',rating:4.6,reviews:190,resp:'1 h',since:2021,orders:860,cover:'img/notebooks.jpg',email:'loja@papelariauniversitaria.exemplo.ao',hours:'Seg a sáb, 7h30 às 20h',addr:'Centralidade do Kilamba, Luanda',ships:'Luanda',about:'Impressão de trabalhos, encadernação de TFC e teses, cadernos e material de escritório para estudantes e escolas.',tags:['Encadernação de TFC','Impressão P&B','Material escolar','Escritório']},
+ te:{name:'TecnoGráfica Equipamentos',kind:'Fornecedor de equipamentos e consumíveis',city:'Viana, Zona Industrial',c:'#5A3A12',t:'#F6EBDD',rating:4.5,reviews:74,resp:'2 h',since:2022,orders:310,cover:'img/printhouse.jpg',email:'loja@tecnografica.exemplo.ao',hours:'Seg a sex, 8h às 17h',addr:'Zona Industrial de Viana, Luanda',ships:'Todo o país',about:'Venda de plotters, guilhotinas, plastificadoras e prensas térmicas, com instalação, formação e assistência técnica. Tintas, papel e vinil em stock.',tags:['Plotters','Assistência técnica','Tintas','Papel e vinil','Formação']},
+ sp:{name:'SegurPro EPI',kind:'EPIs e fardamento',city:'Benguela, Lobito',c:'#8A2E12',t:'#FBE9E4',rating:4.7,reviews:153,resp:'1 h',since:2021,orders:540,cover:'img/workers.jpg',email:'loja@segurpro.exemplo.ao',hours:'Seg a sex, 8h às 17h · Sáb, 8h às 12h',addr:'Lobito, Benguela',ships:'Todo o país',about:'Equipamentos de protecção individual e fardamento personalizado para construção, petróleo, indústria e logística, conforme as normas europeias.',tags:['Coletes refletores','Capacetes','Fardamento','Bordado','Normas EN']},
+ cd:{name:'Cabinda Digital',kind:'Gráfica digital e brindes',city:'Cabinda, Centro',c:'#3C2A5C',t:'#EEE8F8',rating:4.4,reviews:96,resp:'1 h',since:2023,orders:270,cover:'img/tshirt.jpg',email:'loja@cabindadigital.exemplo.ao',hours:'Seg a sáb, 8h às 18h',addr:'Centro de Cabinda',ships:'Cabinda e Luanda',about:'Impressão digital, t-shirts, canecas e brindes personalizados, com envio para Luanda.',tags:['T-shirts DTF','Canecas','Brindes','Impressão digital']}};
+Object.assign(SELLERS,store.get('newSellers',{}));
+Object.entries(store.get('sellerEdits',{})).forEach(([k,v])=>{if(SELLERS[k])Object.assign(SELLERS[k],v)});
 const OPTS={
  card:[['Formato',[['9 × 5 cm',0],['8,5 × 5,5 cm',0],['Cantos arredondados',.10]]],['Papel',[['Couché mate 350 g',0],['Couché brilho 350 g',0],['Kraft 300 g',.08],['Algodão 600 g',.6]]],['Impressão',[['Frente e verso',0],['Só frente',-.15]]],['Acabamento',[['Sem acabamento',0],['Laminação mate',.12],['Soft-touch',.25],['Verniz UV localizado',.3]]]],
  flyer:[['Formato',[['A6 (10,5 × 14,8 cm)',0],['A5 (14,8 × 21 cm)',.35],['A4 (21 × 29,7 cm)',.9]]],['Papel',[['Couché 115 g',0],['Couché 150 g',.1],['Couché 300 g',.35]]],['Impressão',[['Frente e verso',0],['Só frente',-.15]]],['Dobra',[['Sem dobra',0],['1 dobra',.08],['2 dobras',.12]]]],
@@ -696,15 +835,21 @@ const RAW=[
  [25,'Fato-macaco de Trabalho',185000,'epi','Fato em sarja com fitas refletoras e logótipo bordado.'],
  [25,'Botas de Segurança S3',38500,'unit','Biqueira e palmilha de aço, sola anti-derrapante.'],
  [25,'Luvas de Nitrilo (caixa 100)',9500,'unit','Luvas descartáveis sem pó, tamanho M.']];
-const sellerOf=c=>[21,22].includes(c)?['pu','gc']:[23,24].includes(c)?['te','kp']:c===25?['sp','cd']:[3,4,10,14,19].includes(c)?['kp','gc','cd']:[6,16].includes(c)?['cd','sp','gc']:['gc','kp','cd'];
+const sellerOf=c=>[21,22].includes(c)?['pu','gc']:[23,24].includes(c)?['te','kp']:c===25?['sp','cd']:[3,4,10,14,19].includes(c)?['kp','gc']:[6,16].includes(c)?['cd','sp','gc']:['gc','cd'];
 const GALLERY={card:['img/cards.jpg','img/business.jpg'],flyer:['img/brochures.jpg','img/booklet.jpg'],large:['assets/banners.jpg','img/hero-largeformat.jpg','assets/banner-grande-formato.webp'],sticker:['assets/stickers.jpg','img/box.jpg'],merch:['assets/merch.jpg','assets/banner-personalizados.webp'],tex:['img/tshirt.jpg','assets/merch.jpg'],epi:['img/builder.jpg','img/workers.jpg'],book:['img/booklet.jpg','assets/books.jpg'],pack:['img/box.jpg','assets/packaging.jpg'],tfc:['img/notebooks.jpg','assets/books.jpg']};
 const PRODUCTS=RAW.map((r,i)=>{const [cat,name,base,type,desc,flag]=r;const h=(i*37+11)%100;
  return {id:'prod-'+(i+1),cat,name,base,type,desc,best:flag==='best',min:QTYS[type][0],img:CATS[cat][1],
   gallery:[...new Set([CATS[cat][1],...(GALLERY[type]||[])])].slice(0,4),rating:Math.round((4.4+(h%6)/10)*10)/10,reviews:18+(h*7)%240,
-  offers:sellerOf(cat).map((s,j)=>({s,f:[1,1.06,.95][j],lead:Math.max(1,LEAD[type]+[0,-1,2][j])}))}});
+  baseOffers:sellerOf(cat).map((s,j)=>({s,f:[1,1.05,1.08][j],lead:Math.max(1,LEAD[type]+[0,-1,2][j])}))}});
+let OVR=store.get('ovr',{});
+function applyOverrides(){PRODUCTS.forEach(p=>{const offs=p.baseOffers.map(o=>({...o}));
+ Object.entries(OVR).forEach(([key,v])=>{const [s,id]=key.split('|');if(id!==p.id||!SELLERS[s])return;let o=offs.find(x=>x.s===s);if(!o&&v.add){o={s,f:1,lead:LEAD[p.type]};offs.push(o)}if(!o)return;if(v.price)o.f=v.price/p.base;if(v.lead)o.lead=+v.lead;o.off=v.active===false});
+ p.allOffers=offs;const act=offs.filter(o=>!o.off);p.offers=(act.length?act:offs).slice().sort((a,b)=>a.f-b.f)})}
+applyOverrides();
 const P=id=>PRODUCTS.find(p=>p.id===id);
 const priceFor=(p,q,mult=1,f=1)=>Math.round(p.base*Math.pow(q/p.min,EXP[p.type])*mult*f/50)*50;
 const fromLabel=p=>`${num(p.min)} ${p.min===1?'unidade':'unidades'} por`;
+const fromPrice=p=>priceFor(p,p.min,1,p.offers[0].f);
 const days=n=>n+' '+(n===1?'dia útil':'dias úteis');
 
 /* ================= delivery ================= */
@@ -759,20 +904,21 @@ document.addEventListener('click',e=>{if(!e.target.closest('#thmenu,#themeBtn'))
 function searchProducts(q,limit=50){const t=norm(q).split(/[^a-z0-9]+/).filter(w=>w.length>2);if(!t.length)return[];
  return PRODUCTS.map(p=>{const nm=norm(p.name),hay=norm(p.name+' '+CATS[p.cat][0]+' '+p.desc);let s=0;t.forEach(w=>{const w2=w.replace(/(oes|aes|es|s)$/,'').slice(0,6);if(nm.includes(w2))s+=3;else if(hay.includes(w2))s+=1});return [p,s+(p.best?.5:0)]}).filter(x=>x[1]>=1).sort((a,b)=>b[1]-a[1]).slice(0,limit).map(x=>x[0])}
 $('#q').addEventListener('input',e=>{const v=e.target.value.trim();const box=$('#suggest');if(v.length<2){box.hidden=true;return}
- const r=searchProducts(v,6);box.innerHTML=r.length?r.map(p=>`<a href="#${p.id}"><img src="${p.img}" alt=""><span>${esc(p.name)}<small>${fromLabel(p)} ${kz(p.base)}</small></span></a>`).join('')+`<a class="all" href="#busca">Ver todos os resultados para “${esc(v)}”</a>`:`<a class="all" href="#" data-chat>Não encontrámos “${esc(v)}”. Pedir ao assistente</a>`;box.hidden=false});
+ const r=searchProducts(v,6);box.innerHTML=r.length?r.map(p=>`<a href="#${p.id}"><img src="${p.img}" alt=""><span>${esc(p.name)}<small>${fromLabel(p)} ${kz(fromPrice(p))}</small></span></a>`).join('')+`<a class="all" href="#busca">Ver todos os resultados para “${esc(v)}”</a>`:`<a class="all" href="#" data-chat>Não encontrámos “${esc(v)}”. Pedir ao assistente</a>`;box.hidden=false});
 $('#sForm').onsubmit=e=>{e.preventDefault();$('#suggest').hidden=true;if(location.hash==='#busca')route();else location.hash='busca'};
 
 /* ================= components ================= */
 const rate=r=>r.toFixed(1).replace('.',',');
 const stars=(r,n)=>`<span class="stars">${ico('star')}${rate(r)}${n?` <span class="muted">(${n})</span>`:''}</span>`;
-function card(p){
+function card(p,opt={}){const o=(opt.seller&&p.allOffers.find(x=>x.s===opt.seller))||p.offers[0];const pr=priceFor(p,p.min,1,o.f);const more=p.offers.length-1;
  return `<article class="card"><a class="media" href="#${p.id}" aria-label="${esc(p.name)}"><img src="${p.img}" alt="" loading="lazy"></a>
  ${p.best?'<span class="tag">Mais vendido</span>':''}
  <button class="fav" type="button" data-fav="${p.id}" aria-pressed="${favs.has(p.id)}" aria-label="Guardar nos favoritos">${ico('heart','s')}</button>
  <h3><a href="#${p.id}">${esc(p.name)}</a></h3>
- <div class="from">${fromLabel(p)}<b>${kz(p.base)}</b>${p.min>1?`<em>${kz2(p.base/p.min)} por unidade</em>`:''}</div>
- <div class="meta">${stars(p.rating,p.reviews)}<span>${p.offers.length} ${p.offers.length===1?'loja':'lojas'}</span></div></article>`}
-const logoBox=(k,sz=42)=>{const s=SELLERS[k];return `<span style="width:${sz}px;height:${sz}px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:${Math.round(sz/3)}px;background:${s.c};color:${s.t};flex:none">${s.name.split(' ').map(w=>w[0]).slice(0,2).join('')}</span>`};
+ <div class="from">${fromLabel(p)}<b>${kz(pr)}</b>${p.min>1?`<em>${kz2(pr/p.min)} por unidade</em>`:''}</div>
+ <a class="by" href="#loja-${o.s}" title="Ver o perfil de ${esc(SELLERS[o.s].name)}">${logoBox(o.s,24)}<b>${esc(SELLERS[o.s].name)}</b>${!opt.seller&&more>0?`<span class="more">+${more} ${more===1?'loja':'lojas'}</span>`:''}</a>
+ <div class="meta">${stars(p.rating,p.reviews)}</div></article>`}
+const logoBox=(k,sz=42)=>{const s=SELLERS[k];return `<span style="width:${sz}px;height:${sz}px;border-radius:${Math.max(6,Math.round(sz/4))}px;display:grid;place-items:center;font-weight:800;font-size:${Math.round(sz/3)}px;background:${s.c};color:${s.t};flex:none">${s.name.split(' ').map(w=>w[0]).slice(0,2).join('')}</span>`};
 
 /* ================= home ================= */
 const SLIDES=[
@@ -824,7 +970,7 @@ function renderHome(){
    <a class="service" href="#prod-1"><span class="ic">${ico('cube')}</span><b>Studio 3D</b><span>Monte a sua arte, carregue o logótipo e veja o produto em 3D antes de encomendar.</span><span class="link">Experimentar no cartão de visita</span></a>
    <a class="service" href="#ajuda"><span class="ic">${ico('file')}</span><b>Verificação de ficheiro</b><span>A gráfica confirma resolução, sangria e cores antes de imprimir, sem custo.</span><span class="link">Como preparar a arte</span></a>
    <button class="service" type="button" data-chat><span class="ic">${ico('chat')}</span><b>Assistente PrintOn</b><span>Orçamentos, proformas e estado das encomendas, a qualquer hora.</span><span class="link">Abrir o assistente</span></button>
-   <a class="service" href="#vender"><span class="ic">${ico('store')}</span><b>Venda na PrintOn</b><span>Gráficas, papelarias e fornecedores chegam a clientes de todo o país.</span><span class="link">Registar a minha loja</span></a>
+   <a class="service" href="#registar-loja"><span class="ic">${ico('store')}</span><b>Venda na PrintOn</b><span>Gráficas, papelarias e fornecedores chegam a clientes de todo o país.</span><span class="link">Registar a minha loja</span></a>
   </div></div></section>
 
  <section class="section tight"><div class="wrap">
@@ -965,7 +1111,7 @@ function renderCheckout(){if(!cart.length){location.hash='home';return}
  <form class="co" id="coForm"><div>
   <section class="co-step"><h2><i>1</i>Os seus dados</h2><div class="frow"><div class="field"><label for="cName">Nome completo</label><input id="cName" required autocomplete="name" value="${esc(billing.name)}"></div><div class="field"><label for="cPhone">Telemóvel</label><input id="cPhone" required inputmode="tel" autocomplete="tel" placeholder="9XX XXX XXX" value="${esc(billing.phone)}"></div></div><div class="frow"><div class="field"><label for="cMail">Email</label><input id="cMail" type="email" autocomplete="email" value="${esc(billing.email)}" placeholder="Para receber a factura"></div><div class="field"><label for="cNif">NIF (opcional)</label><input id="cNif" inputmode="numeric" value="${esc(billing.nif)}" placeholder="Para factura em nome da empresa"></div></div></section>
   <section class="co-step"><h2><i>2</i>Entrega</h2><div class="frow"><div class="field"><label for="dProv">Província</label><select id="dProv">${Object.keys(PROVINCES).map(p=>`<option ${p===loc.prov?'selected':''}>${p}</option>`).join('')}</select></div><div class="field"><label for="dMun">Município</label><select id="dMun"></select></div></div>
-   <div class="field"><label for="dAddr">Morada</label><textarea id="dAddr" required placeholder="Bairro, rua, número do prédio ou casa e um ponto de referência"></textarea></div>
+   <div class="field"><label for="dAddr">Morada</label><textarea id="dAddr" required placeholder="Bairro, rua, número do prédio ou casa e um ponto de referência">${esc(defaultAddr())}</textarea></div>
    <div id="dOpts" style="display:grid;gap:8px"></div></section>
   <section class="co-step"><h2><i>3</i>Pagamento</h2>
    <label class="radio"><input type="radio" name="pay" value="mcx" checked><span class="g"><b>Multicaixa Express</b><span>Recebe a notificação no telemóvel e confirma com o PIN.</span></span></label>
@@ -984,12 +1130,12 @@ function renderCheckout(){if(!cart.length){location.hash='home';return}
  $('#cpBtn').onclick=()=>{const v=$('#cp').value.trim().toUpperCase();if(v==='PRIMEIRA10'){coupon=v;toast('Desconto de 10% aplicado')}else{coupon='';toast('Código inválido ou expirado')}totals()};
  $('#coForm').onsubmit=e=>{e.preventDefault();Object.assign(billing,{name:$('#cName').value.trim(),phone:$('#cPhone').value.trim(),email:$('#cMail').value.trim(),nif:$('#cNif').value.trim()});store.set('billing',billing);
   setLoc({prov:$('#dProv').value,mun:$('#dMun').value});const dl=$('input[name=dl]:checked');const tot=totals();
-  orders.unshift({n:'PO-'+String(Date.now()).slice(-6),total:tot,ship:+dl.dataset.price,eta:fmtDate(addDays(+dl.dataset.days)),dl:dl.dataset.name,loc:locLabel(),items:cart.map(l=>({name:P(l.id).name,qty:l.qty,total:lineTotal(l)}))});
-  store.set('orders',orders);cart=[];coupon='';saveCart();location.hash='pedido'}}
+  orders.unshift({n:'PO-'+String(Date.now()).slice(-6),date:new Date().toISOString(),total:tot,ship:+dl.dataset.price,eta:fmtDate(addDays(+dl.dataset.days)),dl:dl.dataset.name,loc:locLabel(),items:cart.map(l=>({id:l.id,name:P(l.id).name,qty:l.qty,total:lineTotal(l),s:l.s||P(l.id).offers[0].s}))});
+  store.set('orders',orders);addSellerOrders(orders[0],$('#dAddr').value.trim());cart=[];coupon='';saveCart();location.hash='pedido'}}
 const TRACK=[['Pagamento confirmado','Multicaixa Express'],['Verificação da arte','A gráfica revê o ficheiro'],['Em produção','Impressão e acabamento'],['Expedido','Com o estafeta ou a transportadora'],['Entregue','Na morada indicada']];
 const timeline=(at=1)=>`<div class="timeline">${TRACK.map((s,i)=>`<div class="tl ${i<at?'done':i===at?'now':''}"><i>${i<at?ico('check','s'):''}</i><div><b>${s[0]}</b><p>${s[1]}</p></div></div>`).join('')}</div>`;
 function renderOrder(){const o=orders[0];if(!o){location.hash='home';return}
- $('#view').innerHTML=`<div class="wrap" style="max-width:900px;padding-block:32px 40px"><div class="co-step"><h1 style="font-size:28px">Pedido recebido</h1><p class="muted">Pedido <b style="color:var(--ink)">${o.n}</b> · ${kz(o.total)} · ${esc(o.dl)} para ${esc(o.loc)} · previsão ${o.eta}</p>${timeline(1)}
+ $('#view').innerHTML=`<div class="wrap" style="max-width:900px;padding-block:32px 40px"><div class="co-step"><h1 style="font-size:28px">Pedido recebido</h1><p class="muted">Pedido <b style="color:var(--ink)">${o.n}</b> · ${kz(o.total)} · ${esc(o.dl)} para ${esc(o.loc)} · previsão ${o.eta}</p>${timeline(stageAt(o))}
  <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ink" type="button" data-say="Quero a factura-recibo do pedido ${o.n}">${ico('file','s')}Pedir factura-recibo</button><a class="btn btn-line" href="#home">Continuar a comprar</a></div></div></div>`}
 
 /* ================= panels ================= */
@@ -1082,7 +1228,7 @@ const findProv=s=>Object.keys(PROVINCES).find(k=>norm(k)===norm(s||''));
 const findMun=(pv,s)=>PROVINCES[pv].find(m=>s&&norm(m).includes(norm(s)));
 const TOOLS=[
  {name:'search_catalog',description:'Procura produtos no catálogo PrintOn. Devolve até 6 produtos com id, nome, categoria, quantidade mínima, preço inicial e quantidades da tabela.',inputSchema:{type:'object',properties:{query:{type:'string',description:'Palavras-chave, por exemplo "cartão de visita" ou "colete"'}},required:['query']},
-  execute:({query})=>{const r=searchProducts(String(query||''),6);return r.length?r.map(p=>({id:p.id,nome:p.name,categoria:CATS[p.cat][0],qtd_minima:p.min,preco_inicial:kz(p.base),quantidades_tabela:QTYS[p.type]})):'Nenhum produto encontrado.'}},
+  execute:({query})=>{const r=searchProducts(String(query||''),6);return r.length?r.map(p=>({id:p.id,nome:p.name,categoria:CATS[p.cat][0],qtd_minima:p.min,preco_inicial:kz(fromPrice(p)),quantidades_tabela:QTYS[p.type]})):'Nenhum produto encontrado.'}},
  {name:'get_price',description:'Preço total com IVA de um produto para uma quantidade, com as opções base, em cada loja que o vende. Devolve total, preço por unidade e dias úteis de produção.',inputSchema:{type:'object',properties:{product_id:{type:'string'},quantity:{type:'number'}},required:['product_id','quantity']},
   execute:({product_id,quantity})=>{const p=P(String(product_id));if(!p)throw new Error('Produto inexistente');const q=Math.max(p.min,Math.round(+quantity||p.min));pushCard(p);return {produto:p.name,quantidade:q,ajustada_ao_minimo:q>+quantity,ofertas:p.offers.map(o=>({loja:SELLERS[o.s].name,total:kz(priceFor(p,q,1,o.f)),por_unidade:kz2(priceFor(p,q,1,o.f)/q),producao:days(o.lead)}))}}},
  {name:'delivery_options',description:'Opções de entrega com custo e data estimada, para a localização actual do cliente ou para outra província e município de Angola.',inputSchema:{type:'object',properties:{province:{type:'string'},municipality:{type:'string'},production_days:{type:'number'}}},
@@ -1117,7 +1263,7 @@ function renderChat(){const d=$('#chatDrawer');const unread=THREADS.filter(t=>t.
  else if(curThread)bindThread()}
 function drawLog(){const box=$('#msgs');if(!box)return;
  const intro=`<div class="msg"><p>Olá. Posso calcular preços, prazos e custos de entrega, comparar lojas, preparar uma factura-proforma ou ver o estado de uma encomenda.</p></div>${chatLog.length?'':`<div class="sugs">${['Quanto custam 500 cartões de visita?','Preciso de 30 coletes com logótipo','Quanto custa a entrega para Benguela?','Quero uma proforma do carrinho','Onde está a minha encomenda?'].map(s=>`<button type="button" data-sug>${s}</button>`).join('')}</div>`}`;
- box.innerHTML=intro+chatLog.map(m=>m.doc?docHTML(m.doc):m.card?(p=>`<a class="pcard" href="#${p.id}" data-close><img src="${p.img}" alt=""><div><b>${esc(p.name)}</b><span class="muted">${fromLabel(p)} ${kz(p.base)}</span></div>${ico('right','s')}</a>`)(P(m.card)):m.role==='user'?`<div class="msg me">${esc(m.t)}</div>`:`<div class="msg">${m.pending?`<span class="st"><span class="dotsl"><i></i><i></i><i></i></span>${esc(m.status)}</span>`:md(m.t)}</div>`).join('');
+ box.innerHTML=intro+chatLog.map(m=>m.doc?docHTML(m.doc):m.card?(p=>`<a class="pcard" href="#${p.id}" data-close><img src="${p.img}" alt=""><div><b>${esc(p.name)}</b><span class="muted">${fromLabel(p)} ${kz(fromPrice(p))}</span></div>${ico('right','s')}</a>`)(P(m.card)):m.role==='user'?`<div class="msg me">${esc(m.t)}</div>`:`<div class="msg">${m.pending?`<span class="st"><span class="dotsl"><i></i><i></i><i></i></span>${esc(m.status)}</span>`:md(m.t)}</div>`).join('');
  $$('[data-sug]',box).forEach(b=>b.onclick=()=>sendAI(b.textContent));box.scrollTop=box.scrollHeight}
 async function sendAI(text){const ta=$('#chatIn');if(ta){ta.value='';ta.style.height='auto'}
  if(aiCtl)return;
@@ -1137,7 +1283,7 @@ async function sendAI(text){const ta=$('#chatIn');if(ta){ta.value='';ta.style.he
  finally{aiCtl=null;setSend(false);drawLog();badges()}}
 function setSend(busy){const b=$('#sendBtn');if(!b)return;b.classList.toggle('stop',busy);b.innerHTML=ico(busy?'stop':'send','s');b.setAttribute('aria-label',busy?'Parar resposta':'Enviar')}
 function offlineReply(text){const t=norm(text);
- if(/proforma|factura|fatura|recibo/.test(t)){if(/recibo/.test(t)){if(!orders[0])return 'Ainda não há encomendas pagas. A factura-recibo é emitida depois do pagamento.';pushDoc(makeDoc('Factura-recibo',orders[0]));return 'Aqui está a factura-recibo do pedido '+orders[0].n+'.'}if(!cart.length)return 'O carrinho está vazio. Adicione os produtos e eu preparo a proforma.';pushDoc(makeDoc('Factura-proforma'));return 'Preparei a factura-proforma do carrinho, válida por 15 dias.'}
+ if(/proforma|factura|fatura|recibo/.test(t)){if(/recibo/.test(t)){const on=(text.match(/PO-\d+/i)||[''])[0].toUpperCase();const oo=orders.find(x=>x.n===on)||orders[0];if(!oo)return 'Ainda não há encomendas pagas. A factura-recibo é emitida depois do pagamento.';pushDoc(makeDoc('Factura-recibo',oo));return 'Aqui está a factura-recibo do pedido '+oo.n+'.'}if(!cart.length)return 'O carrinho está vazio. Adicione os produtos e eu preparo a proforma.';pushDoc(makeDoc('Factura-proforma'));return 'Preparei a factura-proforma do carrinho, válida por 15 dias.'}
  if(/encomenda|pedido|onde esta/.test(t)){const o=orders[0];return o?`O pedido **${o.n}** está em produção. Previsão de entrega: ${o.eta}, ${o.dl.toLowerCase()} para ${o.loc}.`:'Ainda não tem encomendas nesta conta.'}
  const pv=Object.keys(PROVINCES).find(k=>t.includes(norm(k)));
  if(/entrega|envio|portes|transporte/.test(t)){const l=pv?{prov:pv,mun:PROVINCES[pv][0]}:loc;return `Entrega para ${l.mun}, ${l.prov}, em produtos com 2 dias úteis de produção:\n`+deliveryOptions(l,cartSub(),2).map(o=>`- **${o.name}**: ${o.price?kz(o.price):'grátis'}, chega ${fmtDate(addDays(o.days))}`).join('\n')}
@@ -1153,12 +1299,192 @@ function renderInfo(kind){
  const T={ajuda:['Ajuda','Encomendas, arte, pagamentos e entregas.'],vender:['Vender na PrintOn','Para gráficas, papelarias e fornecedores de equipamentos e EPIs.'],anunciar:['Anunciar na PrintOn','Chegue a empresas, escolas e particulares no momento da compra.'],lojas:['Lojas verificadas','Gráficas e fornecedores com NIF, avaliações e prazos acompanhados.']}[kind];
  let body='';
  if(kind==='ajuda')body=`<div class="faq" style="max-width:820px">${[['Como preparo a arte?','Envie PDF em CMYK, 300 dpi e 3 mm de sangria em cada lado. Se não tiver arte, monte-a no Studio 3D e veja o resultado antes de encomendar.'],['Quanto custa a entrega?',`Em Luanda a entrega standard custa 2 500 Kz (3 500 Kz em Viana, Cazenga e Cacuaco) e é grátis a partir de ${kz(FREE_FROM)}. O expresso por motoboy custa 5 000 Kz. Nas províncias, o custo depende da distância e aparece antes do pagamento.`],['Que métodos de pagamento aceitam?','Multicaixa Express, referência Multicaixa e transferência bancária para empresas.'],['Como peço factura-proforma?','No carrinho, toque em “Pedir factura-proforma”, ou peça ao assistente. Pode indicar o NIF da empresa.'],['O que acontece se houver um erro de impressão?','Se o defeito for da gráfica, reimprimimos sem custo ou devolvemos o valor.']].map(q=>`<details><summary>${q[0]}</summary><p>${q[1]}</p></details>`).join('')}</div>`;
- else if(kind==='lojas')body=`<div class="services">${Object.entries(SELLERS).map(([k,s])=>`<a class="service" href="#loja-${k}">${logoBox(k,48)}<b>${s.name}</b><span>${s.city}</span><span>Avaliação ${rate(s.rating)} · responde em ${s.resp}</span><span class="link">Ver produtos</span></a>`).join('')}</div>`;
+ else if(kind==='lojas')body=storeCards(Object.keys(SELLERS));
  else{const tiers=kind==='vender'?[['Essencial','Sem mensalidade','Comissão por venda. Até 50 produtos, mensagens e pagamentos.','Quero vender na PrintOn'],['Profissional','Plano mensal','Comissão reduzida, produtos ilimitados e destaque na pesquisa.','Quero o plano Profissional para a minha gráfica'],['Fornecedor','Sob consulta','Equipamentos, consumíveis e EPIs com catálogo para empresas.','Quero vender equipamentos ou EPIs na PrintOn']]:[['Banner na página inicial','Por semana','Faixa de largura total, um anunciante de cada vez.','Quero anunciar com o banner da página inicial'],['Produtos patrocinados','Por clique','Os seus produtos nas categorias, com a indicação “Patrocinado”.','Quero anunciar produtos patrocinados'],['Destaque lateral','Por mês','Espaço lateral nas listagens de produtos.','Quero anunciar no destaque lateral']];
   body=`<div class="services" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">${tiers.map(t=>`<div class="service"><b style="font-size:19px">${t[0]}</b><span style="font-weight:700;color:var(--ink)">${t[1]}</span><span>${t[2]}</span><button class="btn btn-ink btn-sm" type="button" data-say="${t[3]}" style="margin-top:10px;align-self:flex-start">Falar com a equipa</button></div>`).join('')}</div>`}
  $('#view').innerHTML=`<div class="wrap" style="padding-bottom:48px"><nav class="crumbs"><a href="#home">Início</a>${ico('right','s')}<span>${T[0]}</span></nav><div class="lhead"><div><h1>${T[0]}</h1><p>${T[1]}</p></div></div>${body}</div>`}
 function renderFavs(){const l=[...favs].map(P).filter(Boolean);
  $('#view').innerHTML=`<div class="wrap" style="padding-bottom:48px"><nav class="crumbs"><a href="#home">Início</a>${ico('right','s')}<span>Favoritos</span></nav><div class="lhead"><h1>Favoritos</h1></div>${l.length?`<div class="grid">${l.map(card).join('')}</div>`:`<div class="empty">${ico('heart','l')}<h3>Ainda não guardou produtos</h3><p>Toque no coração de um produto para o guardar aqui.</p><a class="btn btn-ink btn-sm" href="#busca-best">Ver mais vendidos</a></div>`}</div>`}
+
+/* ================= store profiles ================= */
+const sellerProducts=k=>PRODUCTS.filter(p=>p.allOffers.some(o=>o.s===k&&!o.off));
+function storeCards(keys){return `<div class="storegrid">${keys.map(k=>{const s=SELLERS[k];const n=sellerProducts(k).length;return `<a class="storecard" href="#loja-${k}"><span class="sc-cover" style="background-image:url(${s.cover})"></span><span class="sc-body"><span class="sc-top">${logoBox(k,64)}<span class="vbadge">${ico('verified')}Verificada</span></span><b>${esc(s.name)}</b><span class="m">${esc(s.kind)} · ${esc(s.city)}</span><span class="m">${s.reviews?stars(s.rating,s.reviews):'Sem avaliações ainda'} · ${n} ${n===1?'produto':'produtos'}</span></span></a>`}).join('')}</div>`}
+function renderStore(k){const s=SELLERS[k];const ps=sellerProducts(k);let tab='prod';
+ $('#view').innerHTML=`<div class="cover" style="background-image:url(${s.cover})"></div><div class="wrap">
+ <div class="phead"><span class="plogo" style="background:${s.c};color:${s.t}">${initials(s.name)}</span><div class="pinfo"><h1>${esc(s.name)}<span class="vbadge">${ico('verified')}Loja verificada</span></h1><div class="sub"><span>${esc(s.kind)}</span><span>${ico('pin','s')} ${esc(s.city)}</span>${s.reviews?stars(s.rating,s.reviews+' avaliações'):''}</div></div>
+  <div class="pacts"><button class="btn btn-ink btn-sm" type="button" data-msg="${k}">${ico('chat','s')}Enviar mensagem</button><button class="btn btn-line btn-sm" type="button" id="shareStore">${ico('link','s')}Copiar link</button></div></div>
+ <div class="pstats"><div><b>${s.orders?num(s.orders)+'+':'—'}</b><span>encomendas entregues</span></div><div><b>${s.reviews?rate(s.rating):'—'}</b><span>avaliação média</span></div><div><b>${esc(s.resp)}</b><span>tempo de resposta</span></div><div><b>${ps.length}</b><span>produtos</span></div><div><b>${s.since}</b><span>na PrintOn desde</span></div></div>
+ <div class="ptabs" role="tablist"><button role="tab" aria-selected="true" data-stab="prod">Produtos</button><button role="tab" aria-selected="false" data-stab="about">Sobre a loja</button><button role="tab" aria-selected="false" data-stab="rev">Avaliações</button></div>
+ <div id="spanel" style="padding-block:24px 40px"></div></div>`;
+ const draw=()=>{$$('[data-stab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.stab===tab));
+  $('#spanel').innerHTML=tab==='prod'?(ps.length?`<div class="grid">${ps.map(p=>card(p,{seller:k})).join('')}</div>`:`<div class="empty">${ico('box','l')}<h3>Esta loja ainda não tem produtos publicados</h3><p>Envie uma mensagem para pedir um orçamento directamente.</p></div>`)
+  :tab==='about'?`<div class="about"><div class="txt"><p>${esc(s.about||'Esta loja ainda não escreveu a sua apresentação.')}</p>${s.tags?.length?`<h4 style="margin:20px 0 10px;color:var(--ink)">Especialidades</h4><div class="chips">${s.tags.map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}</div>
+   <dl class="spec"><div><dt>Morada</dt><dd>${esc(s.addr||s.city)}</dd></div><div><dt>Horário</dt><dd>${esc(s.hours||'—')}</dd></div><div><dt>Entrega para</dt><dd>${esc(s.ships||'Todo o país')}</dd></div><div><dt>Pagamentos</dt><dd>Multicaixa Express, referência, transferência</dd></div><div><dt>NIF</dt><dd>Verificado pela PrintOn</dd></div></dl></div>`
+  :`<div style="max-width:760px">${s.reviews?`<div class="dhead"><div><h2 style="font-size:22px;font-weight:800">${rate(s.rating)} de 5</h2><p>${s.reviews} avaliações de clientes que compraram nesta loja</p></div></div>${[['Teresa N.','Cores fiéis ao ficheiro e entrega no dia combinado. A prova digital ajudou a corrigir um detalhe do logótipo.',5],['João M.','Bom atendimento pelas mensagens e acabamento cuidado. Voltarei a encomendar.',5],['Construções L.','Prazo cumprido para uma encomenda grande. Faltou só aviso quando saiu para entrega.',4]].map(r=>`<div class="review"><b>${r[0]} <span class="stars">${ico('star')}${r[2]},0</span></b><p>${r[1]}</p></div>`).join('')}<p class="muted" style="font-size:12.5px;margin-top:10px">Avaliações de exemplo no protótipo.</p>`:`<div class="empty"><h3>Ainda sem avaliações</h3><p>As avaliações aparecem depois das primeiras entregas.</p></div>`}</div>`};
+ $$('[data-stab]').forEach(b=>b.onclick=()=>{tab=b.dataset.stab;draw()});
+ $('#shareStore').onclick=()=>{const u=location.href;navigator.clipboard?.writeText(u).then(()=>toast('Link do perfil copiado'),()=>toast(u))};
+ draw()}
+
+/* ================= accounts ================= */
+let session=store.get('session',null);
+const initials=s=>String(s).split(' ').filter(w=>w.length>2||/^[A-Z]/.test(w)).map(w=>w[0]).slice(0,2).join('').toUpperCase()||'P';
+function renderAcct(){const b=$('#acctBtn');const sel=session?.role==='seller';
+ b.innerHTML=`${ico('user')}<span class="t">${session?'Olá, '+esc(sel?SELLERS[session.seller]?.name||'loja':session.name.split(' ')[0]):'Olá, entre'}<b>${session?(sel?'Painel da loja':'Minha conta'):'Conta e pedidos'}</b></span>`}
+function setSession(s){session=s;store.set('session',s);renderAcct()}
+let sOrders=store.get('sorders',null);
+function seedSOrders(){const names=['João Manuel','Teresa Neto','Construções Lunda, Lda','Café Kianda','Pedro Afonso','Igreja Nova Vida','Marta Cassoma','Escola Ngola'];const out=[];
+ ['gc','kp','pu','te','sp','cd'].forEach((k,si)=>{const ps=PRODUCTS.filter(p=>p.baseOffers.some(o=>o.s===k));for(let i=0;i<7&&ps.length;i++){const p=ps[(i*3+si)%ps.length];const o=p.baseOffers.find(x=>x.s===k);const q=QTYS[p.type][(i+si)%2];const d=new Date();d.setDate(d.getDate()-(i*2+si%3));
+  out.push({id:'S'+si+i,n:'PO-'+(480210+si*37+i*11),seller:k,client:names[(i+si)%names.length],prov:['Luanda','Benguela','Huambo','Luanda','Huíla'][(i+si)%5],date:d.toISOString(),items:[{id:p.id,name:p.name,qty:q,total:priceFor(p,q,1,o.f)}],status:[1,2,2,3,4,4,1][i],demo:true})}});return out}
+if(!sOrders){sOrders=seedSOrders();store.set('sorders',sOrders)}
+const saveS=()=>store.set('sorders',sOrders);
+const SST=['Pagamento confirmado','Verificar arte','Em produção','Expedido','Entregue'];
+const stBadge=i=>`<span class="stt s${i}">${SST[i]}</span>`;
+const orderStatus=o=>{const ss=sOrders.filter(x=>x.n===o.n);return ss.length?Math.min(...ss.map(x=>x.status)):1};
+const stageAt=o=>{const s=orderStatus(o);return s>=4?5:s};
+const sTotal=o=>o.items.reduce((a,i)=>a+i.total,0);
+const dfmt=iso=>new Date(iso||Date.now()).toLocaleDateString('pt-PT',{day:'numeric',month:'short',year:'numeric'}).replace(/\./g,'');
+function addSellerOrders(o,addr){const by={};o.items.forEach(i=>(by[i.s]=by[i.s]||[]).push(i));Object.entries(by).forEach(([s,items])=>sOrders.unshift({id:'S'+Date.now()+s,n:o.n,seller:s,client:billing.name||'Cliente PrintOn',prov:loc.prov,addr,date:new Date().toISOString(),items,status:1}));saveS()}
+let addrs=store.get('addr',[]);
+const defaultAddr=()=>{const a=addrs.find(x=>x.def)||addrs[0];return a&&a.prov===loc.prov?a.text:''};
+
+/* ================= sign in / sign up ================= */
+let authRole='client',authMode='login';
+function renderAuth(h){if(h==='registar'){authMode='signup'}else if(h==='registar-loja'){authMode='signup';authRole='seller'}else authMode='login';
+ if(session){location.hash=session.role==='seller'?'painel':'conta';return}
+ const seller=authRole==='seller',signup=authMode==='signup';
+ const provOpts=Object.keys(PROVINCES).map(p=>`<option>${p}</option>`).join('');
+ $('#view').innerHTML=`<div class="auth"><div class="side"><img src="${seller?'img/printhouse.jpg':'img/business.jpg'}" alt=""><h2>${seller?'Venda para todo o país a partir da sua gráfica':'Os seus pedidos, facturas e entregas num só lugar'}</h2><ul>${(seller?['Pedidos já especificados, com a arte verificada','Painel de encomendas, mensagens e pagamentos','Pagamento garantido por Multicaixa Express']:['Acompanhe cada pedido até à porta','Facturas com NIF sempre à mão','Repita encomendas em dois cliques']).map(t=>`<li>${ico('check','s')}${t}</li>`).join('')}</ul></div>
+ <div class="panel"><div><h1>${signup?(seller?'Registar a minha loja':'Criar conta'):'Entrar na PrintOn'}</h1><p class="muted" style="margin-top:4px">${signup?'Leva menos de dois minutos.':'Bem-vindo de volta.'}</p></div>
+  <div class="seg2" role="group" aria-label="Tipo de conta"><button type="button" data-role="client" aria-pressed="${!seller}">Sou cliente</button><button type="button" data-role="seller" aria-pressed="${seller}">Sou loja ou gráfica</button></div>
+  <form id="authForm" style="display:grid;gap:14px" novalidate>
+   ${signup&&seller?`<div class="field"><label for="aCo">Nome da loja ou gráfica</label><input id="aCo" required autocomplete="organization"></div><div class="frow"><div class="field"><label for="aKind">Actividade</label><select id="aKind"><option>Gráfica</option><option>Papelaria</option><option>Comunicação visual</option><option>Fornecedor de equipamentos</option><option>EPIs e fardamento</option><option>Brindes e têxtil</option></select></div><div class="field"><label for="aNif">NIF</label><input id="aNif" inputmode="numeric" required></div></div><div class="frow"><div class="field"><label for="aProv">Província</label><select id="aProv">${provOpts}</select></div><div class="field"><label for="aPh">Telemóvel</label><input id="aPh" inputmode="tel" required placeholder="9XX XXX XXX"></div></div>`:''}
+   ${signup&&!seller?`<div class="field"><label for="aName">Nome completo</label><input id="aName" required autocomplete="name"></div><div class="field"><label for="aPh">Telemóvel</label><input id="aPh" inputmode="tel" required placeholder="9XX XXX XXX"></div>`:''}
+   <div class="field"><label for="aMail">${signup?'Email':'Email ou telemóvel'}</label><input id="aMail" required autocomplete="${signup?'email':'username'}"></div>
+   <div class="field"><label for="aPw">Palavra-passe</label><input id="aPw" type="password" required autocomplete="${signup?'new-password':'current-password'}" placeholder="Mínimo 6 caracteres"></div>
+   ${signup?`<label class="check"><input type="checkbox" id="aTerms">Aceito os Termos de utilização e a Política de privacidade${seller?' e o contrato de vendedor':''}.</label>`:`<button class="link" type="button" id="forgot" style="justify-self:start;font-size:13.5px">Esqueci-me da palavra-passe</button>`}
+   <p class="err" id="aErr" hidden></p>
+   <button class="btn btn-ink btn-block" type="submit">${signup?(seller?'Registar loja':'Criar conta'):'Entrar'}</button></form>
+  <p style="font-size:14px;text-align:center">${signup?'Já tem conta? <a class="link" href="#entrar">Entrar</a>':`Ainda não tem conta? <a class="link" href="#${seller?'registar-loja':'registar'}">${seller?'Registar a minha loja':'Criar conta'}</a>`}</p>
+  <div class="or">ou</div>
+  <div class="demo">${seller?`<label class="field" for="demoStore" style="font-weight:600">Experimentar o painel com uma loja de demonstração<select id="demoStore">${Object.entries(SELLERS).map(([k,s])=>`<option value="${k}">${esc(s.name)}</option>`).join('')}</select></label><button class="btn btn-line btn-sm" type="button" id="demoBtn">Entrar no painel de demonstração</button>`:`<span>Quer ver como funciona sem criar conta?</span><button class="btn btn-line btn-sm" type="button" id="demoBtn">Entrar como cliente de demonstração</button>`}</div>
+  <p class="muted" style="font-size:12px;text-align:center">Protótipo: o acesso real liga-se ao sistema de contas da PrintOn. As palavras-passe não são guardadas.</p></div></div>`;
+ $$('[data-role]').forEach(b=>b.onclick=()=>{authRole=b.dataset.role;renderAuth(authMode==='signup'?(authRole==='seller'?'registar-loja':'registar'):'entrar')});
+ $('#forgot')?.addEventListener('click',()=>toast('Enviámos um código de recuperação para o seu email ou telemóvel (simulação)'));
+ const err=m=>{const e=$('#aErr');e.textContent=m;e.hidden=!m};
+ $('#demoBtn').onclick=()=>seller?loginSeller($('#demoStore').value):loginDemoClient();
+ $('#authForm').onsubmit=e=>{e.preventDefault();const mail=$('#aMail').value.trim(),pw=$('#aPw').value;
+  if(!mail)return err('Indique o email'+(signup?'.':' ou o telemóvel.'));if(pw.length<6)return err('A palavra-passe precisa de pelo menos 6 caracteres.');if(signup&&!$('#aTerms').checked)return err('Aceite os termos para continuar.');
+  if(!signup){if(seller){const k=Object.keys(SELLERS).find(k=>(SELLERS[k].email||'').toLowerCase()===mail.toLowerCase());if(!k)return err('Não encontrámos uma loja com este email. Use a loja de demonstração ou registe a sua.');return loginSeller(k)}
+   setSession({role:'client',name:billing.name||'Cliente PrintOn',email:mail});location.hash='conta';return}
+  if(seller){const co=$('#aCo').value.trim(),nif=$('#aNif').value.trim(),ph=$('#aPh').value.trim();if(!co||!nif||!ph)return err('Preencha o nome da loja, o NIF e o telemóvel.');
+   const k='u'+Date.now().toString(36);const prov=$('#aProv').value;const ns=store.get('newSellers',{});
+   ns[k]={name:co,kind:$('#aKind').value,city:prov,c:'#121411',t:'#D9FC00',rating:0,reviews:0,resp:'—',since:new Date().getFullYear(),orders:0,cover:'img/printhouse.jpg',email:mail,phone:ph,nif,addr:prov,hours:'',ships:prov,about:'',tags:[],pending:true};
+   store.set('newSellers',ns);SELLERS[k]=ns[k];loginSeller(k);return}
+  const nm=$('#aName').value.trim(),ph=$('#aPh').value.trim();if(!nm||!ph)return err('Preencha o nome e o telemóvel.');
+  Object.assign(billing,{name:nm,phone:ph,email:mail});store.set('billing',billing);setSession({role:'client',name:nm,email:mail});toast('Conta criada');location.hash='conta'}}
+function loginSeller(k){setSession({role:'seller',seller:k,name:SELLERS[k].name});dtab='resumo';location.hash='painel'}
+function loginDemoClient(){Object.assign(billing,{name:billing.name||'Ana Domingos',phone:billing.phone||'923 000 000',email:billing.email||'ana@exemplo.ao'});store.set('billing',billing);
+ if(!orders.length){const mk=(pid,q,s,days,st)=>{const p=P(pid);const o=p.allOffers.find(x=>x.s===s)||p.offers[0];const d=new Date();d.setDate(d.getDate()-days);const tot=priceFor(p,q,1,o.f);
+   const ord={n:'PO-'+(471000+days*13),date:d.toISOString(),total:tot,ship:0,eta:fmtDate(addDays(2)),dl:'Entrega standard',loc:'Talatona, Luanda',items:[{id:p.id,name:p.name,qty:q,total:tot,s:o.s}]};
+   orders.push(ord);sOrders.unshift({id:'SD'+days,n:ord.n,seller:o.s,client:billing.name,prov:'Luanda',date:ord.date,items:ord.items,status:st})};
+  mk('prod-1',500,'gc',2,2);mk('prod-32',1,'kp',12,4);store.set('orders',orders);saveS()}
+ setSession({role:'client',name:billing.name,email:billing.email});location.hash='conta'}
+function logout(){setSession(null);toast('Sessão terminada');location.hash='home'}
+
+/* ================= dashboards ================= */
+let dtab='resumo';
+function dash(navItems,who,body){return `<div class="wrap dash"><nav class="dnav" aria-label="Painel">${who}${navItems}</nav><section class="dmain">${body}</section></div>`}
+const navBtn=(id,label,icon,n)=>`<button type="button" data-dt="${id}" ${dtab===id?'aria-current="page"':''}>${ico(icon,'s')}${label}${n?`<span class="n">${n}</span>`:''}</button>`;
+function bindDash(fn){$$('[data-dt]').forEach(b=>b.onclick=()=>{dtab=b.dataset.dt;fn();scrollTo({top:0,behavior:'instant'})});$('#logout')?.addEventListener('click',logout)}
+function ocard(o){const st=orderStatus(o);return `<article class="ocard"><div class="oh"><div><b>${o.n}</b> <span class="muted" style="font-size:13px">· ${dfmt(o.date)} · ${kz(o.total)}</span></div>${stBadge(st)}</div>
+ <div class="prog">${[0,1,2,3,4].map(i=>`<i class="${i<=st?'on':''}"></i>`).join('')}</div>
+ <ul>${o.items.map(i=>`<li><span>${esc(i.name)} · ${num(i.qty)} un.<br><a class="muted" href="#loja-${i.s}" style="font-size:12.5px">${esc(SELLERS[i.s]?.name||'')}</a></span><span>${kz(i.total)}</span></li>`).join('')}</ul>
+ <p class="muted" style="font-size:13px">${esc(o.dl||'Entrega')} para ${esc(o.loc||locLabel())} · ${st>=4?'entregue':'previsão '+esc(o.eta||'')}</p>
+ <div class="acts"><button class="btn btn-line btn-sm" type="button" data-say="Quero a factura-recibo do pedido ${o.n}">${ico('file','s')}Factura-recibo</button>${o.items[0]?.s?`<button class="btn btn-line btn-sm" type="button" data-msg="${o.items[0].s}">${ico('chat','s')}Falar com a loja</button>`:''}<button class="btn btn-line btn-sm" type="button" data-reorder="${o.n}">Comprar de novo</button></div></article>`}
+function renderClient(){if(!session||session.role!=='client'){location.hash='entrar';return}
+ if(!['resumo','pedidos','facturas','moradas','dados'].includes(dtab))dtab='resumo';
+ const active=orders.filter(o=>orderStatus(o)<4);
+ const who=`<div class="who"><span class="av">${initials(session.name)}</span><div><b>${esc(session.name)}</b><span>Cliente</span></div></div>`;
+ const nav=navBtn('resumo','Resumo','home')+navBtn('pedidos','Pedidos','box',active.length)+navBtn('facturas','Facturas','file')+navBtn('moradas','Moradas','pin')+navBtn('dados','Dados pessoais','user')+`<a href="#favoritos">${ico('heart','s')}Favoritos</a><button type="button" data-chat>${ico('chat','s')}Mensagens</button><hr><button type="button" id="logout">${ico('out','s')}Terminar sessão</button>`;
+ let body='';
+ if(dtab==='resumo'){const spent=orders.reduce((a,o)=>a+o.total,0);
+  body=`<div class="dhead"><div><h1>Olá, ${esc(session.name.split(' ')[0])}</h1><p>Aqui acompanha os seus pedidos, facturas e moradas.</p></div><button class="btn btn-ink btn-sm" type="button" data-chat>Pedir orçamento</button></div>
+  <div class="kpis"><div class="kpi"><span>Pedidos em curso</span><b>${active.length}</b></div><div class="kpi"><span>Pedidos entregues</span><b>${orders.length-active.length}</b></div><div class="kpi"><span>Total comprado</span><b>${kz(spent)}</b></div><div class="kpi"><span>Favoritos</span><b>${favs.size}</b></div></div>
+  <div class="pbox"><h3>Pedidos em curso <button class="link" type="button" data-dt="pedidos">Ver todos</button></h3>${active.length?active.slice(0,2).map(ocard).join(''):`<div class="empty">${ico('box','l')}<h3>Nenhum pedido em curso</h3><a class="btn btn-ink btn-sm" href="#busca-best">Ver mais vendidos</a></div>`}</div>`}
+ else if(dtab==='pedidos')body=`<div class="dhead"><div><h1>Pedidos</h1><p>${orders.length} ${orders.length===1?'pedido':'pedidos'}</p></div></div>${orders.length?orders.map(ocard).join(''):`<div class="empty">${ico('box','l')}<h3>Ainda não fez pedidos</h3><a class="btn btn-ink btn-sm" href="#busca-best">Começar a comprar</a></div>`}`;
+ else if(dtab==='facturas')body=`<div class="dhead"><div><h1>Facturas</h1><p>Factura-recibo de cada pedido pago. Para uma proforma, use o carrinho ou o assistente.</p></div></div><div class="pbox tblw"><table class="tbl"><thead><tr><th>Documento</th><th>Pedido</th><th>Data</th><th class="r">Total</th><th></th></tr></thead><tbody>${orders.map(o=>`<tr><td>Factura-recibo</td><td>${o.n}</td><td>${dfmt(o.date)}</td><td class="r">${kz(o.total)}</td><td class="r"><button class="btn btn-line btn-sm" type="button" data-say="Quero a factura-recibo do pedido ${o.n}">Ver</button></td></tr>`).join('')||`<tr><td colspan="5" class="muted">Ainda não há facturas.</td></tr>`}</tbody></table></div>`;
+ else if(dtab==='moradas')body=`<div class="dhead"><div><h1>Moradas</h1><p>A morada principal é usada no pagamento quando a província coincide.</p></div></div>
+  ${addrs.map((a,i)=>`<div class="pbox" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><div><b>${esc(a.label)}</b>${a.def?' <span class="vbadge">Principal</span>':''}<p class="muted" style="font-size:14px">${esc(a.text)} · ${esc(a.mun)}, ${esc(a.prov)}</p></div><div class="acts" style="display:flex;gap:8px">${a.def?'':`<button class="btn btn-line btn-sm" type="button" data-adef="${i}">Tornar principal</button>`}<button class="btn btn-line btn-sm" type="button" data-adel="${i}">Remover</button></div></div>`).join('')}
+  <form class="pbox" id="addrForm" style="display:grid;gap:12px"><h3>Nova morada</h3><div class="frow"><div class="field"><label for="adLabel">Nome</label><input id="adLabel" placeholder="Casa, escritório…" required></div><div class="field"><label for="adProv">Província</label><select id="adProv">${Object.keys(PROVINCES).map(p=>`<option ${p===loc.prov?'selected':''}>${p}</option>`).join('')}</select></div></div><div class="frow"><div class="field"><label for="adMun">Município</label><select id="adMun"></select></div><div class="field"><label for="adText">Morada</label><input id="adText" required placeholder="Bairro, rua, número, referência"></div></div><button class="btn btn-ink btn-sm" type="submit" style="justify-self:start">Guardar morada</button></form>`;
+ else body=`<div class="dhead"><div><h1>Dados pessoais</h1><p>Usados no pagamento e nas facturas.</p></div></div><form class="pbox" id="meForm" style="display:grid;gap:12px;max-width:640px"><div class="frow"><div class="field"><label for="mName">Nome</label><input id="mName" value="${esc(billing.name)}"></div><div class="field"><label for="mPh">Telemóvel</label><input id="mPh" value="${esc(billing.phone)}"></div></div><div class="frow"><div class="field"><label for="mMail">Email</label><input id="mMail" type="email" value="${esc(billing.email)}"></div><div class="field"><label for="mNif">NIF (para facturas de empresa)</label><input id="mNif" value="${esc(billing.nif)}"></div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ink btn-sm" type="submit">Guardar alterações</button><button class="btn btn-line btn-sm" type="button" id="pwBtn">Alterar palavra-passe</button></div></form>`;
+ $('#view').innerHTML=dash(nav,who,body);bindDash(renderClient);
+ $$('[data-reorder]').forEach(b=>b.onclick=()=>{const o=orders.find(x=>x.n===b.dataset.reorder);o.items.forEach(i=>{const p=P(i.id);if(!p)return;const of=p.allOffers.find(x=>x.s===i.s)||p.offers[0];addToCart({id:p.id,qty:i.qty,mult:1,f:of.f,s:of.s,opts:[],lead:of.lead,art:'Arte do pedido '+o.n})});openCart()});
+ if($('#addrForm')){const fill=()=>{$('#adMun').innerHTML=PROVINCES[$('#adProv').value].map(m=>`<option>${m}</option>`).join('')};$('#adProv').onchange=fill;fill();
+  $('#addrForm').onsubmit=e=>{e.preventDefault();addrs.push({label:$('#adLabel').value.trim(),prov:$('#adProv').value,mun:$('#adMun').value,text:$('#adText').value.trim(),def:!addrs.length});store.set('addr',addrs);toast('Morada guardada');renderClient()};
+  $$('[data-adef]').forEach(b=>b.onclick=()=>{addrs.forEach((a,i)=>a.def=i===+b.dataset.adef);store.set('addr',addrs);const a=addrs[+b.dataset.adef];setLoc({prov:a.prov,mun:a.mun});renderClient()});
+  $$('[data-adel]').forEach(b=>b.onclick=()=>{addrs.splice(+b.dataset.adel,1);if(addrs.length&&!addrs.some(a=>a.def))addrs[0].def=true;store.set('addr',addrs);renderClient()})}
+ $('#meForm')?.addEventListener('submit',e=>{e.preventDefault();Object.assign(billing,{name:$('#mName').value.trim(),phone:$('#mPh').value.trim(),email:$('#mMail').value.trim(),nif:$('#mNif').value.trim()});store.set('billing',billing);setSession({...session,name:billing.name||session.name});toast('Dados guardados');renderClient()});
+ $('#pwBtn')?.addEventListener('click',()=>toast('Enviámos um link para alterar a palavra-passe (simulação)'))}
+
+const SINBOX={};
+function inboxFor(k){return SINBOX[k]||(SINBOX[k]=[{client:'João Manuel',msgs:[{me:0,t:'Bom dia. Conseguem entregar 500 flyers A5 até sexta em Talatona?'}]},{client:'Construções Lunda, Lda',msgs:[{me:0,t:'Precisamos de 40 unidades com o nosso logótipo. Qual é o prazo e podem emitir proforma com NIF?'}]},{client:'Teresa Neto',msgs:[{me:0,t:'Recebi a prova digital. Podem aumentar um pouco o logótipo?'},{me:1,t:'Claro, enviamos a nova prova ainda hoje.'}]}])}
+let inboxSel=0,ordFilter=0;
+function renderSeller(){if(!session||session.role!=='seller'){location.hash='entrar';return}
+ const k=session.seller,s=SELLERS[k];if(!s){setSession(null);location.hash='entrar';return}
+ if(!['resumo','pedidos','produtos','mensagens','pagamentos','perfil'].includes(dtab))dtab='resumo';
+ const mine=sOrders.filter(o=>o.seller===k);const nNew=mine.filter(o=>o.status===1).length;
+ const who=`<div class="who">${logoBox(k,44)}<div><b>${esc(s.name)}</b><span>${s.pending?'Em verificação':'Loja verificada'}</span></div></div>`;
+ const nav=navBtn('resumo','Resumo','chart')+navBtn('pedidos','Pedidos','box',nNew)+navBtn('produtos','Produtos','grid')+navBtn('mensagens','Mensagens','chat',inboxFor(k).length)+navBtn('pagamentos','Pagamentos','wallet')+navBtn('perfil','Perfil da loja','store')+`<a href="#loja-${k}">${ico('link','s')}Ver perfil público</a><hr><button type="button" id="logout">${ico('out','s')}Terminar sessão</button>`;
+ const notice=s.pending?`<div class="notice"><b>A sua loja está em verificação.</b> A equipa PrintOn confirma o NIF e o registo comercial em até 2 dias úteis. Entretanto pode preparar produtos e o perfil.</div>`:'';
+ const actBtn=o=>o.status>=4?'<span class="muted" style="font-size:13px">Concluído</span>':`<button class="btn btn-ink btn-sm" type="button" data-adv="${o.id}">${['','Aprovar arte','Marcar expedido','Confirmar entrega'][o.status]}</button>`;
+ const orow=o=>`<tr><td><b>${o.n}</b><br><span class="muted" style="font-size:12.5px">${dfmt(o.date)}</span></td><td>${esc(o.client)}<br><span class="muted" style="font-size:12.5px">${esc(o.prov)}</span></td><td>${o.items.map(i=>esc(i.name)+' × '+num(i.qty)).join('<br>')}</td><td class="r">${kz(sTotal(o))}</td><td>${stBadge(o.status)}</td><td class="r">${actBtn(o)}</td></tr>`;
+ const otable=list=>`<div class="tblw"><table class="tbl"><thead><tr><th>Pedido</th><th>Cliente</th><th>Produtos</th><th class="r">Total</th><th>Estado</th><th></th></tr></thead><tbody>${list.map(orow).join('')||'<tr><td colspan="6" class="muted">Sem pedidos.</td></tr>'}</tbody></table></div>`;
+ let body='';
+ if(dtab==='resumo'){const since=Date.now()-30*864e5;const m30=mine.filter(o=>new Date(o.date)>=since);const sales=m30.reduce((a,o)=>a+sTotal(o),0);
+  const daysArr=[...Array(14)].map((_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-13+i);const e=new Date(d);e.setDate(e.getDate()+1);return {d,v:mine.filter(o=>{const t=new Date(o.date);return t>=d&&t<e}).reduce((a,o)=>a+sTotal(o),0)}});
+  const max=Math.max(1,...daysArr.map(x=>x.v));const W=980,H=150,bw=W/14;
+  const chart=`<svg class="bars" viewBox="0 0 ${W} ${H+22}" width="100%" role="img" aria-label="Vendas por dia nos últimos 14 dias">${daysArr.map((x,i)=>{const h=Math.max(2,x.v/max*H);return `<rect class="g" x="${i*bw+6}" y="0" width="${bw-12}" height="${H}" rx="4"></rect><rect class="b" x="${i*bw+6}" y="${H-h}" width="${bw-12}" height="${h}" rx="4"><title>${x.d.toLocaleDateString('pt-PT')}: ${kz(x.v)}</title></rect><text x="${i*bw+bw/2}" y="${H+16}" text-anchor="middle">${x.d.getDate()}</text>`}).join('')}</svg>`;
+  body=`${notice}<div class="dhead"><div><h1>Resumo</h1><p>${esc(s.name)} · últimos 30 dias</p></div><a class="btn btn-line btn-sm" href="#loja-${k}">Ver perfil público</a></div>
+  <div class="kpis"><div class="kpi"><span>Vendas</span><b>${kz(sales)}</b><em>${m30.length} pedidos</em></div><div class="kpi"><span>Arte por verificar</span><b>${nNew}</b><em>responda em menos de 24 h</em></div><div class="kpi"><span>Em produção</span><b>${mine.filter(o=>o.status===2).length}</b><em>${mine.filter(o=>o.status===3).length} expedidos</em></div><div class="kpi"><span>Avaliação</span><b>${s.reviews?rate(s.rating):'—'}</b><em>${s.reviews} avaliações</em></div></div>
+  <div class="pbox"><h3>Vendas por dia <span class="muted" style="font-size:13px;font-weight:500">máximo ${kz(max)}</span></h3>${chart}</div>
+  <div class="pbox"><h3>Pedidos a precisar de atenção <button class="link" type="button" data-dt="pedidos">Ver todos</button></h3>${otable(mine.filter(o=>o.status<3).slice(0,5))}</div>`}
+ else if(dtab==='pedidos'){const list=ordFilter?mine.filter(o=>o.status===ordFilter):mine;
+  body=`${notice}<div class="dhead"><div><h1>Pedidos</h1><p>${mine.length} pedidos · os clientes vêem cada mudança de estado</p></div></div>
+  <div class="opts" style="margin-bottom:14px">${[[0,'Todos'],[1,'Verificar arte'],[2,'Em produção'],[3,'Expedido'],[4,'Entregue']].map(([v,l])=>`<button type="button" class="opt" data-of="${v}" aria-pressed="${ordFilter===v}">${l} <small>${v?mine.filter(o=>o.status===v).length:mine.length}</small></button>`).join('')}</div><div class="pbox">${otable(list)}</div>`}
+ else if(dtab==='produtos'){const ps=PRODUCTS.filter(p=>p.allOffers.some(o=>o.s===k));const others=PRODUCTS.filter(p=>!p.allOffers.some(o=>o.s===k));
+  body=`${notice}<div class="dhead"><div><h1>Produtos</h1><p>Defina o seu preço para a quantidade mínima e o prazo de produção. As alterações aparecem logo na loja.</p></div></div>
+  <div class="pbox tblw"><table class="tbl"><thead><tr><th>Produto</th><th>Quantidade mínima</th><th>O seu preço (Kz)</th><th>Produção (dias)</th><th>Activo</th><th></th></tr></thead><tbody>${ps.map(p=>{const o=p.allOffers.find(x=>x.s===k);return `<tr data-pid="${p.id}"><td><a href="#${p.id}"><b>${esc(p.name)}</b></a><br><span class="muted" style="font-size:12.5px">${CATS[p.cat][0]}</span></td><td>${num(p.min)} un.</td><td><input type="number" min="1" step="50" value="${priceFor(p,p.min,1,o.f)}" aria-label="Preço de ${esc(p.name)}"></td><td><input type="number" min="1" max="30" value="${o.lead}" style="width:80px" aria-label="Prazo de ${esc(p.name)}"></td><td><input type="checkbox" ${o.off?'':'checked'} aria-label="Produto activo"></td><td class="r"><button class="btn btn-line btn-sm" type="button" data-save>Guardar</button></td></tr>`}).join('')||'<tr><td colspan="6" class="muted">Ainda não vende nenhum produto. Adicione o primeiro abaixo.</td></tr>'}</tbody></table></div>
+  <form class="pbox" id="addProd" style="display:grid;gap:12px"><h3>Vender mais um produto do catálogo</h3><div class="frow"><div class="field"><label for="apP">Produto</label><select id="apP">${others.map(p=>`<option value="${p.id}">${esc(p.name)} · mín. ${num(p.min)} un.</option>`).join('')}</select></div><div class="frow"><div class="field"><label for="apPr">O seu preço (Kz)</label><input id="apPr" type="number" min="1" step="50" required></div><div class="field"><label for="apL">Produção (dias)</label><input id="apL" type="number" min="1" max="30" value="2" required></div></div></div><button class="btn btn-ink btn-sm" type="submit" style="justify-self:start">Adicionar produto</button></form>`}
+ else if(dtab==='mensagens'){const ib=inboxFor(k);inboxSel=Math.min(inboxSel,ib.length-1);const c=ib[inboxSel];
+  body=`<div class="dhead"><div><h1>Mensagens</h1><p>Perguntas e aprovações de prova dos clientes.</p></div></div><div class="inbox"><div class="list">${ib.map((x,i)=>`<button type="button" data-ib="${i}" aria-current="${i===inboxSel}"><b>${esc(x.client)}</b><small>${esc(x.msgs.at(-1).t)}</small></button>`).join('')}</div>
+  <div class="conv"><div class="msgs" id="ibMsgs">${c.msgs.map(m=>`<div class="msg ${m.me?'me':''}">${esc(m.t)}</div>`).join('')}</div><form class="composer" id="ibForm"><label class="sr" for="ibIn">Resposta</label><textarea id="ibIn" rows="1" placeholder="Responder a ${esc(c.client)}…"></textarea><button class="send" type="submit" aria-label="Enviar">${ico('send','s')}</button></form></div></div>`}
+ else if(dtab==='pagamentos'){const net=o=>Math.round(sTotal(o)*.9);const avail=mine.filter(o=>o.status===4).reduce((a,o)=>a+net(o),0);const pend=mine.filter(o=>o.status<4).reduce((a,o)=>a+net(o),0);
+  body=`<div class="dhead"><div><h1>Pagamentos</h1><p>Recebe o valor dos pedidos entregues, menos a comissão de 10% da PrintOn.</p></div><button class="btn btn-ink btn-sm" type="button" id="payout" ${avail?'':'disabled'}>Pedir transferência</button></div>
+  <div class="kpis" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="kpi"><span>Disponível</span><b>${kz(avail)}</b><em>pedidos entregues</em></div><div class="kpi"><span>A receber</span><b>${kz(pend)}</b><em>após a entrega</em></div><div class="kpi"><span>Comissão PrintOn</span><b>10%</b><em>sem mensalidade no plano Essencial</em></div></div>
+  <div class="pbox tblw"><h3>Movimentos</h3><table class="tbl"><thead><tr><th>Pedido</th><th>Data</th><th>Estado</th><th class="r">Valor</th><th class="r">Comissão</th><th class="r">A receber</th></tr></thead><tbody>${mine.map(o=>`<tr><td>${o.n}</td><td>${dfmt(o.date)}</td><td>${stBadge(o.status)}</td><td class="r">${kz(sTotal(o))}</td><td class="r">−${kz(sTotal(o)-net(o))}</td><td class="r"><b>${kz(net(o))}</b></td></tr>`).join('')}</tbody></table></div>`}
+ else body=`${notice}<div class="dhead"><div><h1>Perfil da loja</h1><p>É isto que os clientes vêem no seu perfil público.</p></div><a class="btn btn-line btn-sm" href="#loja-${k}">Ver perfil público</a></div>
+  <form class="pbox" id="profForm" style="display:grid;gap:12px;max-width:760px"><div class="frow"><div class="field"><label for="pfName">Nome</label><input id="pfName" value="${esc(s.name)}" required></div><div class="field"><label for="pfKind">Actividade</label><input id="pfKind" value="${esc(s.kind)}"></div></div>
+   <div class="field"><label for="pfAbout">Apresentação</label><textarea id="pfAbout" placeholder="O que faz, há quanto tempo, que equipamentos tem…">${esc(s.about||'')}</textarea></div>
+   <div class="frow"><div class="field"><label for="pfAddr">Morada</label><input id="pfAddr" value="${esc(s.addr||'')}"></div><div class="field"><label for="pfHours">Horário</label><input id="pfHours" value="${esc(s.hours||'')}" placeholder="Seg a sex, 8h às 18h"></div></div>
+   <div class="frow"><div class="field"><label for="pfShips">Entrega para</label><input id="pfShips" value="${esc(s.ships||'')}"></div><div class="field"><label for="pfTags">Especialidades (separadas por vírgulas)</label><input id="pfTags" value="${esc((s.tags||[]).join(', '))}"></div></div>
+   <div class="field"><span>Imagem de capa</span><div class="upl2"><label class="btn btn-line btn-sm" for="pfCover">${ico('upload','s')}Carregar imagem</label><input id="pfCover" type="file" class="sr" accept="image/*"><span class="muted" id="pfCoverName" style="font-size:13px">Recomendado: 1600 × 500 px</span></div></div>
+   <button class="btn btn-ink btn-sm" type="submit" style="justify-self:start">Guardar perfil</button></form>`;
+ $('#view').innerHTML=dash(nav,who,body);bindDash(renderSeller);
+ $$('[data-adv]').forEach(b=>b.onclick=()=>{const o=sOrders.find(x=>x.id===b.dataset.adv);o.status=Math.min(4,o.status+1);saveS();toast(o.n+': '+SST[o.status]+'. O cliente foi notificado.');renderSeller()});
+ $$('[data-of]').forEach(b=>b.onclick=()=>{ordFilter=+b.dataset.of;renderSeller()});
+ $$('[data-save]').forEach(b=>b.onclick=()=>{const tr=b.closest('tr');const p=P(tr.dataset.pid);const [pr,ld]=$$('input[type=number]',tr).map(i=>+i.value);const act=$('input[type=checkbox]',tr).checked;
+  const others=p.allOffers.filter(o=>o.s!==k&&!o.off).length;if(!act&&!others){toast('É a única loja com este produto: mantenha-o activo ou remova-o mais tarde');return}
+  if(!(pr>0)||!(ld>0)){toast('Indique um preço e um prazo válidos');return}
+  const key=k+'|'+p.id;OVR[key]={...(OVR[key]||{}),price:pr,lead:ld,active:act};store.set('ovr',OVR);applyOverrides();toast('Produto actualizado na loja')});
+ $('#addProd')?.addEventListener('submit',e=>{e.preventDefault();const id=$('#apP').value;const pr=+$('#apPr').value,ld=+$('#apL').value;if(!id||!(pr>0)){toast('Indique o preço');return}OVR[k+'|'+id]={add:true,price:pr,lead:ld,active:true};store.set('ovr',OVR);applyOverrides();toast('Produto adicionado à sua loja');renderSeller()});
+ $$('[data-ib]').forEach(b=>b.onclick=()=>{inboxSel=+b.dataset.ib;renderSeller()});
+ $('#ibForm')?.addEventListener('submit',e=>{e.preventDefault();const v=$('#ibIn').value.trim();if(!v)return;inboxFor(k)[inboxSel].msgs.push({me:1,t:v});renderSeller()});
+ const im=$('#ibMsgs');if(im)im.scrollTop=im.scrollHeight;
+ $('#payout')?.addEventListener('click',()=>toast('Pedido de transferência registado. Chega em 2 dias úteis (simulação)'));
+ if($('#profForm')){let cover=null;$('#pfCover').onchange=e=>{const f=e.target.files[0];if(!f)return;$('#pfCoverName').textContent=f.name;const r=new FileReader();r.onload=()=>{cover=r.result};r.readAsDataURL(f)};
+  $('#profForm').onsubmit=e=>{e.preventDefault();const v={name:$('#pfName').value.trim()||s.name,kind:$('#pfKind').value.trim(),about:$('#pfAbout').value.trim(),addr:$('#pfAddr').value.trim(),hours:$('#pfHours').value.trim(),ships:$('#pfShips').value.trim(),tags:$('#pfTags').value.split(',').map(t=>t.trim()).filter(Boolean)};if(cover)v.cover=cover;
+   Object.assign(s,v);const ed=store.get('sellerEdits',{});ed[k]={...(ed[k]||{}),...v};store.set('sellerEdits',ed);if(s.pending){const ns=store.get('newSellers',{});if(ns[k]){ns[k]={...ns[k],...v};store.set('newSellers',ns)}}
+   setSession({...session,name:s.name});toast('Perfil guardado');renderSeller()}}}
 
 /* ================= global events & router ================= */
 document.addEventListener('click',e=>{
@@ -1171,11 +1497,14 @@ document.addEventListener('click',e=>{
  if(e.target.closest('[data-loc],#locBtn')){openLocModal();return}
 });
 $('#cartBtn').onclick=openCart;
-$('#acctBtn').onclick=()=>toast(orders.length?'Último pedido: '+orders[0].n:'Entrar com telemóvel ou email');
+$('#acctBtn').onclick=()=>{location.hash=session?(session.role==='seller'?'painel':'conta'):'entrar'};
 function route(keep){closePanels();clearInterval(slideT);const h=location.hash.slice(1)||'home';$('#mega').hidden=true;
  if(h==='home'||h==='entrega'){renderHome();if(h==='entrega')setTimeout(()=>$('#entrega')?.scrollIntoView(),0)}
  else if(/^cat-\d+$/.test(h)&&CATS[+h.slice(4)])renderList('cat',+h.slice(4));
- else if(/^loja-/.test(h)&&SELLERS[h.slice(5)])renderList('seller',h.slice(5));
+ else if(/^loja-/.test(h)&&SELLERS[h.slice(5)])renderStore(h.slice(5));
+ else if(h==='entrar'||h==='registar'||h==='registar-loja')renderAuth(h);
+ else if(h==='conta')renderClient();
+ else if(h==='painel')renderSeller();
  else if(h==='busca')renderList('search');
  else if(h==='busca-best')renderList('best');
  else if(/^prod-\d+$/.test(h))renderProduct(h);
@@ -1186,5 +1515,5 @@ function route(keep){closePanels();clearInterval(slideT);const h=location.hash.s
  else renderHome();
  if(!keep&&h!=='entrega')scrollTo({top:0,behavior:'instant'})}
 addEventListener('hashchange',()=>route());
-renderLocBtn();renderNav();badges();route();
+renderLocBtn();renderNav();badges();renderAcct();route();
 </script>
